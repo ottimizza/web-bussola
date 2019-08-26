@@ -1,0 +1,8 @@
+<p-dropdown
+	[options]="data"
+	[(ngModel)]="selectedCompany"
+	filter="true"
+	filterBy="label,value.cnpj"
+	(onChange)="companyChanged()"
+></p-dropdown>
+<app-dashboard [kpis]="kpis"></app-dashboard>

@@ -1,0 +1,5 @@
+{
+	"API_OAUTH_SERVICE": "https://development-oauth-server.herokuapp.com",
+	"LOGIN_URL": "http://localhost:4200/login",
+	"APP_API": "https://development-api-bussolaweb.herokuapp.com"
+}

@@ -1,0 +1,149 @@
+$base-color: #ff7b00;
+$base-color-opacity-1: rgba($base-color, 0.1);
+$base-color-opacity-2: rgba($base-color, 0.3);
+
+$header-heigh: 4.5rem;
+
+$sidenav-width: 250px;
+
+$background: #fff;
+
+$border: 1px solid $base-color-opacity-1;
+
+.sidenav-container {
+	height: 100%;
+	width: 100%;
+	position: fixed;
+}
+
+.top-border {
+	border-top: 5px solid $base-color !important;
+}
+
+.sidenav {
+	width: $sidenav-width;
+	font-size: 18px;
+	border: none;
+	border-right: $border;
+}
+
+.sidenav .mat-toolbar {
+	background: inherit;
+	background-color: $background;
+}
+
+mat-sidenav-content {
+	height: calc(100% - #{$header-heigh}) !important;
+}
+
+.mat-toolbar.mat-primary {
+	position: sticky;
+	top: 0;
+	background-color: $background;
+}
+
+.icon-span {
+	width: 20px;
+	height: 20px;
+	text-align: center;
+}
+
+.row {
+	margin-right: 0px;
+}
+
+i {
+	font-style: unset !important;
+}
+
+.font-blue {
+	color: $base-color;
+}
+
+.button {
+	transition: all 50ms ease;
+	margin: 12px;
+	margin-top: 12px;
+	width: 3rem;
+	height: 3rem;
+	padding: 7px;
+	border-radius: 5px;
+	border: none;
+	color: $base-color;
+	background-color: $base-color-opacity-1;
+}
+
+.btn-menu {
+	font-size: 30px;
+	padding-top: 0;
+}
+
+// .button:active {
+// 	border: $border;
+// 	box-shadow: none;
+// }
+
+.button svg {
+	height: 100%;
+	width: 100%;
+}
+
+.btn-logout {
+	right: 0;
+	top: 0;
+	position: fixed;
+	border-radius: 50px;
+	height: 50px !important;
+	width: 50px !important;
+	margin-top: 5px;
+	font-size: xx-large;
+	padding: 0;
+	margin-top: 10px;
+	margin-left: 1px;
+}
+
+.item {
+	transition: all 500ms ease;
+}
+
+.item:hover {
+	cursor: pointer;
+	background-color: $base-color-opacity-2;
+}
+
+.outline-none:focus {
+	outline: none;
+}
+
+.selected-item {
+	background-color: $base-color-opacity-1;
+	border-left: 5px solid $base-color;
+	color: $base-color;
+}
+
+.page-content {
+	padding: 20px;
+}
+
+.logo {
+	width: 100%;
+}
+
+.header {
+	height: $header-heigh;
+	border-bottom: $border;
+}
+
+.logo-container {
+	padding-top: 15px;
+	padding-left: 30px;
+	padding-right: 30px;
+	height: 100%;
+	width: $sidenav-width;
+	border-right: $border;
+}
+
+.mx-auto {
+	float: unset !important;
+	border: none !important;
+}

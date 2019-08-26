@@ -1,0 +1,82 @@
+<div class="header" color="primary">
+	<button
+		class="button btn-menu outline-none position-absolute"
+		type="button"
+		(click)="drawer.toggle()"
+		*ngIf="isHandset$ | async"
+		aria-label="Botão Menu"
+	>
+		<i class="fal fa-bars"></i>
+	</button>
+	<div
+		class="logo-container float-left"
+		[ngClass]="{ 'mx-auto': isHandset$ | async }"
+	>
+		<img
+			src="../../../assets/img/logo-default.png"
+			alt="Logo Ottimizza"
+			class="logo unselectable"
+			[ngClass]="{ 'mx-auto': isHandset$ | async }"
+		/>
+	</div>
+
+	<button
+		class="button btn-menu outline-none position-absolute"
+		type="button"
+		(click)="drawer.toggle()"
+		*ngIf="!(isHandset$ | async)"
+		aria-label="Botão Menu"
+	>
+		<i class="fal fa-bars"></i>
+	</button>
+
+	<div class="dropdown outline-none" type="button" aria-label="Botão Logout">
+		<button
+			class="button btn-logout outline-none"
+			type="button"
+			data-toggle="dropdown"
+		>
+			<i class="fal fa-user"></i>
+		</button>
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			<a class="dropdown-item" href="{{ profileUrl }}">Ver Perfil</a>
+			<a class="dropdown-item" [routerLink]="['/logout']">Sair</a>
+		</div>
+	</div>
+</div>
+
+<mat-sidenav-container class="sidenav-container">
+	<mat-sidenav
+		#drawer
+		class="sidenav position-absolute"
+		fixedInViewport="true"
+		[attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+		[mode]="(isHandset$ | async) ? 'over' : 'side'"
+		[opened]="!(isHandset$ | async)"
+	>
+		<mat-nav-list>
+			<div *ngFor="let menuItem of menuItems; let i = index">
+				<div
+					class="item outline-none w-100"
+					[routerLink]="[menuItem.path]"
+					routerLinkActive="selected-item"
+					[routerLinkActiveOptions]="{ exact: false }"
+				>
+					<div class="row mb-2 ml-3 mr-1 p-2">
+						<span class="icon-span mr-4"
+							><i class="{{ menuItem.icon }}"></i
+						></span>
+						<span class="title unselectable" mat-list-item>{{
+							menuItem.title
+						}}</span>
+					</div>
+				</div>
+			</div>
+		</mat-nav-list>
+	</mat-sidenav>
+	<mat-sidenav-content>
+		<div class="p-3 page-content">
+			<router-outlet></router-outlet>
+		</div>
+	</mat-sidenav-content>
+</mat-sidenav-container>

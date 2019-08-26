@@ -1,0 +1,15 @@
+<div class="row page-content">
+	<div *ngFor="let kpi of kpis" class="col-12 col-md-6 chart-container">
+		<google-chart
+			*ngIf="show"
+			class="w-100 h-100"
+			[dynamicResize]="true"
+			[title]="kpi.title"
+			[type]="kpi.chartType"
+			[data]="kpi.data"
+			[columnNames]="kpi.labels"
+			[options]="options"
+		>
+		</google-chart>
+	</div>
+</div>
