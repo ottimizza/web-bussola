@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../shared/services/data.service';
 import { Kpi, KpiFormatado } from '../shared/models/kpi';
 
+const dataRegex = /((0[0-9]{1}|1[0-2]{1})\/[0-9]{4})/g;
+
 @Component({
 	selector: 'app-home',
 	templateUrl: './home.component.html',
@@ -13,6 +15,7 @@ export class HomeComponent implements OnInit {
 	data = [];
 	selectedCompany: any;
 	kpis: KpiFormatado[] = [];
+	noKpi = false;
 
 	constructor(private dataService: DataService) {}
 
@@ -33,40 +36,49 @@ export class HomeComponent implements OnInit {
 			.getKpis(this.selectedCompany.id || this.selectedCompany.value.id)
 			.subscribe((response: any) => {
 				response.data.findKpi.forEach((kpi: Kpi) => {
-					// tslint:disable-next-line: prefer-const
-					let kpiFormatado: KpiFormatado = {
-						id: kpi.id,
-						title: kpi.title,
-						chartType: kpi.chartType,
-						labels: kpi.labels,
-						data: []
-					};
+					const kpiFormatado: KpiFormatado = this.formatKpi(kpi);
+					kpiFormatado.labelArray.splice(0, 0, 'Coluna');
 
-					kpi.kpiDetail.forEach((kpiDetail: KpiDetail) => {
-						if (kpi.chartType === 'PieChart') {
-							kpiDetail.valorArray.splice(0, 0, kpiDetail.columnX);
-						} else {
-							kpiDetail.valorArray.splice(
-								0,
-								0,
-								new Date(
-									kpiDetail.columnX.substring(
-										0,
-										kpiDetail.columnX.indexOf('/')
-									) +
-										'/01' +
-										kpiDetail.columnX.substring(kpiDetail.columnX.indexOf('/'))
-								)
-							);
-						}
-
-						kpiFormatado.data.push(kpiDetail.valorArray);
+					kpi.kpiDetail.forEach((detail: KpiDetail) => {
+						detail.valorArray.splice(0, 0, this.formatAxis(detail.columnX));
+						kpiFormatado.data.push(detail.valorArray);
 					});
 
 					this.kpis.push(kpiFormatado);
 				});
-				console.log(this.kpis);
+
+				this.checkKpis();
 			});
+	}
+
+	checkKpis() {
+		if (this.kpis[0]) {
+			this.noKpi = false;
+		} else {
+			this.noKpi = true;
+		}
+	}
+
+	formatAxis(axis: string) {
+		if (axis.match(dataRegex)) {
+			return new Date(
+				axis.substring(0, axis.indexOf('/')) +
+					'/01' +
+					axis.substring(axis.indexOf('/'))
+			);
+		}
+		return axis;
+	}
+
+	formatKpi(kpi: Kpi): KpiFormatado {
+		return {
+			id: kpi.id,
+			title: kpi.title,
+			chartType: kpi.chartType,
+			labelArray: kpi.labelArray,
+			chartOptions: JSON.parse(kpi.chartOptions),
+			data: []
+		};
 	}
 
 	buildCompanyData(c: Company) {

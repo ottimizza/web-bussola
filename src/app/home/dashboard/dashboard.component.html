@@ -1,15 +1,17 @@
-<div class="row page-content">
+<div *ngIf="!noKpis" class="row page-content">
 	<div *ngFor="let kpi of kpis" class="col-12 col-md-6 chart-container">
 		<google-chart
-			*ngIf="show"
 			class="w-100 h-100"
 			[dynamicResize]="true"
 			[title]="kpi.title"
 			[type]="kpi.chartType"
 			[data]="kpi.data"
-			[columnNames]="kpi.labels"
-			[options]="options"
+			[columnNames]="kpi.labelArray"
+			[options]="kpi.chartOptions"
 		>
 		</google-chart>
 	</div>
+</div>
+<div *ngIf="noKpis" class="row no-kpi-container page-content text-center">
+	<h1 class="w-100 my-auto">Não há gráficos disponíveis para o CNPJ selecionado</h1>
 </div>

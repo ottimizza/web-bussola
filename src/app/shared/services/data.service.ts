@@ -22,7 +22,7 @@ export class DataService {
 		return this.requestGraphql({
 			query:
 				// tslint:disable-next-line: max-line-length
-				'query findKpi($id: BigInteger, $companyId: BigInteger, $title: String, $kpiAlias: String, $subtitle: String, $description: String, $graphType: Short, $columnX0Label: String, $label: String, $label2: String, $label3: String, $label4: String, $visible: Boolean) { findKpi(id: $id, companyId: $companyId, title: $title, kpiAlias: $kpiAlias, subtitle: $subtitle, description: $description, graphType: $graphType, columnX0Label: $columnX0Label, label: $label, label2: $label2, label3: $label3, label4: $label4, visible: $visible) {id, title, chartType, labelArray, kpiDetail { id, columnX, valorArray} } }',
+				'query findKpi($id: BigInteger, $companyId: BigInteger, $title: String, $kpiAlias: String, $subtitle: String, $description: String, $graphType: Short, $columnX0Label: String, $label: String, $label2: String, $label3: String, $label4: String, $visible: Boolean) { findKpi(id: $id, companyId: $companyId, title: $title, kpiAlias: $kpiAlias, subtitle: $subtitle, description: $description, graphType: $graphType, columnX0Label: $columnX0Label, label: $label, label2: $label2, label3: $label3, label4: $label4, visible: $visible) {id, title, chartType, labelArray, chartOptions, kpiDetail { id, columnX, valorArray} } }',
 			variables: {
 				companyId
 			}

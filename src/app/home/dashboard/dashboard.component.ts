@@ -1,41 +1,28 @@
 import { KpiFormatado } from './../../shared/models/kpi';
-import {
-	Component,
-	OnInit,
-	Input,
-	OnChanges,
-	SimpleChanges
-} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
 	selector: 'app-dashboard',
 	templateUrl: './dashboard.component.html',
 	styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, OnChanges {
-	public show = true;
-
-	options = {
-		hAxis: {
-			format: 'MM/yyyy'
-		}
-	};
-
+export class DashboardComponent implements OnInit {
 	// tslint:disable-next-line: variable-name
-	private _kpis: KpiFormatado[] = [];
+	// private _kpis: KpiFormatado[];
+	@Input() kpis: KpiFormatado[] = [];
 
-	@Input() set kpis(value: KpiFormatado[]) {
-		this._kpis = value;
-		console.log('### KPIS ###    ' + JSON.stringify(this._kpis));
-	}
+	@Input() noKpis: boolean;
 
-	get kpis(): KpiFormatado[] {
-		return this._kpis;
-	}
+	// @Input() set kpis(value: KpiFormatado[]) {
+	// 	this._kpis = value;
+	// 	console.log(this._kpis);
+	// }
+
+	// get kpis(): KpiFormatado[] {
+	// 	return this._kpis;
+	// }
 
 	constructor() {}
 
 	ngOnInit(): void {}
-
-	ngOnChanges(changes: SimpleChanges) {}
 }

@@ -3,7 +3,15 @@
 }
 
 .chart-container {
-	height: 40vh;
+	height: 350px;
 	margin-bottom: 20px;
 	padding-right: 0px;
+}
+
+.no-kpi-container {
+	padding: 15px;
+	height: 70vh;
+	font-size: 4vh;
+	font-weight: 700;
+	color: darkgray;
 }
