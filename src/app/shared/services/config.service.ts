@@ -32,9 +32,9 @@ export class ConfigService {
 	public async setDefautlVariables(): Promise<any> {
 		return new Promise((resolve, reject) => {
 			this.loadAppConfig().then((data: any) => {
-				AppComponent.apiOauthService = data.API_OAUTH_SERVICE;
-				AppComponent.loginUrl = data.LOGIN_URL;
-				AppComponent.appApi = data.APP_API;
+				AppComponent.apiOauthService = data.apiOauthService;
+				AppComponent.loginUrl = data.loginUrl;
+				AppComponent.appApi = data.appApi;
 
 				resolve();
 			});
