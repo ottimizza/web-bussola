@@ -16,7 +16,7 @@ require('dotenv').config();
 const environment = 'prod';
 const isProd = environment === 'prod';
 
-const targetPath = './src/dist/assets/data/appConfig.json';
+const targetPath = './dist/assets/data/appConfig.json';
 const envConfigFile = `
 {
 	"apiOauthService": "${process.env.API_OAUTH_SERVICE}",
