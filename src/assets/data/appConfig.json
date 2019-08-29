@@ -1,5 +1,6 @@
 {
 	"apiOauthService": "https://development-oauth-server.herokuapp.com",
 	"loginUrl": "http://localhost:4200/login",
-	"appApi": "https://development-api-bussolaweb.herokuapp.com"
+	"appApi": "https://development-api-bussolaweb.herokuapp.com",
+	"clientId": ""
 }
