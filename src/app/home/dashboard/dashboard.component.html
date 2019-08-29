@@ -12,6 +12,16 @@
 		</google-chart>
 	</div>
 </div>
-<div *ngIf="noKpis" class="row no-kpi-container page-content text-center">
-	<h1 class="w-100 my-auto">Não há gráficos disponíveis para o CNPJ selecionado</h1>
+<div
+	*ngIf="noKpis && !isLoading"
+	class="row no-kpi-container page-content text-center"
+>
+	<h1 class="w-100 my-auto">
+		Não há gráficos disponíveis para o CNPJ selecionado
+	</h1>
+</div>
+<div *ngIf="isLoading" class="row no-kpi-container page-content text-center">
+	<h1 class="w-100 my-auto">
+		<div class="loader">Loading...</div>
+	</h1>
 </div>

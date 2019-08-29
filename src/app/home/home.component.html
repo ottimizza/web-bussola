@@ -3,6 +3,19 @@
 	[(ngModel)]="selectedCompany"
 	filter="true"
 	filterBy="label,value.cnpj"
-	(onChange)="companyChanged()"
-></p-dropdown>
-<app-dashboard [noKpis]="noKpi" [kpis]="kpis"></app-dashboard>
+	(onChange)="requestKpis()"
+>
+	<ng-template let-item pTemplate="selectedItem">
+		<span style="vertical-align:middle">{{ item.label }}</span>
+	</ng-template>
+	<ng-template let-company pTemplate="item">
+		<span style="vertical-align:middle">{{ company.label }}</span>
+		<br>
+		<span style="vertical-align:middle">{{ company.value.cnpj }}</span>
+	</ng-template>
+</p-dropdown>
+<app-dashboard
+	[kpis]="kpis"
+	[noKpis]="noKpi"
+	[isLoading]="isLoading"
+></app-dashboard>

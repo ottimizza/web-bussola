@@ -1,3 +1,4 @@
+import { AppComponent } from './../app.component';
 import { KpiDetail } from './../shared/models/kpi-detail';
 import { Company } from './../shared/models/company';
 import { Component, OnInit } from '@angular/core';
@@ -14,8 +15,10 @@ const dataRegex = /((0[0-9]{1}|1[0-2]{1})\/[0-9]{4})/g;
 export class HomeComponent implements OnInit {
 	data = [];
 	selectedCompany: any;
+
 	kpis: KpiFormatado[] = [];
 	noKpi = false;
+	isLoading = false;
 
 	constructor(private dataService: DataService) {}
 
@@ -25,12 +28,13 @@ export class HomeComponent implements OnInit {
 				this.data.push(this.buildCompanyData(c));
 			});
 			this.selectedCompany = this.data[0];
-			this.companyChanged();
+			this.requestKpis();
 		});
 	}
 
-	companyChanged() {
+	requestKpis() {
 		this.kpis = [];
+		this.isLoading = true;
 
 		this.dataService
 			.getKpis(this.selectedCompany.id || this.selectedCompany.value.id)
@@ -57,6 +61,7 @@ export class HomeComponent implements OnInit {
 		} else {
 			this.noKpi = true;
 		}
+		this.isLoading = false;
 	}
 
 	formatAxis(axis: string) {

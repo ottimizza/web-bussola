@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import './assets/styles/pure-css-loader.scss';
+
 .outline-none:focus {
 	outline: 0 none;
 }
