@@ -1,10 +1,10 @@
-import { writeFile } from 'fs';
+const fs = require('fs');
 
-import express, { static } from 'express';
+const express = require('express');
 
 const app = express();
 
-import { join } from 'path';
+const path = require('path');
 
 // This is good for local dev environments, when it's better to
 // store a projects environment variables in a .gitignore'd file
