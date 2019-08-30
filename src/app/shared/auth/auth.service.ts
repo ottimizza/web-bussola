@@ -5,8 +5,9 @@ import { Injectable } from '@angular/core';
 import { User } from './models';
 import { AppComponent } from 'src/app/app.component';
 
-const KEY = 'accessToken';
+const ACCESS_KEY = 'accessToken';
 const REFRESH_KEY = 'refreshToken';
+const ACCESS_TOKEN_EXPIRATION_DATE_KEY = 'accessTokenExpirationDate';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -15,32 +16,45 @@ export class AuthService {
 	authenticate(code: string) {
 		this.http
 			.post(
-				`${
-					AppComponent.appApi
-				}/oauth/callback?code=${code}&redirect_uri=${
-					AppComponent.loginUrl
-				}?app=ottimizza`,
+				`${AppComponent.appApi}/oauth/callback?code=${code}&redirect_uri=${AppComponent.loginUrl}?app=ottimizza`,
 				{}
 			)
 			.subscribe((res: TokenObj) => {
+				this.setTokenExpirationDate(res.expires_in);
 				this.setTokens(res.access_token, res.refresh_token);
 				this.requestUserInfo();
 			});
 	}
 
-	refreshToken() {
-		const headers = new HttpHeaders({
-			Authorization:
-				'Basic ' + btoa('bussola-contabil-client:bussola-contabil-secret')
-		});
+	// SE A DATA ATUAL JÁ PASSOU DA DATA QUE O TOKEN IRIA EXPIRAR A FUNCTION CHAMA O refreshToken
+	checkTokenExpired(callback: () => any) {
+		if (
+			new Date().getTime() > new Date(this.getTokenExpirationDate()).getTime()
+		) {
+			this.refreshToken(callback);
+		} else {
+			callback();
+		}
+	}
 
-		return this.http.post(
-			`${
-				AppComponent.apiOauthService
-			}/oauth/token?grant_type=refresh_token&refresh_token=${this.getRefreshToken()}`,
-			{},
-			{ headers }
-		);
+	refreshToken(callback: () => any) {
+		this.http
+			.post(
+				`${
+					AppComponent.appApi
+				}/oauth/refresh?refresh_token=${this.getRefreshToken()}&client_id=${
+					AppComponent.clientId
+				}`,
+				{}
+			)
+			.subscribe(
+				(res: TokenObj) => {
+					this.setTokenExpirationDate(res.expires_in);
+					this.setTokens(res.access_token, res.refresh_token);
+				},
+				err => console.log(err),
+				() => callback()
+			);
 	}
 
 	requestUserInfo() {
@@ -67,13 +81,25 @@ export class AuthService {
 		window.localStorage.clear();
 	}
 
+	setTokenExpirationDate(s: number) {
+		const d = new Date();
+		d.setSeconds(d.getSeconds() + s - 30);
+		window.localStorage.setItem(ACCESS_TOKEN_EXPIRATION_DATE_KEY, d.toString());
+	}
+
+	getTokenExpirationDate() {
+		return new Date(
+			window.localStorage.getItem(ACCESS_TOKEN_EXPIRATION_DATE_KEY)
+		);
+	}
+
 	setTokens(token: string, refreshToken: string) {
 		this.setToken(token);
 		this.setRefreshToken(refreshToken);
 	}
 
 	setToken(token: string) {
-		window.localStorage.setItem(KEY, token);
+		window.localStorage.setItem(ACCESS_KEY, token);
 	}
 
 	setRefreshToken(refreshToken: string) {
@@ -85,7 +111,7 @@ export class AuthService {
 	}
 
 	getToken() {
-		return window.localStorage.getItem(KEY);
+		return window.localStorage.getItem(ACCESS_KEY);
 	}
 
 	getRefreshToken() {
@@ -102,7 +128,7 @@ export class AuthService {
 	}
 
 	removeToken() {
-		window.localStorage.removeItem(KEY);
+		window.localStorage.removeItem(ACCESS_KEY);
 	}
 
 	removeRefreshToken() {
@@ -111,7 +137,7 @@ export class AuthService {
 
 	hasToken() {
 		return (
-			window.localStorage.getItem(KEY) &&
+			window.localStorage.getItem(ACCESS_KEY) &&
 			window.localStorage.getItem(REFRESH_KEY) &&
 			window.localStorage.getItem('email')
 		);
@@ -126,6 +152,6 @@ export interface TokenObj {
 	access_token: string;
 	token_type: string;
 	refresh_token: string;
-	expires_in: string;
+	expires_in: number;
 	scope: string;
 }

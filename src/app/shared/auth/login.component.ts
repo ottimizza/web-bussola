@@ -29,9 +29,7 @@ export class LoginComponent implements OnInit {
 	public ottimizza(responseType: string): void {
 		const that = this;
 
-		const baseUrl = `${
-			that.ottimizzaAuthServerDetails.url
-		}/oauth/authorize`;
+		const baseUrl = `${that.ottimizzaAuthServerDetails.url}/oauth/authorize`;
 		const clientId = `${that.ottimizzaAuthServerDetails.clientId}`;
 		const redirectUri = `${that.ottimizzaAuthServerDetails.redirectUri}`;
 		const state = that.genState();
@@ -73,9 +71,7 @@ export class LoginComponent implements OnInit {
 		const possible =
 			'GV9Jm2u7rmsCe65wKzPTw5jtS38n2tVEGiijklmnopqrstuvwxyz0123456789';
 		for (let i = 0; i < 16; i++) {
-			state += possible.charAt(
-				Math.floor(Math.random() * possible.length)
-			);
+			state += possible.charAt(Math.floor(Math.random() * possible.length));
 		}
 		return state;
 	}
@@ -83,14 +79,12 @@ export class LoginComponent implements OnInit {
 	public ngOnInit() {
 		this.route.queryParamMap.subscribe(queryParams => {
 			console.log(queryParams);
-			if (
-				!this.authService.isAuthenticated() &&
-				!queryParams.get('code')
-			) {
+			if (!this.authService.isAuthenticated() && !queryParams.get('code')) {
 				this.login();
 			} else if (this.authService.isAuthenticated()) {
-				this.authService.refreshToken();
-				this.router.navigate(['dashboard']);
+				this.authService.refreshToken(() =>
+					this.router.navigate(['dashboard'])
+				);
 			} else if (!!queryParams.get('code')) {
 				this.authService.authenticate(queryParams.get('code'));
 			} else {

@@ -1,3 +1,4 @@
+import { AuthService } from './../shared/auth/auth.service';
 import { AppComponent } from './../app.component';
 import { KpiDetail } from './../shared/models/kpi-detail';
 import { Company } from './../shared/models/company';
@@ -18,9 +19,12 @@ export class HomeComponent implements OnInit {
 
 	kpis: KpiFormatado[] = [];
 	noKpi = false;
-	isLoading = false;
+	isLoading = true;
 
-	constructor(private dataService: DataService) {}
+	constructor(
+		private dataService: DataService,
+		private authService: AuthService
+	) {}
 
 	ngOnInit(): void {
 		this.dataService.getCompanies().subscribe((response: any) => {
@@ -36,23 +40,27 @@ export class HomeComponent implements OnInit {
 		this.kpis = [];
 		this.isLoading = true;
 
-		this.dataService
-			.getKpis(this.selectedCompany.id || this.selectedCompany.value.id)
-			.subscribe((response: any) => {
-				response.data.findKpi.forEach((kpi: Kpi) => {
-					const kpiFormatado: KpiFormatado = this.formatKpi(kpi);
-					kpiFormatado.labelArray.splice(0, 0, 'Coluna');
+		const that = this;
 
-					kpi.kpiDetail.forEach((detail: KpiDetail) => {
-						detail.valorArray.splice(0, 0, this.formatAxis(detail.columnX));
-						kpiFormatado.data.push(detail.valorArray);
+		this.authService.checkTokenExpired(() => {
+			that.dataService
+				.getKpis(that.selectedCompany.id || that.selectedCompany.value.id)
+				.subscribe((response: any) => {
+					response.data.findKpi.forEach((kpi: Kpi) => {
+						const kpiFormatado: KpiFormatado = that.formatKpi(kpi);
+						kpiFormatado.labelArray.splice(0, 0, 'Coluna');
+
+						kpi.kpiDetail.forEach((detail: KpiDetail) => {
+							detail.valorArray.splice(0, 0, that.formatAxis(detail.columnX));
+							kpiFormatado.data.push(detail.valorArray);
+						});
+
+						that.kpis.push(kpiFormatado);
 					});
 
-					this.kpis.push(kpiFormatado);
+					that.checkKpis();
 				});
-
-				this.checkKpis();
-			});
+		});
 	}
 
 	checkKpis() {

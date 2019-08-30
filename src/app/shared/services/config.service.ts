@@ -35,6 +35,7 @@ export class ConfigService {
 				AppComponent.apiOauthService = data.apiOauthService;
 				AppComponent.loginUrl = data.loginUrl;
 				AppComponent.appApi = data.appApi;
+				AppComponent.clientId = data.clientId;
 
 				resolve();
 			});
