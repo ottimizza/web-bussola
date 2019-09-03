@@ -28,6 +28,10 @@ export class AuthService {
 
 	// SE A DATA ATUAL JÁ PASSOU DA DATA QUE O TOKEN IRIA EXPIRAR A FUNCTION CHAMA O refreshToken
 	checkTokenExpired(callback: () => any) {
+		if (this.getRefreshToken() === undefined) {
+			this.router.navigate(['/logout']);
+		}
+
 		if (
 			new Date().getTime() > new Date(this.getTokenExpirationDate()).getTime()
 		) {
