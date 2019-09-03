@@ -28,7 +28,7 @@ export class AuthService {
 
 	// SE A DATA ATUAL JÁ PASSOU DA DATA QUE O TOKEN IRIA EXPIRAR A FUNCTION CHAMA O refreshToken
 	checkTokenExpired(callback: () => any) {
-		console.log(this.refreshToken);
+		console.log('token' + this.getRefreshToken());
 
 		if (this.getRefreshToken() === undefined) {
 			console.log('deveria ter navegado');
