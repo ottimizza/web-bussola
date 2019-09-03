@@ -1,14 +1,7 @@
-$base-color: #0059ff;
-$base-color-opacity-1: rgba($base-color, 0.1);
-$base-color-opacity-2: rgba($base-color, 0.3);
+@import '../../../assets/styles/variables.scss';
 
 $header-heigh: 4.5rem;
-
 $sidenav-width: 250px;
-
-$background: #fff;
-
-$border: 1px solid $base-color-opacity-1;
 
 .sidenav-container {
 	height: 100%;

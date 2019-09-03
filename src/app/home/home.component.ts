@@ -27,12 +27,16 @@ export class HomeComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.dataService.getCompanies().subscribe((response: any) => {
-			response.data.findCompany.forEach((c: Company) => {
-				this.data.push(this.buildCompanyData(c));
+		const that = this;
+
+		this.authService.checkTokenExpired(() => {
+			that.dataService.getCompanies().subscribe((response: any) => {
+				response.data.findCompany.forEach((c: Company) => {
+					that.data.push(that.buildCompanyData(c));
+				});
+				that.selectedCompany = that.data[0];
+				that.requestKpis();
 			});
-			this.selectedCompany = this.data[0];
-			this.requestKpis();
 		});
 	}
 

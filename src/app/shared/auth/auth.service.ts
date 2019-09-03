@@ -28,9 +28,10 @@ export class AuthService {
 
 	// SE A DATA ATUAL JÁ PASSOU DA DATA QUE O TOKEN IRIA EXPIRAR A FUNCTION CHAMA O refreshToken
 	checkTokenExpired(callback: () => any) {
-		if (!this.isAuthenticated()) {
-			this.router.navigate(['/logout']);
-		}
+		this.checkAndLogout();
+
+		console.log(new Date().getTime());
+		console.log(new Date(this.getTokenExpirationDate()).getTime());
 
 		if (
 			new Date().getTime() > new Date(this.getTokenExpirationDate()).getTime()
@@ -56,7 +57,10 @@ export class AuthService {
 					this.setTokenExpirationDate(res.expires_in);
 					this.setTokens(res.access_token, res.refresh_token);
 				},
-				err => console.log(err),
+				err => {
+					console.log(err);
+					this.checkAndLogout();
+				},
 				() => callback()
 			);
 	}
@@ -137,6 +141,12 @@ export class AuthService {
 
 	removeRefreshToken() {
 		window.localStorage.removeItem(REFRESH_KEY);
+	}
+
+	checkAndLogout() {
+		if (!this.isAuthenticated()) {
+			this.router.navigate(['/logout']);
+		}
 	}
 
 	isAuthenticated(): boolean {
