@@ -32,7 +32,7 @@
 							"src/styles.scss",
 							"node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
 							"node_modules/bootstrap/scss/bootstrap.scss",
-							"node_modules/@fortawesome/fontawesome-pro/css/light.min.css",
+							"node_modules/@fortawesome/fontawesome-pro/css/all.min.css",
 							"node_modules/primeicons/primeicons.css",
 							"node_modules/primeng/resources/themes/nova-light/theme.css",
 							"node_modules/primeng/resources/primeng.min.css"
