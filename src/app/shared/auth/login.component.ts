@@ -82,13 +82,11 @@ export class LoginComponent implements OnInit {
 			if (!this.authService.isAuthenticated() && !queryParams.get('code')) {
 				this.login();
 			} else if (this.authService.isAuthenticated()) {
-				this.authService.refreshToken(() =>
-					this.router.navigate(['dashboard'])
-				);
+				this.authService.refreshToken(() => this.router.navigate(['home']));
 			} else if (!!queryParams.get('code')) {
 				this.authService.authenticate(queryParams.get('code'));
 			} else {
-				this.router.navigate(['dashboard']);
+				this.router.navigate(['home']);
 			}
 		});
 	}

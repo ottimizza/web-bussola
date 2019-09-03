@@ -28,10 +28,7 @@ export class AuthService {
 
 	// SE A DATA ATUAL JÁ PASSOU DA DATA QUE O TOKEN IRIA EXPIRAR A FUNCTION CHAMA O refreshToken
 	checkTokenExpired(callback: () => any) {
-		console.log('token' + this.getRefreshToken());
-
-		if (this.getRefreshToken() === undefined) {
-			console.log('deveria ter navegado');
+		if (!this.isAuthenticated()) {
 			this.router.navigate(['/logout']);
 		}
 
@@ -94,7 +91,7 @@ export class AuthService {
 		window.localStorage.setItem(ACCESS_TOKEN_EXPIRATION_DATE_KEY, d.toString());
 	}
 
-	getTokenExpirationDate() {
+	getTokenExpirationDate(): Date {
 		return new Date(
 			window.localStorage.getItem(ACCESS_TOKEN_EXPIRATION_DATE_KEY)
 		);
@@ -117,15 +114,15 @@ export class AuthService {
 		window.localStorage.setItem('email', email);
 	}
 
-	getToken() {
+	getToken(): string {
 		return window.localStorage.getItem(ACCESS_KEY);
 	}
 
-	getRefreshToken() {
+	getRefreshToken(): string {
 		return window.localStorage.getItem(REFRESH_KEY);
 	}
 
-	getEmail() {
+	getEmail(): string {
 		return window.localStorage.getItem('email');
 	}
 
@@ -142,16 +139,14 @@ export class AuthService {
 		window.localStorage.removeItem(REFRESH_KEY);
 	}
 
-	hasToken() {
+	isAuthenticated(): boolean {
 		return (
-			window.localStorage.getItem(ACCESS_KEY) &&
-			window.localStorage.getItem(REFRESH_KEY) &&
-			window.localStorage.getItem('email')
+			window.localStorage.getItem(ACCESS_KEY) !== 'undefined' &&
+			window.localStorage.getItem(REFRESH_KEY) !== 'undefined' &&
+			window.localStorage.getItem(ACCESS_TOKEN_EXPIRATION_DATE_KEY) !==
+				'Invalid Date' &&
+			window.localStorage.getItem('email') !== 'undefined'
 		);
-	}
-
-	isAuthenticated() {
-		return !!this.hasToken();
 	}
 }
 
