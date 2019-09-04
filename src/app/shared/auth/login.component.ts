@@ -78,15 +78,10 @@ export class LoginComponent implements OnInit {
 
 	public ngOnInit() {
 		this.route.queryParamMap.subscribe(queryParams => {
-			console.log(queryParams);
-			if (!this.authService.isAuthenticated() && !queryParams.get('code')) {
-				this.login();
-			} else if (this.authService.isAuthenticated()) {
-				this.authService.refreshToken(() => this.router.navigate(['home']));
-			} else if (!!queryParams.get('code')) {
+			if (!!queryParams.get('code')) {
 				this.authService.authenticate(queryParams.get('code'));
 			} else {
-				this.router.navigate(['home']);
+				this.login();
 			}
 		});
 	}

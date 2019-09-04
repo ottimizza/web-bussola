@@ -30,9 +30,6 @@ export class AuthService {
 	checkTokenExpired(callback: () => any) {
 		this.checkAndLogout();
 
-		console.log(new Date().getTime());
-		console.log(new Date(this.getTokenExpirationDate()).getTime());
-
 		if (
 			new Date().getTime() > new Date(this.getTokenExpirationDate()).getTime()
 		) {
@@ -56,6 +53,7 @@ export class AuthService {
 				(res: TokenObj) => {
 					this.setTokenExpirationDate(res.expires_in);
 					this.setTokens(res.access_token, res.refresh_token);
+					this.checkAndLogout();
 				},
 				err => {
 					console.log(err);
@@ -126,6 +124,10 @@ export class AuthService {
 		return window.localStorage.getItem(REFRESH_KEY);
 	}
 
+	getAccessTokenExpirationDate(): string {
+		return window.localStorage.getItem(ACCESS_TOKEN_EXPIRATION_DATE_KEY);
+	}
+
 	getEmail(): string {
 		return window.localStorage.getItem('email');
 	}
@@ -150,12 +152,11 @@ export class AuthService {
 	}
 
 	isAuthenticated(): boolean {
-		return (
-			window.localStorage.getItem(ACCESS_KEY) !== 'undefined' &&
-			window.localStorage.getItem(REFRESH_KEY) !== 'undefined' &&
-			window.localStorage.getItem(ACCESS_TOKEN_EXPIRATION_DATE_KEY) !==
-				'Invalid Date' &&
-			window.localStorage.getItem('email') !== 'undefined'
+		return !!(
+			this.getToken() !== 'undefined' &&
+			this.getRefreshToken() !== 'undefined' &&
+			this.getAccessTokenExpirationDate() !== 'Invalid Date' &&
+			this.getEmail() !== 'undefined'
 		);
 	}
 }
