@@ -1,5 +1,5 @@
+import { Lucro } from './../shared/models/lucro';
 import { AuthService } from './../shared/auth/auth.service';
-import { AppComponent } from './../app.component';
 import { KpiDetail } from './../shared/models/kpi-detail';
 import { Company } from './../shared/models/company';
 import { Component, OnInit } from '@angular/core';
@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
 	data = [];
 	selectedCompany: any;
 
+	lucro: Lucro;
 	kpis: KpiFormatado[] = [];
 	noKpi = false;
 	isLoading = true;
@@ -41,15 +42,26 @@ export class HomeComponent implements OnInit {
 	}
 
 	requestKpis() {
+		this.lucro = undefined;
 		this.kpis = [];
 		this.isLoading = true;
 
 		const that = this;
 
 		this.authService.checkTokenExpired(() => {
-			that.dataService
-				.getKpis(that.selectedCompany.id || that.selectedCompany.value.id)
-				.subscribe((response: any) => {
+			const companyId =
+				that.selectedCompany.id || that.selectedCompany.value.id;
+
+			that.dataService.getLucroAnual(companyId).subscribe(
+				(lucro: Lucro) => {
+					that.lucro = lucro;
+					console.log(lucro);
+				},
+				err => that.authService.refreshToken(() => console.log(err))
+			);
+
+			that.dataService.getKpis(companyId).subscribe(
+				(response: any) => {
 					response.data.findKpi.forEach((kpi: Kpi) => {
 						const kpiFormatado: KpiFormatado = that.formatKpi(kpi);
 						kpiFormatado.labelArray.splice(0, 0, 'Coluna');
@@ -63,7 +75,9 @@ export class HomeComponent implements OnInit {
 					});
 
 					that.checkKpis();
-				});
+				},
+				err => that.authService.refreshToken(() => console.log(err))
+			);
 		});
 	}
 
@@ -88,6 +102,8 @@ export class HomeComponent implements OnInit {
 	}
 
 	formatKpi(kpi: Kpi): KpiFormatado {
+		console.log(kpi);
+
 		return {
 			id: kpi.id,
 			title: kpi.title,

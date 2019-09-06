@@ -1,7 +1,26 @@
 <div *ngIf="!noKpis" class="row page-content">
+	<div *ngIf="!!lucro" class="col-12 col-md-6 chart-container">
+		<div class="w-100 h-100 card">
+			<div class="card-body text-center">
+				<h6 class="card-title">{{ lucro.title }}</h6>
+				<div *ngIf="lucro.value >= 0" class="green">
+					<div class="row mx-auto lucro-anual">
+						<!-- <i class="fas fa-caret-up my-auto"></i> -->
+						<p class="card-text">R$ {{ valorLucro }}</p>
+					</div>
+				</div>
+				<div *ngIf="lucro.value < 0" class="red">
+					<div class="row mx-auto lucro-anual">
+						<!-- <i class="fas fa-caret-down my-auto"></i> -->
+						<p class="card-text">-R$ {{ valorLucro }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div *ngFor="let kpi of kpis" class="col-12 col-md-6 chart-container">
 		<google-chart
-			class="w-100 h-100"
+			class="w-100 h-100 card"
 			[dynamicResize]="true"
 			[title]="kpi.title"
 			[type]="kpi.chartType"
@@ -22,6 +41,6 @@
 </div>
 <div *ngIf="isLoading" class="row no-kpi-container page-content text-center">
 	<div class="mx-auto my-auto">
-			<div class="loader"></div>
+		<div class="loader"></div>
 	</div>
 </div>

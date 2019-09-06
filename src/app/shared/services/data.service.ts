@@ -29,6 +29,17 @@ export class DataService {
 		});
 	}
 
+	getLucroAnual(companyId: number) {
+		const headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+			Authorization: 'Bearer ' + this.authService.getToken()
+		});
+
+		return this.http.get(`${AppComponent.appApi}/kpi/find/gain/${companyId}`, {
+			headers
+		});
+	}
+
 	requestGraphql(body: any) {
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',

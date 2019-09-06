@@ -1,3 +1,4 @@
+import { Lucro } from './../../shared/models/lucro';
 import { KpiFormatado } from './../../shared/models/kpi';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -7,9 +8,17 @@ import { Component, OnInit, Input } from '@angular/core';
 	styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+	@Input() lucro: Lucro;
 	@Input() kpis: KpiFormatado[] = [];
 	@Input() noKpis: boolean;
 	@Input() isLoading: boolean;
+
+	get valorLucro() {
+		return this.lucro.value
+			.toString()
+			.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+			.replace('-', '');
+	}
 
 	constructor() {}
 

@@ -8,16 +8,31 @@
 	padding-right: 0px;
 }
 
+.lucro-anual {
+	width: fit-content;
+	font-weight: bold;
+	font-size: -webkit-xxx-large;
+	padding-top: 5%;
+}
+
 .no-kpi-container {
 	padding: 15px;
 	height: 70vh;
-	font-size: 4vh;
 	font-weight: 700;
 	color: darkgray;
 }
 
+.card {
+	background-color: #fafafa !important;
+}
+
 @media only screen and (max-width: 800px) {
 	.chart-container {
-		height: 300px;
+		height: unset;
+		min-height: 180px;
+	}
+
+	.lucro-anual {
+		font-size: 2rem !important;
 	}
 }

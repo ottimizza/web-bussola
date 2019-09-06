@@ -26,6 +26,14 @@
 	user-select: none;
 }
 
+.red {
+	color: red;
+}
+
+.green {
+	color: green;
+}
+
 html,
 body {
 	height: 100%;
@@ -33,6 +41,10 @@ body {
 body {
 	margin: 0;
 	font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+svg {
+	border-radius: 5px;
 }
 
 .ui-dropdown {
