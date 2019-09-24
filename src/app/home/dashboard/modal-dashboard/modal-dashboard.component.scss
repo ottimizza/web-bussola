@@ -1,0 +1,26 @@
+.mat-dialog-container {
+	padding: 0 !important;
+}
+
+.close {
+	padding: 0;
+	outline: none;
+	position: absolute;
+	right: 0.9rem;
+	top: 0.9rem;
+}
+
+textarea {
+	resize: none;
+}
+
+.bg-lightblue {
+	background: rgb(245, 252, 255);
+}
+
+.mheader {
+	width: 100%;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+}

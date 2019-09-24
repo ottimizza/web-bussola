@@ -1,0 +1,140 @@
+<div class="modal-dialog modal-dialog-scrollable m-0 h-100" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<div class="container p-0">
+				<div class="pl-3 mheader row">
+					<h5 class="modal-title" id="exampleModalLabel">Anotações</h5>
+					<div class="div-btn-nova-anotacao">
+						<button type="button" class="close" (click)="close()">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal-body pb-2">
+			<div *ngIf="true" class="container">
+				<div class="row">
+					<div class="w-100">
+						<div class="collapse" id="collapseExample">
+							<div>
+								<div>
+									<textarea
+										[(ngModel)]="textArea"
+										class="form-control"
+										rows="4"
+										cols="58"
+										[maxLength]="300"
+										pInputTextarea
+									></textarea>
+									<span class="float-left">{{ 300 - textArea.length }}</span>
+								</div>
+							</div>
+							<button
+								class="btn btn-primary float-right mt-1"
+								type="button"
+								data-toggle="collapse"
+								data-target="#collapseExample"
+							>
+								Enviar
+							</button>
+						</div>
+					</div>
+					<button
+						class="btn btn-link mx-auto"
+						type="button"
+						data-toggle="collapse"
+						data-target="#collapseExample"
+					>
+						Nova anotação
+					</button>
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<div class="mb-2">
+					<div class="shadow-sm rouded bg-lightblue fit-content mx-auto">
+						<span class="m-2 fit-content">25/12/2019</span>
+					</div>
+				</div>
+				<div>
+					<div class="card mb-2">
+						<div class="card-body bg-light">
+							<strong class="card-title">Du</strong>
+							<p class="card-text">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
+								at felis posuere, lobortis odio in, hendrerit quam. Etiam
+								hendrerit maximus lacus, ut scelerisque odio imperdiet quis.
+								Aenean posuere ornare laoreet. Sed consequat ultricies leo.
+								Suspendisse et nunc sapien. Donec nec aliquam sem posuere.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<div class="mb-2">
+					<div class="shadow-sm rouded bg-lightblue fit-content mx-auto">
+						<span class="m-2 fit-content">01/01/2018</span>
+					</div>
+				</div>
+				<div>
+					<div class="card mb-2">
+						<div class="card-body bg-light">
+							<strong class="card-title">Dudu</strong>
+							<p class="card-text">
+								Quisque dapibus dictum arcu eget vestibulum. Aliquam sit amet
+								venenatis lacus. Pellentesque posuere.
+							</p>
+						</div>
+					</div>
+					<div class="card mb-2">
+						<div class="card-body bg-light">
+							<strong class="card-title">Edu</strong>
+							<p class="card-text">
+								Donec ullamcorper ullamcorper tempor. Aenean dignissim laoreet
+								lorem a luctus. Suspendisse ultricies mi id lectus facilisis
+								luctus. Nulla nulla turpis, vehicula at diam massa nunc.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<div class="mb-2">
+					<div class="shadow-sm rouded bg-lightblue fit-content mx-auto">
+						<span class="m-2 fit-content">01/01/2017</span>
+					</div>
+				</div>
+				<div>
+					<div class="card mb-2">
+						<div class="card-body bg-light">
+							<strong class="card-title">Dudu</strong>
+							<p class="card-text">
+								Quisque dapibus dictum arcu eget vestibulum. Aliquam sit amet
+								venenatis lacus. Pellentesque posuere.
+							</p>
+						</div>
+					</div>
+					<div class="card mb-2">
+						<div class="card-body bg-light">
+							<strong class="card-title">Edu</strong>
+							<p class="card-text">
+								Donec ullamcorper ullamcorper tempor. Aenean dignissim laoreet
+								lorem a luctus. Suspendisse ultricies mi id lectus facilisis
+								luctus. Nulla nulla turpis, vehicula at diam massa nunc.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- <div class="modal-footer">
+
+		</div> -->
+	</div>
+</div>

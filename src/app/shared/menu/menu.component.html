@@ -20,7 +20,7 @@
 		/>
 	</div>
 
-	<button
+	<!-- <button
 		class="button btn-menu outline-none position-absolute"
 		type="button"
 		(click)="drawer.toggle()"
@@ -28,15 +28,22 @@
 		aria-label="Botão Menu"
 	>
 		<i class="fal fa-bars"></i>
-	</button>
+	</button> -->
 
 	<div class="dropdown outline-none" type="button" aria-label="Botão Logout">
 		<button
 			class="button btn-logout outline-none"
+			[ngClass]="{ 'font-large': !avatarUrl }"
 			type="button"
 			data-toggle="dropdown"
 		>
-			<i class="fal fa-user"></i>
+			<img
+				*ngIf="!!avatarUrl"
+				class="avatar"
+				src="{{ avatarUrl }}"
+				alt="Avatar"
+			/>
+			<i *ngIf="!avatarUrl" class="fal fa-user"></i>
 		</button>
 		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 			<a class="dropdown-item" href="{{ profileUrl }}">Ver Perfil</a>

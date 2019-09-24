@@ -25,6 +25,7 @@ export const ROUTES: RouteInfo[] = [
 export class MenuComponent implements OnInit {
 	menuItems: RouteInfo[];
 	profileUrl: string;
+	avatarUrl: string;
 
 	@ViewChild('drawer', { static: false }) drawer: ElementRef<MatSidenav>;
 
@@ -38,6 +39,7 @@ export class MenuComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
+		this.avatarUrl = window.localStorage.getItem('avatar');
 		this.profileUrl = AppComponent.apiOauthService + '/profile';
 		this.menuItems = ROUTES.filter(menuItem => menuItem);
 	}

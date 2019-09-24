@@ -43,6 +43,10 @@ body {
 	font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
+.fit-content {
+	width: fit-content !important;
+}
+
 svg {
 	border-radius: 5px;
 }
@@ -50,4 +54,15 @@ svg {
 .ui-dropdown {
 	margin-bottom: 20px !important;
 	width: 100% !important;
+}
+
+// DIALOG
+.mat-dialog-container {
+	background: none !important;
+	box-shadow: none !important;
+	padding: 0 !important;
+}
+
+.cdk-overlay-pane {
+	max-width: 95vw !important;
 }

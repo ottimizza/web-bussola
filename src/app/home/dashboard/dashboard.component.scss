@@ -2,17 +2,33 @@
 	margin-right: 0px;
 }
 
+.chart {
+	height: 98%;
+	width: 98%;
+}
+
 .chart-container {
-	height: 30vh;
+	height: 20vw;
 	margin-bottom: 20px;
 	padding-right: 0px;
+}
+
+.chart-footer {
+	position: absolute;
+	bottom: 2px;
+	right: 2px;
 }
 
 .lucro-anual {
 	width: fit-content;
 	font-weight: bold;
 	font-size: -webkit-xxx-large;
-	padding-top: 5%;
+	padding-top: 10%;
+}
+
+.chart-title {
+	position: absolute;
+	z-index: 1;
 }
 
 .no-kpi-container {

@@ -56,7 +56,6 @@ export class AuthService {
 					this.checkAndLogout();
 				},
 				err => {
-					console.log(err);
 					this.checkAndLogout();
 				},
 				() => callback()

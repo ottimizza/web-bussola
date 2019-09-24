@@ -1,6 +1,8 @@
+import { ModalDashboardComponent } from './modal-dashboard/modal-dashboard.component';
 import { Lucro } from './../../shared/models/lucro';
 import { KpiFormatado } from './../../shared/models/kpi';
 import { Component, OnInit, Input } from '@angular/core';
+import { MatDialog } from '@angular/material';
 
 @Component({
 	selector: 'app-dashboard',
@@ -13,6 +15,14 @@ export class DashboardComponent implements OnInit {
 	@Input() noKpis: boolean;
 	@Input() isLoading: boolean;
 
+	columnNames = [
+		'Year',
+		'Sales',
+		{ type: 'string', role: 'tooltip' },
+		'Teste',
+		{ type: 'string', role: 'tooltip' }
+	];
+
 	get valorLucro() {
 		return this.lucro.value
 			.toString()
@@ -20,7 +30,16 @@ export class DashboardComponent implements OnInit {
 			.replace('-', '');
 	}
 
-	constructor() {}
+	constructor(private dialog: MatDialog) {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		// this.openModal(0);
+	}
+
+	openModal(kpiAlias: number) {
+		this.dialog.open(ModalDashboardComponent, {
+			width: '33rem',
+			data: ''
+		});
+	}
 }

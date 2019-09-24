@@ -9,24 +9,24 @@ import { ActivatedRoute, Router } from '@angular/router';
 	template: ''
 })
 export class LoginComponent implements OnInit {
-	public localhost = false;
+	localhost = false;
 
-	public ottimizzaAuthServerDetails = {
+	ottimizzaAuthServerDetails = {
 		url: this.localhost
 			? 'http://localhost:9092'
 			: AppComponent.apiOauthService, // oauth/authorize
-		clientId: 'bussola-contabil-client',
+		clientId: AppComponent.clientId,
 		redirectUri: `${window.location}?app=ottimizza`
 	};
 
 	constructor(
 		@Inject(DOCUMENT) private document: Document,
-		public route: ActivatedRoute,
+		private route: ActivatedRoute,
 		private authService: AuthService,
 		private router: Router
 	) {}
 
-	public ottimizza(responseType: string): void {
+	ottimizza(responseType: string): void {
 		const that = this;
 
 		const baseUrl = `${that.ottimizzaAuthServerDetails.url}/oauth/authorize`;
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
 		});
 	}
 
-	public login(responseType: string = 'code') {
+	login(responseType: string = 'code') {
 		this.ottimizza(responseType);
 	}
 
@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
 		return state;
 	}
 
-	public ngOnInit() {
+	ngOnInit() {
 		this.route.queryParamMap.subscribe(queryParams => {
 			if (!!queryParams.get('code')) {
 				this.authService.authenticate(queryParams.get('code'));

@@ -8,14 +8,15 @@ export class DataService {
 	constructor(private http: HttpClient, private authService: AuthService) {}
 
 	getCompanies() {
-		return this.requestGraphql({
-			query:
-				// tslint:disable-next-line: max-line-length
-				'query findCompany($id: BigInteger, $cnpj: [String], $name: String) { findCompany(id: $id, cnpj: $cnpj, name: $name) { id, cnpj, name } }',
-			variables: {
-				cnpj: ['04.573.344/0001-40', '86.946.953/0001-62']
-			}
+		const headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+			Authorization: 'Bearer ' + this.authService.getToken()
 		});
+
+		return this.http.get(
+			`${AppComponent.apiOauthService}/api/v1/organizations?page_size=10&page_index=0`,
+			{ headers }
+		);
 	}
 
 	getKpis(companyId: number) {
