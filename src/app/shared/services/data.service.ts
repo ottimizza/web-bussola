@@ -2,6 +2,8 @@ import { AuthService } from './../auth/auth.service';
 import { AppComponent } from 'src/app/app.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map, catchError } from 'rxjs/operators';
+import { throwError, of, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DataService {
@@ -19,26 +21,41 @@ export class DataService {
 		);
 	}
 
-	getKpis(companyId: number) {
+	// findCompanyId(cnpj: string) {
+	// 	return this.requestGraphql({
+	// 		query:
+	// 			'query findCompany($id: BigInteger, $cnpj: [String], $name: String) { findCompany( id: $id, cnpj: $cnpj, name: $name) {id } }',
+	// 		variabes: { cnpj }
+	// 	}).pipe(
+	// 		map((res: any) => res.data.findCompany[0].id),
+	// 		catchError(error => error)
+	// 	);
+	// }
+
+	getKpis(cnpj: string) {
 		return this.requestGraphql({
 			query:
 				// tslint:disable-next-line: max-line-length
-				'query findKpi($id: BigInteger, $companyId: BigInteger, $title: String, $kpiAlias: String, $subtitle: String, $description: String, $graphType: Short, $columnX0Label: String, $label: String, $label2: String, $label3: String, $label4: String, $visible: Boolean) { findKpi(id: $id, companyId: $companyId, title: $title, kpiAlias: $kpiAlias, subtitle: $subtitle, description: $description, graphType: $graphType, columnX0Label: $columnX0Label, label: $label, label2: $label2, label3: $label3, label4: $label4, visible: $visible) { title, chartType, labelArray, chartOptions, kpiDetail { columnX, valorArray} } }',
+				'query findKpi($cnpj: String, $id: BigInteger, $companyId: BigInteger, $title: String, $kpiAlias: String, $subtitle: String, $description: String, $graphType: Short, $columnX0Label: String, $label: String, $label2: String, $label3: String, $label4: String, $visible: Boolean) { findKpi(cnpj: $cnpj, id: $id, companyId: $companyId, title: $title, kpiAlias: $kpiAlias, subtitle: $subtitle, description: $description, graphType: $graphType, columnX0Label: $columnX0Label, label: $label, label2: $label2, label3: $label3, label4: $label4, visible: $visible) {id, title, chartType, labelArray, chartOptions, kpiDetail { id, columnX, valorArray} } }',
 			variables: {
-				companyId
+				cnpj
 			}
 		});
 	}
 
-	getLucroAnual(companyId: number) {
+	getLucroAnual(cnpj: string) {
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			Authorization: 'Bearer ' + this.authService.getToken()
 		});
+		console.log(cnpj);
 
-		return this.http.get(`${AppComponent.appApi}/kpi/find/gain/${companyId}`, {
-			headers
-		});
+		return this.http.get(
+			`${AppComponent.appApi}/kpi/gain/${cnpj.replace(/\D/g, '')}`,
+			{
+				headers
+			}
+		);
 	}
 
 	requestGraphql(body: any) {

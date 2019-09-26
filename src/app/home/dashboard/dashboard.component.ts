@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
 	constructor(private dialog: MatDialog) {}
 
 	ngOnInit(): void {
-		// this.openModal(0);
+		this.openModal(0);
 	}
 
 	openModal(kpiAlias: number) {

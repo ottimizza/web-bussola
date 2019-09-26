@@ -33,8 +33,6 @@ export class HomeComponent implements OnInit {
 		this.authService.checkTokenExpired(() => {
 			that.dataService.getCompanies().subscribe(
 				(response: any) => {
-					console.log(response);
-
 					response.records.forEach((c: Company) => {
 						that.data.push(that.buildCompanyData(c));
 					});
@@ -54,24 +52,29 @@ export class HomeComponent implements OnInit {
 		const that = this;
 
 		this.authService.checkTokenExpired(() => {
-			const companyId =
-				that.selectedCompany.id || that.selectedCompany.value.id;
+			const cnpj = that.selectedCompany.cnpj || that.selectedCompany.value.cnpj;
 
-			that.dataService.getLucroAnual(companyId).subscribe(
+			that.dataService.getLucroAnual(cnpj).subscribe(
 				(lucro: Lucro) => {
 					that.lucro = lucro;
 				},
-				err => that.authService.refreshToken(() => console.log(err))
+				err => {
+					that.authService.checkAndLogout();
+					console.log(err);
+				}
 			);
 
-			that.dataService.getKpis(companyId).subscribe(
+			that.dataService.getKpis(cnpj).subscribe(
 				(response: any) => {
+					console.log(response.data.findKpi);
+
 					response.data.findKpi.forEach((kpi: Kpi) => {
 						const kpiFormatado: KpiFormatado = that.formatKpi(kpi);
 
 						kpiFormatado.labelArray.splice(0, 0, 'Coluna');
 
 						kpi.kpiDetail.forEach((detail: KpiDetail) => {
+							console.log(detail.valorArray);
 							detail.valorArray.splice(0, 0, that.formatAxis(detail.columnX));
 							kpiFormatado.data.push(detail.valorArray);
 						});
@@ -81,7 +84,10 @@ export class HomeComponent implements OnInit {
 
 					that.checkKpis();
 				},
-				err => that.authService.refreshToken(() => console.log(err))
+				err => {
+					that.authService.checkAndLogout();
+					console.log(err);
+				}
 			);
 		});
 	}
@@ -103,6 +109,8 @@ export class HomeComponent implements OnInit {
 					axis.substring(axis.indexOf('/'))
 			);
 		}
+		console.log(axis);
+
 		return axis;
 	}
 
