@@ -3,8 +3,9 @@ import { AuthService } from './../shared/auth/auth.service';
 import { KpiDetail } from './../shared/models/kpi-detail';
 import { Company } from './../shared/models/company';
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../shared/services/data.service';
+import { KpiService } from '../shared/services/kpi.service';
 import { Kpi, KpiFormatado } from '../shared/models/kpi';
+import { CompanyService } from '../shared/services/company.service';
 
 const dataRegex = /((0[0-9]{1}|1[0-2]{1})\/[0-9]{4})/g;
 
@@ -23,7 +24,8 @@ export class HomeComponent implements OnInit {
 	isLoading = true;
 
 	constructor(
-		private dataService: DataService,
+		private kpiService: KpiService,
+		private companyService: CompanyService,
 		private authService: AuthService
 	) {}
 
@@ -31,7 +33,7 @@ export class HomeComponent implements OnInit {
 		const that = this;
 
 		this.authService.checkTokenExpired(() => {
-			that.dataService.getCompanies().subscribe(
+			that.companyService.getCompanies().subscribe(
 				(response: any) => {
 					response.records.forEach((c: Company) => {
 						that.data.push(that.buildCompanyData(c));
@@ -54,7 +56,7 @@ export class HomeComponent implements OnInit {
 		this.authService.checkTokenExpired(() => {
 			const cnpj = that.selectedCompany.cnpj || that.selectedCompany.value.cnpj;
 
-			that.dataService.getLucroAnual(cnpj).subscribe(
+			that.kpiService.getLucroAnual(cnpj).subscribe(
 				(lucro: Lucro) => {
 					that.lucro = lucro;
 				},
@@ -64,17 +66,14 @@ export class HomeComponent implements OnInit {
 				}
 			);
 
-			that.dataService.getKpis(cnpj).subscribe(
+			that.kpiService.getKpis(cnpj).subscribe(
 				(response: any) => {
-					console.log(response.data.findKpi);
-
 					response.data.findKpi.forEach((kpi: Kpi) => {
 						const kpiFormatado: KpiFormatado = that.formatKpi(kpi);
 
 						kpiFormatado.labelArray.splice(0, 0, 'Coluna');
 
 						kpi.kpiDetail.forEach((detail: KpiDetail) => {
-							console.log(detail.valorArray);
 							detail.valorArray.splice(0, 0, that.formatAxis(detail.columnX));
 							kpiFormatado.data.push(detail.valorArray);
 						});
@@ -109,14 +108,13 @@ export class HomeComponent implements OnInit {
 					axis.substring(axis.indexOf('/'))
 			);
 		}
-		console.log(axis);
-
 		return axis;
 	}
 
 	formatKpi(kpi: Kpi): KpiFormatado {
 		return {
 			id: kpi.id,
+			kpiAlias: kpi.kpiAlias,
 			title: kpi.title,
 			chartType: kpi.chartType,
 			labelArray: kpi.labelArray,
@@ -129,7 +127,7 @@ export class HomeComponent implements OnInit {
 		return {
 			label: c.name,
 			value: {
-				id: c.id,
+				externalId: c.externalId,
 				name: c.name,
 				cnpj: c.cnpj
 			}

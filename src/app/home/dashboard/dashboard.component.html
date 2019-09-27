@@ -12,16 +12,21 @@
 		</google-chart>
 	</div> -->
 
-	<div *ngIf="!!lucro" class="col-12 col-md-6 chart-container">
+	<div *ngIf="!!lucro" class="col-12 col-md-6 chart-container lucro-container">
 		<div class="w-100 h-100 card">
+			<div class="chart-title">
+				<div class="float-left text-truncate d-block w-100 pl-2 pt-1">
+					<span>
+						{{ lucro.title }}
+					</span>
+				</div>
+			</div>
 			<div class="card-body text-center">
-				<h6 class="card-title">{{ lucro.title }}</h6>
 				<div *ngIf="lucro.value >= 0" class="green">
 					<div class="row mx-auto lucro-anual">
 						<p class="card-text">R$ {{ valorLucro }}</p>
 					</div>
 				</div>
-
 				<div *ngIf="lucro.value < 0" class="red">
 					<div class="row mx-auto lucro-anual">
 						<p class="card-text">-R$ {{ valorLucro }}</p>
@@ -34,14 +39,15 @@
 	<div *ngFor="let kpi of kpis" class="col-12 col-md-6 chart-container">
 		<div class="w-100 h-100 card">
 			<div class="chart-title">
-				<div class="float-left pr-2 pb-1">
-					<h5 class="pl-2 pt-2">
+				<div class="float-left text-truncate d-block w-100 pl-2 pt-1">
+					<span>
 						{{ kpi.title }}
-					</h5>
+					</span>
 				</div>
 			</div>
 			<google-chart
 				class="chart"
+				height="200px"
 				[dynamicResize]="true"
 				[type]="kpi.chartType"
 				[data]="kpi.data"
@@ -52,7 +58,7 @@
 			</google-chart>
 			<div class="chart-footer">
 				<div class="float-right pr-2 pb-1">
-					<button class="btn btn-link p-0" (click)="openModal(kpi)">
+					<button class="btn btn-link p-0" (click)="openModal(kpi.kpiAlias)">
 						Anotações
 					</button>
 				</div>

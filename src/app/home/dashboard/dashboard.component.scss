@@ -14,7 +14,7 @@
 }
 
 .chart-footer {
-	position: absolute;
+	// position: absolute;
 	bottom: 2px;
 	right: 2px;
 }
@@ -27,7 +27,7 @@
 }
 
 .chart-title {
-	position: absolute;
+	font-size: 1rem !important;
 	z-index: 1;
 }
 
@@ -45,7 +45,11 @@
 @media only screen and (max-width: 800px) {
 	.chart-container {
 		height: unset;
-		min-height: 180px;
+		min-height: 16rem;
+	}
+
+	.lucro-container {
+		min-height: 11rem;
 	}
 
 	.lucro-anual {

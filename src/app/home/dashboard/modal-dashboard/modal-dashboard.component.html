@@ -13,7 +13,7 @@
 			</div>
 		</div>
 
-		<div class="modal-body pb-2">
+		<div class="modal-body pb-2 pt-2">
 			<div *ngIf="true" class="container">
 				<div class="row">
 					<div class="w-100">
@@ -21,28 +21,36 @@
 							<div>
 								<div>
 									<textarea
-										[(ngModel)]="textArea"
+										[(ngModel)]="description"
 										class="form-control"
 										rows="4"
 										cols="58"
 										[maxLength]="300"
 										pInputTextarea
 									></textarea>
-									<span class="float-left">{{ 300 - textArea.length }}</span>
+									<span class="float-left">{{ 300 - description.length }}</span>
 								</div>
 							</div>
-							<button
-								class="btn btn-primary float-right mt-1"
-								type="button"
+							<p-button
+								class="float-right mt-1 ml-1"
+								(click)="postAnnotation()"
 								data-toggle="collapse"
 								data-target="#collapseExample"
+								label="Enviar"
 							>
-								Enviar
-							</button>
+							</p-button>
+							<p-fileUpload
+								class="float-right mt-1"
+								mode="basic"
+								name="anexo"
+								url=""
+								maxFileSize="1000000"
+								label="Anexo"
+							></p-fileUpload>
 						</div>
 					</div>
 					<button
-						class="btn btn-link mx-auto"
+						class="btn btn-link mx-auto p-0 mb-4"
 						type="button"
 						data-toggle="collapse"
 						data-target="#collapseExample"
@@ -52,89 +60,36 @@
 				</div>
 			</div>
 
-			<div class="mb-3">
+			<div *ngFor="let annotation of annotations" class="mb-3">
 				<div class="mb-2">
 					<div class="shadow-sm rouded bg-lightblue fit-content mx-auto">
-						<span class="m-2 fit-content">25/12/2019</span>
+						<span class="m-2 fit-content">{{
+							formatDate(annotation.createAt)
+						}}</span>
 					</div>
 				</div>
 				<div>
 					<div class="card mb-2">
 						<div class="card-body bg-light">
-							<strong class="card-title">Du</strong>
-							<p class="card-text">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
-								at felis posuere, lobortis odio in, hendrerit quam. Etiam
-								hendrerit maximus lacus, ut scelerisque odio imperdiet quis.
-								Aenean posuere ornare laoreet. Sed consequat ultricies leo.
-								Suspendisse et nunc sapien. Donec nec aliquam sem posuere.
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
+							<strong class="card-title">{{ annotation.createdBy }}</strong>
+							<p>
+								<a
+									*ngIf="check(annotation.description)"
+									href="http://{{ annotation.description }}"
+									target="_blank"
+									class="card-text"
+								>
+									{{ annotation.description }}
+								</a>
 
-			<div class="mb-3">
-				<div class="mb-2">
-					<div class="shadow-sm rouded bg-lightblue fit-content mx-auto">
-						<span class="m-2 fit-content">01/01/2018</span>
-					</div>
-				</div>
-				<div>
-					<div class="card mb-2">
-						<div class="card-body bg-light">
-							<strong class="card-title">Dudu</strong>
-							<p class="card-text">
-								Quisque dapibus dictum arcu eget vestibulum. Aliquam sit amet
-								venenatis lacus. Pellentesque posuere.
-							</p>
-						</div>
-					</div>
-					<div class="card mb-2">
-						<div class="card-body bg-light">
-							<strong class="card-title">Edu</strong>
-							<p class="card-text">
-								Donec ullamcorper ullamcorper tempor. Aenean dignissim laoreet
-								lorem a luctus. Suspendisse ultricies mi id lectus facilisis
-								luctus. Nulla nulla turpis, vehicula at diam massa nunc.
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="mb-3">
-				<div class="mb-2">
-					<div class="shadow-sm rouded bg-lightblue fit-content mx-auto">
-						<span class="m-2 fit-content">01/01/2017</span>
-					</div>
-				</div>
-				<div>
-					<div class="card mb-2">
-						<div class="card-body bg-light">
-							<strong class="card-title">Dudu</strong>
-							<p class="card-text">
-								Quisque dapibus dictum arcu eget vestibulum. Aliquam sit amet
-								venenatis lacus. Pellentesque posuere.
-							</p>
-						</div>
-					</div>
-					<div class="card mb-2">
-						<div class="card-body bg-light">
-							<strong class="card-title">Edu</strong>
-							<p class="card-text">
-								Donec ullamcorper ullamcorper tempor. Aenean dignissim laoreet
-								lorem a luctus. Suspendisse ultricies mi id lectus facilisis
-								luctus. Nulla nulla turpis, vehicula at diam massa nunc.
+								<span *ngIf="!check(annotation.description)" class="card-text">
+									{{ annotation.description }}
+								</span>
 							</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<!-- <div class="modal-footer">
-
-		</div> -->
 	</div>
 </div>

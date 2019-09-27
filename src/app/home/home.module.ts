@@ -2,6 +2,8 @@ import { MatDialogModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ButtonModule } from 'primeng/button';
 import { HomeRoutingModule } from './home-routing.module';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -17,6 +19,8 @@ import { ModalDashboardComponent } from './dashboard/modal-dashboard/modal-dashb
 		DropdownModule,
 		HomeRoutingModule,
 		MatDialogModule,
+		FileUploadModule,
+		ButtonModule,
 		GoogleChartsModule.forRoot()
 	],
 	exports: [],

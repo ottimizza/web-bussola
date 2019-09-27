@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs';
+import { AnnotationService } from './../../shared/services/annotation.service';
 import { ModalDashboardComponent } from './modal-dashboard/modal-dashboard.component';
 import { Lucro } from './../../shared/models/lucro';
 import { KpiFormatado } from './../../shared/models/kpi';
@@ -11,6 +13,7 @@ import { MatDialog } from '@angular/material';
 })
 export class DashboardComponent implements OnInit {
 	@Input() lucro: Lucro;
+	@Input() externalId: string;
 	@Input() kpis: KpiFormatado[] = [];
 	@Input() noKpis: boolean;
 	@Input() isLoading: boolean;
@@ -30,16 +33,19 @@ export class DashboardComponent implements OnInit {
 			.replace('-', '');
 	}
 
-	constructor(private dialog: MatDialog) {}
+	constructor(
+		private dialog: MatDialog,
+		private annotationService: AnnotationService
+	) {}
 
-	ngOnInit(): void {
-		this.openModal(0);
-	}
+	ngOnInit(): void {}
 
 	openModal(kpiAlias: number) {
-		this.dialog.open(ModalDashboardComponent, {
+		const that = this;
+		const externalId = that.externalId; // ?????????
+		that.dialog.open(ModalDashboardComponent, {
 			width: '33rem',
-			data: ''
+			data: { externalId, kpiAlias }
 		});
 	}
 }

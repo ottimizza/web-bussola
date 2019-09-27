@@ -1,8 +1,8 @@
+import { User } from './models';
 import { Router } from '@angular/router';
 import { TokenObj } from './auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from './models';
 import { AppComponent } from 'src/app/app.component';
 
 const ACCESS_KEY = 'accessToken';
@@ -22,7 +22,7 @@ export class AuthService {
 			.subscribe((res: TokenObj) => {
 				this.setTokenExpirationDate(res.expires_in);
 				this.setTokens(res.access_token, res.refresh_token);
-				this.requestUserInfo();
+				this.requestUsernameInfo();
 			});
 	}
 
@@ -62,7 +62,7 @@ export class AuthService {
 			);
 	}
 
-	requestUserInfo() {
+	requestUsernameInfo() {
 		const headers = new HttpHeaders().set(
 			'Authorization',
 			'Bearer ' + this.getToken()
@@ -73,7 +73,7 @@ export class AuthService {
 				headers
 			})
 			.subscribe((user: User) => {
-				this.setEmail(user.principal.username);
+				this.setUsername(user.principal.username);
 				this.router.navigate(['']);
 			});
 	}
@@ -111,8 +111,8 @@ export class AuthService {
 		window.localStorage.setItem(REFRESH_KEY, refreshToken);
 	}
 
-	setEmail(email: string) {
-		window.localStorage.setItem('email', email);
+	setUsername(username: string) {
+		window.localStorage.setItem('username', username);
 	}
 
 	getToken(): string {
@@ -127,8 +127,8 @@ export class AuthService {
 		return window.localStorage.getItem(ACCESS_TOKEN_EXPIRATION_DATE_KEY);
 	}
 
-	getEmail(): string {
-		return window.localStorage.getItem('email');
+	getUsername(): string {
+		return window.localStorage.getItem('username');
 	}
 
 	removeTokens() {
@@ -155,7 +155,7 @@ export class AuthService {
 			this.getToken() !== 'undefined' &&
 			this.getRefreshToken() !== 'undefined' &&
 			this.getAccessTokenExpirationDate() !== 'Invalid Date' &&
-			this.getEmail() !== 'undefined'
+			this.getUsername() !== 'undefined'
 		);
 	}
 }
