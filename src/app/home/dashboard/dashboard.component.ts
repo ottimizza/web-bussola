@@ -46,8 +46,8 @@ export class DashboardComponent implements OnInit {
 		});
 	}
 
-	logKpi(kpi: any) {
-		console.log(kpi);
-		return kpi.title;
-	}
+	// logKpi(kpi: any) {
+	// 	console.log(kpi);
+	// 	return kpi.title;
+	// }
 }

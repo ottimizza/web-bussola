@@ -101,7 +101,6 @@ export class HomeComponent implements OnInit {
 	}
 
 	formatAxis(axis: string) {
-		console.log(axis);
 		if (axis.match(dataRegex)) {
 			const [day, month, year] = axis.split('/');
 			return new Date(+year, +month - 1, +day);

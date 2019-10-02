@@ -75,7 +75,6 @@ export class ModalDashboardComponent implements OnInit {
 	}
 
 	onUpload(event: any) {
-		console.log(event);
 		this.uploadService.uploadSingleFile(event.files[0]).subscribe(res => {
 			console.log(res);
 		});
