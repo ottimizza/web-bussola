@@ -42,10 +42,10 @@
 							<p-fileUpload
 								class="float-right mt-1"
 								mode="basic"
-								name="anexo"
-								url=""
-								maxFileSize="1000000"
-								label="Anexo"
+								name="demo[]"
+								customUpload="true"
+								(uploadHandler)="onUpload($event)"
+								[auto]="true"
 							></p-fileUpload>
 						</div>
 					</div>

@@ -1,3 +1,4 @@
+import { UploadService } from './../../../shared/services/upload.service';
 import { AuthService } from './../../../shared/auth/auth.service';
 import { AnnotationService } from './../../../shared/services/annotation.service';
 import { Component, OnInit, Inject } from '@angular/core';
@@ -19,7 +20,8 @@ export class ModalDashboardComponent implements OnInit {
 		public dialogRef: MatDialogRef<ModalDashboardComponent>,
 		@Inject(MAT_DIALOG_DATA) public data: any,
 		private annotationService: AnnotationService,
-		private authService: AuthService
+		private authService: AuthService,
+		private uploadService: UploadService
 	) {}
 
 	ngOnInit(): void {
@@ -32,7 +34,6 @@ export class ModalDashboardComponent implements OnInit {
 
 	postAnnotation() {
 		const that = this;
-
 		this.authService.checkTokenExpired(() => {
 			that.annotationService
 				.postAnnotation(
@@ -59,7 +60,6 @@ export class ModalDashboardComponent implements OnInit {
 	}
 
 	check(str: string) {
-		console.log(this.regex.test(str));
 		return str.match(this.regex);
 	}
 
@@ -72,5 +72,12 @@ export class ModalDashboardComponent implements OnInit {
 		return (
 			data.getDate() + '/' + (data.getMonth() + 1) + '/' + data.getFullYear()
 		);
+	}
+
+	onUpload(event: any) {
+		console.log(event);
+		this.uploadService.uploadSingleFile(event.files[0]).subscribe(res => {
+			console.log(res);
+		});
 	}
 }

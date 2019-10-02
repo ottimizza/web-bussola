@@ -7,7 +7,7 @@ import { KpiService } from '../shared/services/kpi.service';
 import { Kpi, KpiFormatado } from '../shared/models/kpi';
 import { CompanyService } from '../shared/services/company.service';
 
-const dataRegex = /((0[0-9]{1}|1[0-2]{1})\/[0-9]{4})/g;
+const dataRegex = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i;
 
 @Component({
 	selector: 'app-home',
@@ -101,14 +101,12 @@ export class HomeComponent implements OnInit {
 	}
 
 	formatAxis(axis: string) {
+		console.log(axis);
 		if (axis.match(dataRegex)) {
-			return new Date(
-				axis.substring(0, axis.indexOf('/')) +
-					'/01' +
-					axis.substring(axis.indexOf('/'))
-			);
+			const [day, month, year] = axis.split('/');
+			return new Date(+year, +month - 1, +day);
 		}
-		return axis;
+		return;
 	}
 
 	formatKpi(kpi: Kpi): KpiFormatado {

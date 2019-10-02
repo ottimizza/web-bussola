@@ -22,7 +22,8 @@ const envConfigFile = `
 	"apiOauthService": "${process.env.API_OAUTH_SERVICE}",
 	"loginUrl": "${process.env.LOGIN_URL}",
 	"appApi": "${process.env.APP_API}",
-	"clientId": "${process.env.CLIENT_ID}"
+	"clientId": "${process.env.CLIENT_ID}",
+	"storageUrl": "${process.env.STORAGE_URL}"
 }
 `;
 

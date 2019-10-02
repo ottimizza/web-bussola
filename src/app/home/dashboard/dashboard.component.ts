@@ -33,10 +33,7 @@ export class DashboardComponent implements OnInit {
 			.replace('-', '');
 	}
 
-	constructor(
-		private dialog: MatDialog,
-		private annotationService: AnnotationService
-	) {}
+	constructor(private dialog: MatDialog) {}
 
 	ngOnInit(): void {}
 
@@ -47,5 +44,10 @@ export class DashboardComponent implements OnInit {
 			width: '33rem',
 			data: { externalId, kpiAlias }
 		});
+	}
+
+	logKpi(kpi: any) {
+		console.log(kpi);
+		return kpi.title;
 	}
 }

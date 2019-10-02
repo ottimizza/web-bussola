@@ -2,8 +2,6 @@ import { AuthService } from '../auth/auth.service';
 import { AppComponent } from 'src/app/app.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, catchError } from 'rxjs/operators';
-import { throwError, of, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class KpiService {
@@ -31,7 +29,6 @@ export class KpiService {
 			'Content-Type': 'application/json',
 			Authorization: 'Bearer ' + this.authService.getToken()
 		});
-		console.log(cnpj);
 
 		return this.http.get(
 			`${AppComponent.appApi}/kpi/gain/${cnpj.replace(/\D/g, '')}`,

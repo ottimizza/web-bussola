@@ -4,16 +4,6 @@ import { AppComponent } from './../../app.component';
 
 @Injectable({ providedIn: 'root' })
 export class ConfigService {
-	public static apiOauthService: string;
-	public static loginUrl: string;
-	public static appApi: string;
-
-	public appConfig: any = {
-		apiOauthService: '',
-		loginUrl: '',
-		appApi: ''
-	};
-
 	constructor(private http: HttpClient) {}
 
 	public async loadAppConfig(): Promise<any> {
@@ -36,6 +26,7 @@ export class ConfigService {
 				AppComponent.loginUrl = data.loginUrl;
 				AppComponent.appApi = data.appApi;
 				AppComponent.clientId = data.clientId;
+				AppComponent.storageUrl = data.storageUrl;
 
 				resolve();
 			});

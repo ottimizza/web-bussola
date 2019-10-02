@@ -20,8 +20,6 @@ export class AnnotationService {
 	}
 
 	postAnnotation(externalId: string, kpiAlias: number, description: string) {
-		console.log(description);
-
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			Authorization: 'Bearer ' + this.authService.getToken()
