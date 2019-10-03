@@ -105,7 +105,7 @@ export class HomeComponent implements OnInit {
 			const [day, month, year] = axis.split('/');
 			return new Date(+year, +month - 1, +day);
 		}
-		return;
+		return axis;
 	}
 
 	formatKpi(kpi: Kpi): KpiFormatado {
