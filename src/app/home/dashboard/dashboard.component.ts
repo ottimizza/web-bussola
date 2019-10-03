@@ -1,5 +1,3 @@
-import { Subscription } from 'rxjs';
-import { AnnotationService } from './../../shared/services/annotation.service';
 import { ModalDashboardComponent } from './modal-dashboard/modal-dashboard.component';
 import { Lucro } from './../../shared/models/lucro';
 import { KpiFormatado } from './../../shared/models/kpi';
@@ -45,9 +43,4 @@ export class DashboardComponent implements OnInit {
 			data: { externalId, kpiAlias }
 		});
 	}
-
-	// logKpi(kpi: any) {
-	// 	console.log(kpi);
-	// 	return kpi.title;
-	// }
 }
