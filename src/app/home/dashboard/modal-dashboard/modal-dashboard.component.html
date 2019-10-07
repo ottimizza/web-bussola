@@ -69,10 +69,33 @@
 					</div>
 				</div>
 				<div>
-					<div class="card mb-2">
-						<div class="card-body bg-light">
-							<strong class="card-title">{{ annotation.createdBy }}</strong>
-							<p>
+					<div class="card mb-2 bg-light">
+						<div class="card-title p-0 m-0">
+							<strong class="float-left pt-2 pl-3">{{
+								annotation.createdBy
+							}}</strong>
+							<div class="dropdown float-right">
+								<button
+									class="btn btn-link"
+									id="dropdownMenuButton"
+									data-toggle="dropdown"
+									aria-haspopup="true"
+									aria-expanded="false"
+								>
+									<i class="far fa-ellipsis-v text-dark"></i>
+								</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<a class="dropdown-item hover-cursor">Editar</a>
+									<a
+										class="dropdown-item hover-cursor"
+										(click)="deleteAnnotation(annotation.id)"
+										>Excluir</a
+									>
+								</div>
+							</div>
+						</div>
+						<div class="card-body pt-0 pb-2">
+							<p class="m-0">
 								<a
 									*ngIf="check(annotation.description)"
 									href="http://{{ annotation.description }}"

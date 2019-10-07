@@ -59,6 +59,12 @@ export class ModalDashboardComponent implements OnInit {
 		});
 	}
 
+	deleteAnnotation(id: number) {
+		this.annotationService.deleteAnnotation(id).subscribe(() => {
+			this.requestAnnotations();
+		});
+	}
+
 	check(str: string) {
 		return str.match(this.regex);
 	}

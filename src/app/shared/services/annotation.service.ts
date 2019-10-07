@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class AnnotationService {
 	constructor(private http: HttpClient, private authService: AuthService) {}
 
-	getAnnotations(externalId: string, kpiAlias: number) {
+	getAnnotations(externalId: string, kpiAlias: string) {
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			Authorization: 'Bearer ' + this.authService.getToken()
@@ -19,7 +19,7 @@ export class AnnotationService {
 		);
 	}
 
-	postAnnotation(externalId: string, kpiAlias: number, description: string) {
+	postAnnotation(externalId: string, kpiAlias: string, description: string) {
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			Authorization: 'Bearer ' + this.authService.getToken()
@@ -36,5 +36,16 @@ export class AnnotationService {
 			},
 			{ headers }
 		);
+	}
+
+	deleteAnnotation(id: number) {
+		const headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+			Authorization: 'Bearer ' + this.authService.getToken()
+		});
+
+		return this.http.delete(`${AppComponent.appApi}/annotations/${id}`, {
+			headers
+		});
 	}
 }

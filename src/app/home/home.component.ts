@@ -16,7 +16,14 @@ const dataRegex = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i
 })
 export class HomeComponent implements OnInit {
 	data = [];
-	selectedCompany: any;
+	selectedCompany = {
+		label: '',
+		value: {
+			externalId: '',
+			name: '',
+			cnpj: ''
+		}
+	};
 
 	lucro: Lucro;
 	kpis: KpiFormatado[] = [];
@@ -37,8 +44,13 @@ export class HomeComponent implements OnInit {
 				(response: any) => {
 					response.records.forEach((c: Company) => {
 						that.data.push(that.buildCompanyData(c));
+						if (that.selectedCompany === undefined) {
+							that.selectedCompany = that.buildCompanyData(c);
+						}
 					});
+
 					that.selectedCompany = that.data[0];
+
 					that.requestKpis();
 				},
 				err => console.log(err)
@@ -54,7 +66,7 @@ export class HomeComponent implements OnInit {
 		const that = this;
 
 		this.authService.checkTokenExpired(() => {
-			const cnpj = that.selectedCompany.cnpj || that.selectedCompany.value.cnpj;
+			const cnpj = that.selectedCompany.value.cnpj;
 
 			that.kpiService.getLucroAnual(cnpj).subscribe(
 				(lucro: Lucro) => {
@@ -118,6 +130,11 @@ export class HomeComponent implements OnInit {
 			chartOptions: JSON.parse(kpi.chartOptions),
 			data: []
 		};
+	}
+
+	logSomething(thing: any) {
+		console.log(thing);
+		return thing;
 	}
 
 	buildCompanyData(c: Company) {

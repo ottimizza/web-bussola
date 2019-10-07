@@ -2,7 +2,7 @@ import { KpiDetail } from './kpi-detail';
 
 export interface Kpi {
 	id?: number;
-	kpiAlias: number;
+	kpiAlias: string;
 	title: string;
 	chartType: string;
 	labelArray: string[];
@@ -12,7 +12,7 @@ export interface Kpi {
 
 export interface KpiFormatado {
 	id?: number;
-	kpiAlias: number;
+	kpiAlias: string;
 	title: string;
 	chartType: string;
 	labelArray: string[];

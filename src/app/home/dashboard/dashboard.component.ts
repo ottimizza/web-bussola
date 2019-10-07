@@ -33,9 +33,11 @@ export class DashboardComponent implements OnInit {
 
 	constructor(private dialog: MatDialog) {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		console.log(this.externalId);
+	}
 
-	openModal(kpiAlias: number) {
+	openModal(kpiAlias: string) {
 		const that = this;
 		const externalId = that.externalId; // ?????????
 		that.dialog.open(ModalDashboardComponent, {

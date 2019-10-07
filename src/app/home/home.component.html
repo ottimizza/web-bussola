@@ -2,13 +2,13 @@
 	[options]="data"
 	[(ngModel)]="selectedCompany"
 	filter="true"
-	filterBy="label,value.cnpj"
+	filterBy="name,cnpj"
 	(onChange)="requestKpis()"
 >
 	<ng-template let-item pTemplate="selectedItem">
 		<span style="vertical-align:middle">{{ item.label }}</span>
 	</ng-template>
-	<ng-template let-company pTemplate="item">
+	<ng-template let-company pTemplate="logSomething(data)">
 		<span style="vertical-align:middle">{{ company.label }}</span>
 		<br />
 		<span style="vertical-align:middle">{{ company.value.cnpj }}</span>
@@ -16,8 +16,8 @@
 </p-dropdown>
 <app-dashboard
 	[lucro]="lucro"
-	[externalId]="selectedCompany.externalId"
 	[kpis]="kpis"
 	[noKpis]="noKpi"
 	[isLoading]="isLoading"
+	[externalId]="selectedCompany.value.externalId"
 ></app-dashboard>
