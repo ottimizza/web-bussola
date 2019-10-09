@@ -1,7 +1,13 @@
 import { UploadService } from './../../../shared/services/upload.service';
 import { AuthService } from './../../../shared/auth/auth.service';
 import { AnnotationService } from './../../../shared/services/annotation.service';
-import { Component, OnInit, Inject } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	Inject,
+	ViewChild,
+	ElementRef
+} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
@@ -12,6 +18,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class ModalDashboardComponent implements OnInit {
 	description = '';
 	annotations: any;
+
+	source: any;
 
 	// tslint:disable-next-line: max-line-length
 	regex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/i;
@@ -83,6 +91,12 @@ export class ModalDashboardComponent implements OnInit {
 	onUpload(event: any) {
 		this.uploadService.uploadSingleFile(event.files[0]).subscribe(res => {
 			console.log(res);
+		});
+	}
+
+	editAnnotation(annotation: any) {
+		this.annotationService.patchAnnotation(annotation).subscribe(() => {
+			console.log(annotation);
 		});
 	}
 }

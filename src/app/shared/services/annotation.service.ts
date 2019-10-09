@@ -2,6 +2,7 @@ import { AuthService } from './../auth/auth.service';
 import { AppComponent } from './../../app.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { debounce, debounceTime } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AnnotationService {
@@ -47,5 +48,22 @@ export class AnnotationService {
 		return this.http.delete(`${AppComponent.appApi}/annotations/${id}`, {
 			headers
 		});
+	}
+
+	patchAnnotation(annotation: any) {
+		const headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+			Authorization: 'Bearer ' + this.authService.getToken()
+		});
+
+		return this.http
+			.patch(
+				`${AppComponent.appApi}/annotations/${annotation.id}`,
+				annotation,
+				{
+					headers
+				}
+			)
+			.pipe(debounceTime(1000));
 	}
 }

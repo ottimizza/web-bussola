@@ -18,6 +18,15 @@ textarea {
 	background: rgb(245, 252, 255);
 }
 
+.delete-annotation {
+	font-size: 1rem;
+	padding: 0.7rem;
+}
+
+.delete-annotation:hover {
+	cursor: pointer;
+}
+
 .mheader {
 	width: 100%;
 	display: flex;
