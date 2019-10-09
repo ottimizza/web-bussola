@@ -64,6 +64,6 @@ export class AnnotationService {
 					headers
 				}
 			)
-			.pipe(debounceTime(1000));
+			.pipe(debounceTime(10000));
 	}
 }

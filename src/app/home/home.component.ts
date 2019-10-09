@@ -15,15 +15,8 @@ const dataRegex = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i
 	styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-	data = [];
-	selectedCompany = {
-		label: '',
-		value: {
-			externalId: '',
-			name: '',
-			cnpj: ''
-		}
-	};
+	data: Company[];
+	selectedCompany: Company;
 
 	lucro: Lucro;
 	kpis: KpiFormatado[] = [];
@@ -42,14 +35,8 @@ export class HomeComponent implements OnInit {
 		this.authService.checkTokenExpired(() => {
 			that.companyService.getCompanies().subscribe(
 				(response: any) => {
-					response.records.forEach((c: Company) => {
-						that.data.push(that.buildCompanyData(c));
-						if (that.selectedCompany === undefined) {
-							that.selectedCompany = that.buildCompanyData(c);
-						}
-					});
-
-					that.selectedCompany = that.data[0];
+					that.data = response.records;
+					that.selectedCompany = response.records[0];
 
 					that.requestKpis();
 				},
@@ -59,6 +46,9 @@ export class HomeComponent implements OnInit {
 	}
 
 	requestKpis() {
+		console.log('COMPANY');
+		console.log(this.selectedCompany);
+
 		this.lucro = undefined;
 		this.kpis = [];
 		this.isLoading = true;
@@ -66,7 +56,7 @@ export class HomeComponent implements OnInit {
 		const that = this;
 
 		this.authService.checkTokenExpired(() => {
-			const cnpj = that.selectedCompany.value.cnpj;
+			const cnpj = that.selectedCompany.cnpj;
 
 			that.kpiService.getLucroAnual(cnpj).subscribe(
 				(lucro: Lucro) => {
@@ -135,16 +125,5 @@ export class HomeComponent implements OnInit {
 	logSomething(thing: any) {
 		console.log(thing);
 		return thing;
-	}
-
-	buildCompanyData(c: Company) {
-		return {
-			label: c.name,
-			value: {
-				externalId: c.externalId,
-				name: c.name,
-				cnpj: c.cnpj
-			}
-		};
 	}
 }

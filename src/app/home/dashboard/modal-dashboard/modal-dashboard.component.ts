@@ -1,14 +1,9 @@
 import { UploadService } from './../../../shared/services/upload.service';
 import { AuthService } from './../../../shared/auth/auth.service';
 import { AnnotationService } from './../../../shared/services/annotation.service';
-import {
-	Component,
-	OnInit,
-	Inject,
-	ViewChild,
-	ElementRef
-} from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
 	selector: 'app-modal-dashboard',
@@ -29,7 +24,8 @@ export class ModalDashboardComponent implements OnInit {
 		@Inject(MAT_DIALOG_DATA) public data: any,
 		private annotationService: AnnotationService,
 		private authService: AuthService,
-		private uploadService: UploadService
+		private uploadService: UploadService,
+		private toast: ToastService
 	) {}
 
 	ngOnInit(): void {
@@ -95,8 +91,9 @@ export class ModalDashboardComponent implements OnInit {
 	}
 
 	editAnnotation(annotation: any) {
+		const that = this;
 		this.annotationService.patchAnnotation(annotation).subscribe(() => {
-			console.log(annotation);
+			that.toast.show('Anotação alterada.', 'success');
 		});
 	}
 }

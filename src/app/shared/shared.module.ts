@@ -9,7 +9,8 @@ import {
 	MatListModule,
 	MatButtonModule,
 	MatIconModule,
-	MatToolbarModule
+	MatToolbarModule,
+	MatSnackBarModule
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -25,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
 		MatListModule,
 		MatSidenavModule,
 		MatToolbarModule,
-		HttpClientModule
+		HttpClientModule,
+		MatSnackBarModule
 	],
 	exports: [MenuComponent],
 	providers: []

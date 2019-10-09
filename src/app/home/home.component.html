@@ -1,6 +1,8 @@
 <p-dropdown
 	[options]="data"
 	[(ngModel)]="selectedCompany"
+	optionLabel="name"
+	autoDisplayFirst="true"
 	filter="true"
 	filterBy="name,cnpj"
 	(onChange)="requestKpis()"
@@ -8,7 +10,7 @@
 	<ng-template let-item pTemplate="selectedItem">
 		<span style="vertical-align:middle">{{ item.label }}</span>
 	</ng-template>
-	<ng-template let-company pTemplate="logSomething(data)">
+	<ng-template let-company pTemplate="item">
 		<span style="vertical-align:middle">{{ company.label }}</span>
 		<br />
 		<span style="vertical-align:middle">{{ company.value.cnpj }}</span>
@@ -19,5 +21,5 @@
 	[kpis]="kpis"
 	[noKpis]="noKpi"
 	[isLoading]="isLoading"
-	[externalId]="selectedCompany.value.externalId"
+	[externalId]="selectedCompany.externalId"
 ></app-dashboard>
