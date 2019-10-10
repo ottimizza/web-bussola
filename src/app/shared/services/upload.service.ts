@@ -5,23 +5,26 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class UploadService {
+	private applicationId = `development-bussola-contabil`;
+
 	constructor(
 		private httpClient: HttpClient,
 		private authService: AuthService
 	) {}
 
 	uploadSingleFile(file: File) {
-		const headers = new HttpHeaders({
-			Authorization: 'Bearer ' + this.authService.getToken()
-		});
-
 		const formData = new FormData();
 		formData.append('file', file);
 
+		const headers = { headers: this.noAuthHeaders() };
+
 		return this.httpClient.post(
-			`${AppComponent.storageUrl}/storage/development-zap-contabil/accounting/${AppComponent.clientId}/store`,
+			`${AppComponent.storageUrl}/storage/${this.applicationId}/accounting/ottimizza/store`,
 			formData,
-			{ headers }
+			headers
 		);
 	}
+
+	private noAuthHeaders = (): HttpHeaders =>
+		new HttpHeaders({ Authorization: this.authService.getToken() })
 }

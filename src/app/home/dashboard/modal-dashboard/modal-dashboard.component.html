@@ -47,6 +47,9 @@
 								mode="basic"
 								name="demo[]"
 								customUpload="true"
+								data-toggle="collapse"
+								data-target="#collapseExample"
+								label="Enviar arquivo"
 								(uploadHandler)="onUpload($event)"
 								[auto]="true"
 							></p-fileUpload>
@@ -86,18 +89,33 @@
 							</div>
 						</div>
 						<div class="card-body pt-0 pb-2">
+							<!-- <div
+								[(ngModel)]="annotation.description"
+								class="card-text"
+								propValueAccessor="innerHTML"
+								contenteditable="true"
+								(keyup)="editAnnotation(annotation)"
+							></div> -->
 							<div
+								*ngIf="!isFile(annotation.description)"
 								[(ngModel)]="annotation.description"
 								class="card-text"
 								propValueAccessor="innerHTML"
 								contenteditable="true"
 								(keyup)="editAnnotation(annotation)"
 							></div>
+							<a
+								*ngIf="isFile(annotation.description)"
+								[href]="annotation.description"
+								class="card-text"
+							>
+								{{ substrFileName(annotation.description) }}
+							</a>
 						</div>
 					</div>
 				</div>
 			</div>
+			<!-- BODY -->
 		</div>
-		<!-- BODY -->
 	</div>
 </div>

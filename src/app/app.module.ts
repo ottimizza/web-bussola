@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,21 +24,22 @@ const appInitializerFn = (appConfig: ConfigService) => {
 @NgModule({
 	declarations: [AppComponent],
 	imports: [
-		BrowserModule,
 		AppRoutingModule,
-		GoogleChartsModule.forRoot(),
 		SharedModule,
+		BrowserModule,
 		BrowserAnimationsModule,
+		AngularFireMessagingModule,
+		GoogleChartsModule.forRoot(),
+		NgxLinkifyjsModule.forRoot(),
+		AngularFireModule.initializeApp(environment.firebase),
 		ServiceWorkerModule.register('ngsw-worker.js', {
 			enabled: environment.production
-		}),
-		AngularFireMessagingModule,
-		AngularFireModule.initializeApp(environment.firebase)
+		})
 	],
 	providers: [
+		AsyncPipe,
 		AuthGuard,
 		ConfigService,
-		AsyncPipe,
 		{
 			provide: APP_INITIALIZER,
 			useFactory: appInitializerFn,

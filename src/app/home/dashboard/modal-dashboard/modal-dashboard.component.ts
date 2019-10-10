@@ -1,9 +1,11 @@
+import { AppComponent } from './../../../app.component';
 import { UploadService } from './../../../shared/services/upload.service';
 import { AuthService } from './../../../shared/auth/auth.service';
 import { AnnotationService } from './../../../shared/services/annotation.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { NgxLinkifyjsService } from 'ngx-linkifyjs';
 
 @Component({
 	selector: 'app-modal-dashboard',
@@ -21,6 +23,7 @@ export class ModalDashboardComponent implements OnInit {
 
 	constructor(
 		public dialogRef: MatDialogRef<ModalDashboardComponent>,
+		public linkifyService: NgxLinkifyjsService,
 		@Inject(MAT_DIALOG_DATA) public data: any,
 		private annotationService: AnnotationService,
 		private authService: AuthService,
@@ -36,14 +39,14 @@ export class ModalDashboardComponent implements OnInit {
 		this.dialogRef.close();
 	}
 
-	postAnnotation() {
+	postAnnotation(description?: string) {
 		const that = this;
 		this.authService.checkTokenExpired(() => {
 			that.annotationService
 				.postAnnotation(
 					that.data.externalId,
 					that.data.kpiAlias,
-					that.description
+					description || that.description
 				)
 				.subscribe(res => {
 					that.requestAnnotations();
@@ -73,6 +76,10 @@ export class ModalDashboardComponent implements OnInit {
 		return str.match(this.regex);
 	}
 
+	isFile(str: string) {
+		return str.indexOf(AppComponent.storageUrl) === 0;
+	}
+
 	goToLink(url: string) {
 		window.open(url, '_blank');
 	}
@@ -85,9 +92,13 @@ export class ModalDashboardComponent implements OnInit {
 	}
 
 	onUpload(event: any) {
-		this.uploadService.uploadSingleFile(event.files[0]).subscribe(res => {
-			console.log(res);
-		});
+		this.uploadService
+			.uploadSingleFile(event.files[0])
+			.subscribe((res: any) => {
+				this.postAnnotation(
+					`${AppComponent.storageUrl}/storage/${res.record.id}/download`
+				);
+			});
 	}
 
 	editAnnotation(annotation: any) {
@@ -95,5 +106,15 @@ export class ModalDashboardComponent implements OnInit {
 		this.annotationService.patchAnnotation(annotation).subscribe(() => {
 			that.toast.show('Anotação alterada.', 'success');
 		});
+	}
+
+	substrFileName(str: string) {
+		str = atob(
+			str.substring(
+				str.indexOf('/storage/') + '/storage/'.length,
+				str.indexOf('/download')
+			)
+		);
+		return str.substr(str.indexOf('__') + 2);
 	}
 }

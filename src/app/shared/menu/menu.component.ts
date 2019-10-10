@@ -15,6 +15,7 @@ declare interface RouteInfo {
 
 export const ROUTES: RouteInfo[] = [
 	{ path: '/home', title: 'Home', icon: 'fal fa-home', class: '' }
+	// { path: '/variables', title: 'Variaveis', icon: 'fal fa-home', class: '' }
 ];
 
 @Component({
