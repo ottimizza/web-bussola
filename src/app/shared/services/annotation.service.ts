@@ -2,7 +2,7 @@ import { AuthService } from './../auth/auth.service';
 import { AppComponent } from './../../app.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { debounce, debounceTime } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AnnotationService {

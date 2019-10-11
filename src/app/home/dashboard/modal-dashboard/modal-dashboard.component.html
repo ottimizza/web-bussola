@@ -1,6 +1,6 @@
 <div class="modal-dialog modal-dialog-scrollable m-0 h-100" role="document">
-	<!-- HEADER -->
 	<div class="modal-content">
+		<!-- HEADER -->
 		<div class="modal-header">
 			<div class="container p-0">
 				<div class="pl-3 mheader row">
@@ -17,10 +17,11 @@
 
 		<!-- BODY -->
 		<div class="modal-body pb-2 pt-2">
-			<div *ngIf="true" class="container">
+			<!-- NEW ANNOTATION -->
+			<div class="container">
 				<div class="row">
 					<div class="w-100">
-						<div class="collapse" id="collapseExample">
+						<div class="collapse" id="new-annotation-collapse">
 							<div>
 								<div>
 									<textarea
@@ -28,29 +29,30 @@
 										class="form-control"
 										rows="4"
 										cols="58"
-										[maxLength]="300"
+										[maxLength]="255"
 										pInputTextarea
 									></textarea>
-									<span class="float-left">{{ 300 - description.length }}</span>
+									<span class="float-left">{{ 255 - description.length }}</span>
 								</div>
 							</div>
 							<p-button
 								class="float-right mt-1 ml-1"
 								(click)="postAnnotation()"
 								data-toggle="collapse"
-								data-target="#collapseExample"
-								label="Enviar"
+								data-target="#new-annotation-collapse"
+								label="Enviar mensagem"
 							>
 							</p-button>
 							<p-fileUpload
+								#upload
 								class="float-right mt-1"
 								mode="basic"
 								name="demo[]"
 								customUpload="true"
 								data-toggle="collapse"
-								data-target="#collapseExample"
-								label="Enviar arquivo"
-								(uploadHandler)="onUpload($event)"
+								data-target="#new-annotation-collapse"
+								chooseLabel="Enviar arquivo"
+								(uploadHandler)="onUpload($event); upload.clear()"
 								[auto]="true"
 							></p-fileUpload>
 						</div>
@@ -59,63 +61,85 @@
 						class="btn btn-link mx-auto p-0 mb-4"
 						type="button"
 						data-toggle="collapse"
-						data-target="#collapseExample"
+						data-target="#new-annotation-collapse"
 					>
 						Nova anotação
 					</button>
 				</div>
 			</div>
+			<!-- NEW ANNOTATION -->
 
-			<div *ngFor="let annotation of annotations" class="mb-3">
-				<div class="mb-2">
-					<div class="shadow-sm rouded bg-lightblue fit-content mx-auto">
-						<span class="m-2 fit-content">{{
-							formatDate(annotation.createAt)
-						}}</span>
+			<!-- ANNOTATIONS -->
+			<div>
+				<!-- ANNOTATIONS LOADING -->
+				<div *ngIf="isLoading" class="row text-center mb-4">
+					<div class="mx-auto">
+						<div class="loader"></div>
 					</div>
 				</div>
-				<div>
-					<div class="card mb-2 bg-light">
-						<div class="card-title p-0 m-0">
-							<strong class="float-left pt-2 pl-3">{{
-								annotation.createdBy
-							}}</strong>
-							<div class="float-right">
-								<i
-									class="far fa-times delete-annotation float-right"
-									title="Excluir Anotação"
-									(click)="deleteAnnotation(annotation.id)"
-								></i>
+				<!-- ANNOTATIONS LOADING -->
+
+				<!-- ANNOTATIONS LOADING ENDED -->
+				<div *ngIf="!isLoading" class="row">
+					<!-- NO ANNOTATIONS FOUND -->
+					<div *ngIf="noAnnotation" class="mb-4 w-100">
+						<span class="w-100 mx-auto no-annotation-text">
+							Nenhuma anotação encontrada
+						</span>
+					</div>
+					<!-- NO ANNOTATIONS FOUND -->
+
+					<!-- ANNOTATIONS -->
+					<div *ngIf="!noAnnotation" class="pl-3 pr-3 w-100">
+						<div *ngFor="let annotation of annotations" class="mb-3">
+							<div class="mb-2">
+								<div class="shadow-sm rouded bg-lightblue fit-content mx-auto">
+									<span class="m-2 fit-content">{{
+										formatDate(annotation.createAt)
+									}}</span>
+								</div>
+							</div>
+							<div>
+								<div class="card mb-2 bg-light">
+									<div class="card-title p-0 m-0">
+										<strong class="float-left pt-2 pl-3">{{
+											annotation.createdBy
+										}}</strong>
+										<div class="float-right">
+											<i
+												class="far fa-times delete-annotation float-right"
+												title="Excluir Anotação"
+												(click)="deleteAnnotation(annotation.id)"
+											></i>
+										</div>
+									</div>
+									<div class="card-body pt-0 pb-2">
+										<div
+											*ngIf="!isFile(annotation.description)"
+											[(ngModel)]="annotation.description"
+											class="card-text"
+											propValueAccessor="innerHTML"
+											contenteditable="true"
+											(keyup)="editAnnotation(annotation)"
+										></div>
+										<a
+											*ngIf="isFile(annotation.description)"
+											[href]="annotation.description"
+											class="card-text"
+										>
+											{{ substrFileName(annotation.description) }}
+										</a>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="card-body pt-0 pb-2">
-							<!-- <div
-								[(ngModel)]="annotation.description"
-								class="card-text"
-								propValueAccessor="innerHTML"
-								contenteditable="true"
-								(keyup)="editAnnotation(annotation)"
-							></div> -->
-							<div
-								*ngIf="!isFile(annotation.description)"
-								[(ngModel)]="annotation.description"
-								class="card-text"
-								propValueAccessor="innerHTML"
-								contenteditable="true"
-								(keyup)="editAnnotation(annotation)"
-							></div>
-							<a
-								*ngIf="isFile(annotation.description)"
-								[href]="annotation.description"
-								class="card-text"
-							>
-								{{ substrFileName(annotation.description) }}
-							</a>
-						</div>
 					</div>
+					<!-- ANNOTATIONS -->
 				</div>
+				<!-- ANNOTATIONS LOADING ENDED -->
 			</div>
-			<!-- BODY -->
+			<!-- ANNOTATIONS -->
 		</div>
+		<!-- BODY -->
 	</div>
 </div>
