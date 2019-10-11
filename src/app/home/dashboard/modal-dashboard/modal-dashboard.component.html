@@ -52,6 +52,7 @@
 								data-toggle="collapse"
 								data-target="#new-annotation-collapse"
 								chooseLabel="Enviar arquivo"
+								maxFileSize="10000000"
 								(uploadHandler)="onUpload($event); upload.clear()"
 								[auto]="true"
 							></p-fileUpload>
@@ -106,22 +107,77 @@
 											annotation.createdBy
 										}}</strong>
 										<div class="float-right">
-											<i
+											<!-- <i
 												class="far fa-times delete-annotation float-right"
 												title="Excluir Anotação"
 												(click)="deleteAnnotation(annotation.id)"
+											></i> -->
+											<i
+												id="dropdownMenuButton"
+												class="far fa-ellipsis-v delete-annotation"
+												data-toggle="dropdown"
+												aria-haspopup="true"
+												aria-expanded="false"
 											></i>
+											<div
+												class="dropdown-menu"
+												aria-labelledby="dropdownMenuButton"
+											>
+												<a
+													*ngIf="!isFile(annotation.description)"
+													class="dropdown-item hover-cursor"
+													(click)="
+														annotation.contenteditable = true;
+														annotation.beforeEdit = annotation.description;
+														annotationDiv.focus()
+													"
+													>Editar</a
+												>
+												<a
+													class="dropdown-item hover-cursor"
+													(click)="deleteAnnotation(annotation.id)"
+													>Excluir</a
+												>
+											</div>
 										</div>
 									</div>
 									<div class="card-body pt-0 pb-2">
-										<div
-											*ngIf="!isFile(annotation.description)"
-											[(ngModel)]="annotation.description"
-											class="card-text"
-											propValueAccessor="innerHTML"
-											contenteditable="true"
-											(keyup)="editAnnotation(annotation)"
-										></div>
+										<div>
+											<div
+												#annotationDiv
+												*ngIf="!isFile(annotation.description)"
+												[ngClass]="{
+													'editable-div': !!annotation.contenteditable
+												}"
+												[(ngModel)]="annotation.description"
+												class="card-text"
+												propValueAccessor="innerHTML"
+												contenteditable="{{ !!annotation.contenteditable }}"
+											></div>
+											<div *ngIf="!!annotation.contenteditable">
+												<button
+													class="btn btn-link float-right"
+													type="button"
+													(click)="
+														editAnnotation(annotation);
+														annotation.contenteditable = false
+													"
+												>
+													Salvar
+												</button>
+												<button
+													class="btn btn-link float-right"
+													type="button"
+													(click)="
+														annotation.description = annotation.beforeEdit;
+														annotation.contenteditable = false
+													"
+												>
+													Cancelar
+												</button>
+											</div>
+										</div>
+
 										<a
 											*ngIf="isFile(annotation.description)"
 											[href]="annotation.description"
