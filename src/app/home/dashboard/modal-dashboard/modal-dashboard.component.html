@@ -16,7 +16,7 @@
 		<!-- HEADER -->
 
 		<!-- BODY -->
-		<div class="modal-body pb-2 pt-2">
+		<div class="modal-body pb-0 pt-2">
 			<!-- NEW ANNOTATION -->
 			<div class="container">
 				<div class="row">
@@ -73,7 +73,7 @@
 			<!-- ANNOTATIONS -->
 			<div>
 				<!-- ANNOTATIONS LOADING -->
-				<div *ngIf="isLoading" class="row text-center mb-4">
+				<div *ngIf="isLoading" class="row text-center mb-5">
 					<div class="mx-auto">
 						<div class="loader"></div>
 					</div>
@@ -83,7 +83,7 @@
 				<!-- ANNOTATIONS LOADING ENDED -->
 				<div *ngIf="!isLoading" class="row">
 					<!-- NO ANNOTATIONS FOUND -->
-					<div *ngIf="noAnnotation" class="mb-4 w-100">
+					<div *ngIf="noAnnotation" class="mb-4 w-100 text-center">
 						<span class="w-100 mx-auto no-annotation-text">
 							Nenhuma anotação encontrada
 						</span>
@@ -128,8 +128,7 @@
 													class="dropdown-item hover-cursor"
 													(click)="
 														annotation.contenteditable = true;
-														annotation.beforeEdit = annotation.description;
-														annotationDiv.focus()
+														annotation.beforeEdit = annotation.description
 													"
 													>Editar</a
 												>

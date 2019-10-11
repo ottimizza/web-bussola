@@ -40,15 +40,15 @@ export class HomeComponent implements OnInit {
 
 					that.requestKpis();
 				},
-				err => console.log(err)
+				err => {
+					that.authService.checkAndLogout();
+					console.log(err);
+				}
 			);
 		});
 	}
 
 	requestKpis() {
-		console.log('COMPANY');
-		console.log(this.selectedCompany);
-
 		this.lucro = undefined;
 		this.kpis = [];
 		this.isLoading = true;

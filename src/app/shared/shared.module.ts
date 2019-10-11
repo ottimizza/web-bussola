@@ -13,7 +13,8 @@ import {
 	MatSnackBarModule
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpErrorInterceptor } from './interceptor/http-error.interceptor';
 
 @NgModule({
 	declarations: [LoginComponent, LogoutComponent, MenuComponent],
@@ -30,6 +31,12 @@ import { HttpClientModule } from '@angular/common/http';
 		MatSnackBarModule
 	],
 	exports: [MenuComponent],
-	providers: []
+	providers: [
+		// {
+		// 	provide: HTTP_INTERCEPTORS,
+		// 	useClass: HttpErrorInterceptor,
+		// 	multi: true
+		// }
+	]
 })
 export class SharedModule {}

@@ -22,7 +22,7 @@ export class AuthService {
 			.subscribe((res: TokenObj) => {
 				this.setTokenExpirationDate(res.expires_in);
 				this.setTokens(res.access_token, res.refresh_token);
-				this.requestUsernameInfo();
+				this.requestUserInfo();
 			});
 	}
 
@@ -63,7 +63,35 @@ export class AuthService {
 			);
 	}
 
-	requestUsernameInfo() {
+	refreshTokenOnly() {
+		console.log('teste');
+
+		return new Promise(resolve => {
+			this.http
+				.post(
+					`${
+						AppComponent.appApi
+					}/oauth/refresh?refresh_token=${this.getRefreshToken()}&client_id=${
+						AppComponent.clientId
+					}`,
+					{}
+				)
+				.subscribe(
+					(res: TokenObj) => {
+						resolve();
+						this.setTokenExpirationDate(res.expires_in);
+						this.setTokens(res.access_token, res.refresh_token);
+						this.checkAndLogout();
+					},
+					err => {
+						console.log(err);
+						this.checkAndLogout();
+					}
+				);
+		});
+	}
+
+	requestUserInfo() {
 		const headers = new HttpHeaders().set(
 			'Authorization',
 			'Bearer ' + this.getToken()
@@ -74,6 +102,8 @@ export class AuthService {
 				headers
 			})
 			.subscribe((user: User) => {
+				console.log(user);
+
 				this.setUsername(user.principal.username);
 				this.router.navigate(['']);
 			});

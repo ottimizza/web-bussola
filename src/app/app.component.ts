@@ -38,10 +38,10 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		const userId = 'user001';
-		this.messagingService.requestPermission(userId);
-		this.messagingService.receiveMessage();
-		this.message = this.messagingService.currentMessage;
+		// const userId = 'user001';
+		// this.messagingService.requestPermission(userId);
+		// this.messagingService.receiveMessage();
+		// this.message = this.messagingService.currentMessage;
 
 		this.subscription = this.router.events
 			.pipe(filter(event => event instanceof NavigationEnd))
