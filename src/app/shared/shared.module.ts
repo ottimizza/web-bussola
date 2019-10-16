@@ -1,3 +1,4 @@
+import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { LogoutComponent } from './auth/logout.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MenuComponent } from './menu/menu.component';
@@ -14,7 +15,7 @@ import {
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpErrorInterceptor } from './interceptor/http-error.interceptor';
+import { HttpErrorInterceptor } from './helpers/http-error.interceptor';
 
 @NgModule({
 	declarations: [LoginComponent, LogoutComponent, MenuComponent],
@@ -32,11 +33,8 @@ import { HttpErrorInterceptor } from './interceptor/http-error.interceptor';
 	],
 	exports: [MenuComponent],
 	providers: [
-		// {
-		// 	provide: HTTP_INTERCEPTORS,
-		// 	useClass: HttpErrorInterceptor,
-		// 	multi: true
-		// }
+		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
 	]
 })
 export class SharedModule {}

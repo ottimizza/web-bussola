@@ -26,5 +26,5 @@ export class UploadService {
 	}
 
 	private noAuthHeaders = (): HttpHeaders =>
-		new HttpHeaders({ Authorization: this.authService.getToken() })
+		new HttpHeaders({ Authorization: this.authService.token })
 }

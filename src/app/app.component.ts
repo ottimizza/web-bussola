@@ -1,3 +1,5 @@
+import { Jwt } from './shared/models/jwt';
+import { AuthService } from './shared/auth/auth.service';
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { Router, NavigationEnd } from '@angular/router';
@@ -22,11 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	deferredPrompt: any;
 	showButton = false;
 
-	constructor(
-		private messagingService: MessagingService,
-		private router: Router,
-		private swUpdate: SwUpdate
-	) {}
+	constructor(private router: Router, private swUpdate: SwUpdate) {}
 
 	@HostListener('window:beforeinstallprompt', ['$event'])
 	onbeforeinstallprompt(e: any) {

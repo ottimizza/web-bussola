@@ -27,7 +27,6 @@ export class ModalDashboardComponent implements OnInit {
 		public linkifyService: NgxLinkifyjsService,
 		@Inject(MAT_DIALOG_DATA) public data: any,
 		private annotationService: AnnotationService,
-		private authService: AuthService,
 		private uploadService: UploadService,
 		private toast: ToastService
 	) {}
@@ -41,33 +40,27 @@ export class ModalDashboardComponent implements OnInit {
 	}
 
 	postAnnotation(description?: string) {
-		const that = this;
-		this.authService.checkTokenExpired(() => {
-			that.annotationService
-				.postAnnotation(
-					that.data.externalId,
-					that.data.kpiAlias,
-					description || that.description
-				)
-				.subscribe(res => {
-					that.requestAnnotations();
-				});
-		});
+		this.annotationService
+			.postAnnotation(
+				this.data.externalId,
+				this.data.kpiAlias,
+				description || this.description
+			)
+			.subscribe(res => {
+				this.requestAnnotations();
+			});
 	}
 
 	requestAnnotations() {
 		this.isLoading = true;
-		const that = this;
-		this.authService.checkTokenExpired(() => {
-			that.annotationService
-				.getAnnotations(that.data.externalId, that.data.kpiAlias)
-				.subscribe((annotations: []) => {
-					that.annotations = annotations;
-					that.description = '';
-					that.isLoading = false;
-					that.noAnnotation = !(annotations.length > 0);
-				});
-		});
+		this.annotationService
+			.getAnnotations(this.data.externalId, this.data.kpiAlias)
+			.subscribe((annotations: []) => {
+				this.annotations = annotations;
+				this.description = '';
+				this.isLoading = false;
+				this.noAnnotation = !(annotations.length > 0);
+			});
 	}
 
 	deleteAnnotation(id: number) {

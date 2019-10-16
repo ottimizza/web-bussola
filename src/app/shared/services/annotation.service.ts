@@ -1,3 +1,4 @@
+import { UserService } from './../user/user.service';
 import { AuthService } from './../auth/auth.service';
 import { AppComponent } from './../../app.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -6,12 +7,16 @@ import { debounceTime } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AnnotationService {
-	constructor(private http: HttpClient, private authService: AuthService) {}
+	constructor(
+		private http: HttpClient,
+		private authService: AuthService,
+		private userService: UserService
+	) {}
 
 	getAnnotations(externalId: string, kpiAlias: string) {
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + this.authService.getToken()
+			Authorization: 'Bearer ' + this.authService.token
 		});
 
 		return this.http.get(
@@ -23,15 +28,15 @@ export class AnnotationService {
 	postAnnotation(externalId: string, kpiAlias: string, description: string) {
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + this.authService.getToken()
+			Authorization: 'Bearer ' + this.authService.token
 		});
+		console.log(this.userService.currentUserValue.username);
 
 		return this.http.post(
 			`${AppComponent.appApi}/annotations`,
 			{
 				organizationId: externalId,
-				createAt: new Date(),
-				createdBy: this.authService.getUsername(),
+				createdBy: this.userService.currentUserValue.username,
 				kpiAlias,
 				description
 			},
@@ -42,7 +47,7 @@ export class AnnotationService {
 	deleteAnnotation(id: number) {
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + this.authService.getToken()
+			Authorization: 'Bearer ' + this.authService.token
 		});
 
 		return this.http.delete(`${AppComponent.appApi}/annotations/${id}`, {
@@ -53,7 +58,7 @@ export class AnnotationService {
 	patchAnnotation(annotation: any) {
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + this.authService.getToken()
+			Authorization: 'Bearer ' + this.authService.token
 		});
 
 		return this.http

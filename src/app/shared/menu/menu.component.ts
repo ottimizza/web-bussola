@@ -1,17 +1,10 @@
+import { UserService } from './../user/user.service';
 import { AppComponent } from './../../app.component';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-
-declare interface RouteInfo {
-	path: string;
-	title: string;
-	icon: string;
-	class: string;
-}
 
 export const ROUTES: RouteInfo[] = [
 	{ path: '/home', title: 'Home', icon: 'fal fa-home', class: '' }
@@ -27,6 +20,7 @@ export class MenuComponent implements OnInit {
 	menuItems: RouteInfo[];
 	profileUrl: string;
 	avatarUrl: string;
+	accountingLogoUrl?: string;
 
 	@ViewChild('drawer', { static: false }) drawer: ElementRef<MatSidenav>;
 
@@ -36,12 +30,23 @@ export class MenuComponent implements OnInit {
 
 	constructor(
 		private breakpointObserver: BreakpointObserver,
-		private router: Router
+		private userService: UserService
 	) {}
 
 	ngOnInit() {
-		this.avatarUrl = window.localStorage.getItem('avatar');
-		this.profileUrl = AppComponent.apiOauthService + '/profile';
+		this.avatarUrl = this.userService.currentUserValue.avatar;
+		this.accountingLogoUrl = this.userService.currentUserValue.organization.avatar;
+		this.profileUrl =
+			AppComponent.apiOauthService +
+			'/usuarios/' +
+			this.userService.currentUserValue.id;
 		this.menuItems = ROUTES.filter(menuItem => menuItem);
 	}
+}
+
+export interface RouteInfo {
+	path: string;
+	title: string;
+	icon: string;
+	class: string;
 }

@@ -3,7 +3,7 @@ import { MenuRoutes } from './shared/routes/menu.routes';
 import { MenuComponent } from './shared/menu/menu.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from './shared/auth/auth-guard.service';
+import { AuthGuard } from './shared/auth/auth.guard';
 import { LoginComponent } from './shared/auth/login.component';
 
 const routes: Routes = [

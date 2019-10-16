@@ -1,4 +1,4 @@
-import { AuthGuard } from './shared/auth/auth-guard.service';
+import { AuthGuard } from './shared/auth/auth.guard';
 import { SharedModule } from './shared/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';

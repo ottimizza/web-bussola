@@ -1,14 +1,17 @@
+import { UserService } from './../user/user.service';
 import { AppComponent } from '../../app.component';
 import { AuthService } from './auth.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { first } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-login',
 	template: ''
 })
 export class LoginComponent implements OnInit {
+	returnUrl: string;
 	localhost = false;
 
 	ottimizzaAuthServerDetails = {
@@ -23,7 +26,8 @@ export class LoginComponent implements OnInit {
 		@Inject(DOCUMENT) private document: Document,
 		private route: ActivatedRoute,
 		private authService: AuthService,
-		private router: Router
+		private router: Router,
+		private userService: UserService
 	) {}
 
 	ottimizza(responseType: string): void {
@@ -79,7 +83,19 @@ export class LoginComponent implements OnInit {
 	ngOnInit() {
 		this.route.queryParamMap.subscribe(queryParams => {
 			if (!!queryParams.get('code')) {
-				this.authService.authenticate(queryParams.get('code'));
+				this.authService
+					.authenticate(queryParams.get('code'))
+					.pipe(first())
+					.subscribe(
+						data => {
+							this.userService
+								.getUserInfo()
+								.pipe(first())
+								.subscribe(res => console.log(res), err => console.log(err));
+							this.router.navigate(['home']);
+						},
+						err => console.log(err)
+					);
 			} else {
 				this.login();
 			}

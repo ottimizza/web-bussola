@@ -10,7 +10,7 @@ export class CompanyService {
 	getCompanies() {
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + this.authService.getToken()
+			Authorization: 'Bearer ' + this.authService.token
 		});
 
 		return this.http.get(

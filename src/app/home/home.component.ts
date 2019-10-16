@@ -25,27 +25,23 @@ export class HomeComponent implements OnInit {
 
 	constructor(
 		private kpiService: KpiService,
-		private companyService: CompanyService,
-		private authService: AuthService
+		private companyService: CompanyService
 	) {}
 
 	ngOnInit(): void {
 		const that = this;
 
-		this.authService.checkTokenExpired(() => {
-			that.companyService.getCompanies().subscribe(
-				(response: any) => {
-					that.data = response.records;
-					that.selectedCompany = response.records[0];
+		that.companyService.getCompanies().subscribe(
+			(response: any) => {
+				that.data = response.records;
+				that.selectedCompany = response.records[0];
 
-					that.requestKpis();
-				},
-				err => {
-					that.authService.checkAndLogout();
-					console.log(err);
-				}
-			);
-		});
+				that.requestKpis();
+			},
+			err => {
+				console.log(err);
+			}
+		);
 	}
 
 	requestKpis() {
@@ -55,42 +51,38 @@ export class HomeComponent implements OnInit {
 
 		const that = this;
 
-		this.authService.checkTokenExpired(() => {
-			const cnpj = that.selectedCompany.cnpj;
+		const cnpj = that.selectedCompany.cnpj;
 
-			that.kpiService.getLucroAnual(cnpj).subscribe(
-				(lucro: Lucro) => {
-					that.lucro = lucro;
-				},
-				err => {
-					that.authService.checkAndLogout();
-					console.log(err);
-				}
-			);
+		that.kpiService.getLucroAnual(cnpj).subscribe(
+			(lucro: Lucro) => {
+				that.lucro = lucro;
+			},
+			err => {
+				console.log(err);
+			}
+		);
 
-			that.kpiService.getKpis(cnpj).subscribe(
-				(response: any) => {
-					response.data.findKpi.forEach((kpi: Kpi) => {
-						const kpiFormatado: KpiFormatado = that.formatKpi(kpi);
+		that.kpiService.getKpis(cnpj).subscribe(
+			(response: any) => {
+				response.data.findKpi.forEach((kpi: Kpi) => {
+					const kpiFormatado: KpiFormatado = that.formatKpi(kpi);
 
-						kpiFormatado.labelArray.splice(0, 0, 'Coluna');
+					kpiFormatado.labelArray.splice(0, 0, 'Coluna');
 
-						kpi.kpiDetail.forEach((detail: KpiDetail) => {
-							detail.valorArray.splice(0, 0, that.formatAxis(detail.columnX));
-							kpiFormatado.data.push(detail.valorArray);
-						});
-
-						that.kpis.push(kpiFormatado);
+					kpi.kpiDetail.forEach((detail: KpiDetail) => {
+						detail.valorArray.splice(0, 0, that.formatAxis(detail.columnX));
+						kpiFormatado.data.push(detail.valorArray);
 					});
 
-					that.checkKpis();
-				},
-				err => {
-					that.authService.checkAndLogout();
-					console.log(err);
-				}
-			);
-		});
+					that.kpis.push(kpiFormatado);
+				});
+
+				that.checkKpis();
+			},
+			err => {
+				console.log(err);
+			}
+		);
 	}
 
 	checkKpis() {

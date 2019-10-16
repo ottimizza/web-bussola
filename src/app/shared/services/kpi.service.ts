@@ -27,7 +27,7 @@ export class KpiService {
 	getLucroAnual(cnpj: string) {
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + this.authService.getToken()
+			Authorization: 'Bearer ' + this.authService.token
 		});
 
 		return this.http.get(
@@ -41,7 +41,7 @@ export class KpiService {
 	requestGraphql(body: any) {
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + this.authService.getToken()
+			Authorization: 'Bearer ' + this.authService.token
 		});
 
 		return this.http.post(`${AppComponent.appApi}/graphql`, body, { headers });
