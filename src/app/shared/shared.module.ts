@@ -1,4 +1,3 @@
-import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { LogoutComponent } from './auth/logout.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MenuComponent } from './menu/menu.component';
@@ -33,7 +32,6 @@ import { HttpErrorInterceptor } from './helpers/http-error.interceptor';
 	],
 	exports: [MenuComponent],
 	providers: [
-		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
 	]
 })

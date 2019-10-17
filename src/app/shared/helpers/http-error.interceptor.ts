@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import {
 	HttpEvent,
 	HttpInterceptor,
@@ -11,7 +12,11 @@ import { AuthService } from '../auth/auth.service';
 import { ToastService } from '../services/toast.service';
 
 export class HttpErrorInterceptor implements HttpInterceptor {
-	constructor(private authService: AuthService, private toast: ToastService) {}
+	constructor(
+		private authService: AuthService,
+		private toast: ToastService,
+		private router: Router
+	) {}
 
 	intercept(
 		request: HttpRequest<any>,
@@ -22,9 +27,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 			catchError((error: HttpErrorResponse) => {
 				if (error.status === 401) {
 					this.toast.show('Re-autenticando...', 'primary');
-					this.authService.refreshAccessToken().then(() => {
-						window.location.href = 'login';
-					});
+					setTimeout(() => {
+						this.authService.refreshAccessToken();
+					}, 100);
 				}
 				let errorMessage = '';
 				if (error.error instanceof ErrorEvent) {
@@ -34,6 +39,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 					// server-side error
 					errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
 				}
+
+				console.log(error);
+
 				return throwError(errorMessage);
 			})
 		);

@@ -16,10 +16,7 @@ export class AuthService {
 	private currentJwtSubject: BehaviorSubject<Jwt>;
 	public currentJwt: Observable<Jwt>;
 
-	constructor(
-		private http: HttpClient,
-		private router: Router
-	) {
+	constructor(private http: HttpClient, private router: Router) {
 		this.currentJwtSubject = new BehaviorSubject<Jwt>(
 			JSON.parse(localStorage.getItem('jwt'))
 		);
@@ -61,24 +58,32 @@ export class AuthService {
 	}
 
 	refreshAccessToken() {
-		return new Promise(resolve => {
-			this.http
-				.post(
-					`${AppComponent.appApi}/oauth/refresh?refresh_token=${this.refreshToken}&client_id=${AppComponent.clientId}`,
-					{}
-				)
-				.subscribe(
-					(res: Jwt) => {
-						resolve();
-						this.setTokens(res.access_token, res.refresh_token);
-						this.checkAndLogout();
-					},
-					err => {
-						console.log(err);
-						this.logout();
+		this.http
+			.post(
+				`${AppComponent.appApi}/oauth/refresh?refresh_token=${this.refreshToken}&client_id=${AppComponent.clientId}`,
+				{}
+			)
+			.pipe(
+				map((jwt: Jwt) => {
+					localStorage.setItem('jwt', JSON.stringify(jwt));
+					this.currentJwtSubject.next(jwt);
+					return jwt;
+				})
+			)
+			.pipe(first())
+			.subscribe(
+				(res: any) => {
+					if (!res.error) {
+						window.location.reload();
+					} else {
+						this.router.navigate(['login']);
 					}
-				);
-		});
+				},
+				err => {
+					console.log(err);
+					this.router.navigate(['login']);
+				}
+			);
 	}
 
 	setTokens(token: string, refreshToken: string) {

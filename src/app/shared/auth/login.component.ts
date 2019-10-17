@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit {
 								.getUserInfo()
 								.pipe(first())
 								.subscribe(res => console.log(res), err => console.log(err));
-							this.router.navigate(['home']);
+							this.router.navigate(['']);
 						},
 						err => console.log(err)
 					);
