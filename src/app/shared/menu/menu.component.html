@@ -66,6 +66,7 @@
 		<mat-nav-list>
 			<div *ngFor="let menuItem of menuItems; let i = index">
 				<div
+					*ngIf="userPermissionLevel >= menuItem.permissonLevelNeeded"
 					class="item outline-none w-100"
 					[routerLink]="[menuItem.path]"
 					routerLinkActive="selected-item"

@@ -1,4 +1,3 @@
-import { Router } from '@angular/router';
 import {
 	HttpEvent,
 	HttpInterceptor,
@@ -12,11 +11,7 @@ import { AuthService } from '../auth/auth.service';
 import { ToastService } from '../services/toast.service';
 
 export class HttpErrorInterceptor implements HttpInterceptor {
-	constructor(
-		private authService: AuthService,
-		private toast: ToastService,
-		private router: Router
-	) {}
+	constructor(private authService: AuthService, private toast: ToastService) {}
 
 	intercept(
 		request: HttpRequest<any>,

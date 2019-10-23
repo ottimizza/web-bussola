@@ -1,5 +1,5 @@
 <p-dropdown
-	[options]="data"
+	[options]="companies"
 	[(ngModel)]="selectedCompany"
 	optionLabel="name"
 	autoDisplayFirst="true"
@@ -16,6 +16,7 @@
 		<span style="vertical-align:middle">{{ company.value.cnpj }}</span>
 	</ng-template>
 </p-dropdown>
+
 <app-dashboard
 	[lucro]="lucro"
 	[kpis]="kpis"

@@ -1,11 +1,8 @@
-import { Jwt } from './shared/models/jwt';
-import { AuthService } from './shared/auth/auth.service';
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { SwUpdate } from '@angular/service-worker';
-import { MessagingService } from './shared/services/messaging.service';
 
 @Component({
 	selector: 'app-root',

@@ -7,8 +7,20 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 export const ROUTES: RouteInfo[] = [
-	{ path: '/home', title: 'Home', icon: 'fal fa-home', class: '' }
-	// { path: '/variables', title: 'Variaveis', icon: 'fal fa-home', class: '' }
+	{
+		path: '/home',
+		title: 'Home',
+		icon: 'fal fa-home',
+		class: '',
+		permissonLevelNeeded: 0
+	},
+	{
+		path: '/variables',
+		title: 'Variaveis',
+		icon: 'fal fa-th-list',
+		class: '',
+		permissonLevelNeeded: 0
+	}
 ];
 
 @Component({
@@ -19,8 +31,9 @@ export const ROUTES: RouteInfo[] = [
 export class MenuComponent implements OnInit {
 	menuItems: RouteInfo[];
 	profileUrl: string;
-	avatarUrl: string;
+	avatarUrl?: string;
 	accountingLogoUrl?: string;
+	userPermissionLevel: number;
 
 	@ViewChild('drawer', { static: false }) drawer: ElementRef<MatSidenav>;
 
@@ -36,6 +49,7 @@ export class MenuComponent implements OnInit {
 	ngOnInit() {
 		this.avatarUrl = this.userService.currentUserValue.avatar;
 		this.accountingLogoUrl = this.userService.currentUserValue.organization.avatar;
+		this.userPermissionLevel = this.userService.currentUserValue.type;
 		this.profileUrl =
 			AppComponent.apiOauthService +
 			'/usuarios/' +
@@ -49,4 +63,5 @@ export interface RouteInfo {
 	title: string;
 	icon: string;
 	class: string;
+	permissonLevelNeeded: number;
 }

@@ -1,5 +1,4 @@
 import { Lucro } from './../shared/models/lucro';
-import { AuthService } from './../shared/auth/auth.service';
 import { KpiDetail } from './../shared/models/kpi-detail';
 import { Company } from './../shared/models/company';
 import { Component, OnInit } from '@angular/core';
@@ -15,7 +14,7 @@ const dataRegex = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i
 	styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-	data: Company[];
+	companies: Company[];
 	selectedCompany: Company;
 
 	lucro: Lucro;
@@ -33,9 +32,8 @@ export class HomeComponent implements OnInit {
 
 		that.companyService.getCompanies().subscribe(
 			(response: any) => {
-				that.data = response.records;
-				that.selectedCompany = response.records[0];
-
+				that.companies = response.records;
+				that.selectedCompany = that.companies[0];
 				that.requestKpis();
 			},
 			err => {
@@ -50,7 +48,6 @@ export class HomeComponent implements OnInit {
 		this.isLoading = true;
 
 		const that = this;
-
 		const cnpj = that.selectedCompany.cnpj;
 
 		that.kpiService.getLucroAnual(cnpj).subscribe(
@@ -115,7 +112,6 @@ export class HomeComponent implements OnInit {
 	}
 
 	logSomething(thing: any) {
-		console.log(thing);
 		return thing;
 	}
 }
