@@ -1,25 +1,29 @@
-<p-table [columns]="cols" [value]="variables">
-	<ng-template pTemplate="header" let-columns>
+<table class="table">
+	<thead>
 		<tr>
-			<th>Nome</th>
-			<th>Valor</th>
+			<th scope="col">Nome</th>
+			<th scope="col">
+				<div>
+					<div>
+						<span>Contas Relacionadas </span>
+						<!-- <i class="fad fa-question-circle"></i> -->
+					</div>
+				</div>
+			</th>
 		</tr>
-	</ng-template>
-	<ng-template pTemplate="body" let-rowData let-columns="columns">
-		<tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let variable of variables">
+			<td>{{ variable.name }}</td>
 			<td>
-				{{ rowData.name }}
-			</td>
-			<td pEditableColumn>
-				<p-cellEditor>
-					<ng-template pTemplate="input">
-						<input type="text" [(ngModel)]="rowData.accountingCode" />
-					</ng-template>
-					<ng-template pTemplate="output">
-						{{ rowData.accountingCode }}
-					</ng-template>
-				</p-cellEditor>
+				<input
+					class="input-accounting-code"
+					type="text"
+					(keyup)="onVarEdited(variable)"
+					[(ngModel)]="variable.accountingCode"
+					ng-pattern=""
+				/>
 			</td>
 		</tr>
-	</ng-template>
-</p-table>
+	</tbody>
+</table>

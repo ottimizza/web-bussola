@@ -5,7 +5,7 @@
 	autoDisplayFirst="true"
 	filter="true"
 	filterBy="name,cnpj"
-	(onChange)="requestVariables()"
+	(onChange)="onCompanyChanged()"
 >
 	<ng-template let-item pTemplate="selectedItem">
 		<span style="vertical-align:middle">{{ item.label }}</span>
@@ -17,4 +17,7 @@
 	</ng-template>
 </p-dropdown>
 
-<app-company-var-list [variables]="variables"></app-company-var-list>
+<app-company-var-list
+	[variables]="variables"
+	[selectedCompany]="selectedCompany"
+></app-company-var-list>
