@@ -6,7 +6,11 @@
 				<div>
 					<div>
 						<span>Contas Relacionadas </span>
-						<!-- <i class="fad fa-question-circle"></i> -->
+						<i
+							class="fad fa-question-circle question-mark"
+							matTooltip="Caracteres permitidos: '0-9', '+', '-', '*' e '/'. Além de contas únicas também são aceitos cálculos simples. Exemplo: 4.7+3.8"
+							[matTooltipPosition]="'below'"
+						></i>
 					</div>
 				</div>
 			</th>
@@ -19,9 +23,8 @@
 				<input
 					class="input-accounting-code"
 					type="text"
-					(keyup)="onVarEdited(variable)"
+					(input)="onVarEdited(variable)"
 					[(ngModel)]="variable.accountingCode"
-					ng-pattern=""
 				/>
 			</td>
 		</tr>

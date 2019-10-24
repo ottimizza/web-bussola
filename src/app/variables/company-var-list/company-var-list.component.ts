@@ -1,11 +1,10 @@
 import { ToastService } from './../../shared/services/toast.service';
 import { VariablesService } from './../../shared/services/variables.service';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 import { Company } from './../../shared/models/company';
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { VariableInfo } from 'src/app/shared/models/variables';
 import { Subject } from 'rxjs';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
 	selector: 'app-company-var-list',
@@ -16,9 +15,13 @@ export class CompanyVarListComponent implements OnInit {
 	@Input() variables: VariableInfo[];
 	@Input() selectedCompany: Company;
 
-	source: any;
+	regexStr = /(\d)|(\.)|(\+)|(\-)|(\*)|(\/)/;
 
 	private variableSubject = new Subject<VariableInfo>();
+
+	@HostListener('keypress', ['$event']) onKeyPress(event: any) {
+		return new RegExp(this.regexStr).test(event.key);
+	}
 
 	constructor(
 		private variablesService: VariablesService,
@@ -37,7 +40,7 @@ export class CompanyVarListComponent implements OnInit {
 
 	updateVariable(variableInfo: VariableInfo) {
 		this.variablesService
-			.postVariable(variableInfo)
+			.postVariable(variableInfo, this.selectedCompany.id)
 			.subscribe(
 				res => this.toastService.show('Código alterado com sucesso'),
 				() =>

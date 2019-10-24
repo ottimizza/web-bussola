@@ -1,3 +1,4 @@
+import { Company } from './../models/company';
 import { VariableInfo } from 'src/app/shared/models/variables';
 import { AppComponent } from 'src/app/app.component';
 import { AuthService } from './../auth/auth.service';
@@ -25,12 +26,12 @@ export class VariablesService {
 		);
 	}
 
-	postVariable(variableInfo: VariableInfo) {
+	postVariable(variableInfo: VariableInfo, companyId?: number) {
 		return this.httpClient.post(
 			`${AppComponent.appApi}/variables/organization`,
 			{
 				id: variableInfo.id,
-				organizationId: variableInfo.organizationId,
+				organizationId: variableInfo.organizationId || companyId,
 				variableId: variableInfo.variableId,
 				accountingCode: variableInfo.accountingCode
 			},

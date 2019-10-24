@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { VariablesRoutingModule } from './variables-routing.module';
 import { VariablesComponent } from './variables.component';
 import { TableModule } from 'primeng/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
 	declarations: [VariablesComponent, CompanyVarListComponent],
@@ -14,7 +15,8 @@ import { TableModule } from 'primeng/table';
 		FormsModule,
 		DropdownModule,
 		VariablesRoutingModule,
-		TableModule
+		TableModule,
+		MatTooltipModule
 	],
 	exports: [],
 	providers: []
