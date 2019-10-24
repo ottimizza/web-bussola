@@ -14,24 +14,13 @@ export class AnnotationService {
 	) {}
 
 	getAnnotations(externalId: string, kpiAlias: string) {
-		const headers = new HttpHeaders({
-			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + this.authService.token
-		});
-
 		return this.http.get(
 			`${AppComponent.appApi}/annotations?organizationId=${externalId}&kpiAlias=${kpiAlias}`,
-			{ headers }
+			{ headers: this.authService.headers() }
 		);
 	}
 
 	postAnnotation(externalId: string, kpiAlias: string, description: string) {
-		const headers = new HttpHeaders({
-			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + this.authService.token
-		});
-		console.log(this.userService.currentUserValue.username);
-
 		return this.http.post(
 			`${AppComponent.appApi}/annotations`,
 			{
@@ -40,33 +29,23 @@ export class AnnotationService {
 				kpiAlias,
 				description
 			},
-			{ headers }
+			{ headers: this.authService.headers() }
 		);
 	}
 
 	deleteAnnotation(id: number) {
-		const headers = new HttpHeaders({
-			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + this.authService.token
-		});
-
 		return this.http.delete(`${AppComponent.appApi}/annotations/${id}`, {
-			headers
+			headers: this.authService.headers()
 		});
 	}
 
 	patchAnnotation(annotation: any) {
-		const headers = new HttpHeaders({
-			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + this.authService.token
-		});
-
 		return this.http
 			.patch(
 				`${AppComponent.appApi}/annotations/${annotation.id}`,
 				annotation,
 				{
-					headers
+					headers: this.authService.headers()
 				}
 			)
 			.pipe(debounceTime(10000));

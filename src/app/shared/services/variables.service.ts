@@ -1,8 +1,7 @@
-import { Company } from './../models/company';
 import { VariableInfo } from 'src/app/shared/models/variables';
 import { AppComponent } from 'src/app/app.component';
 import { AuthService } from './../auth/auth.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
@@ -15,14 +14,14 @@ export class VariablesService {
 	requestCompanyVariables(companyId: number) {
 		return this.httpClient.get(
 			`${AppComponent.appApi}/variables/organization/byCompany/${companyId}`,
-			{ headers: this.headers() }
+			{ headers: this.authService.headers() }
 		);
 	}
 
 	requestMissingVariables(companyId: number) {
 		return this.httpClient.get(
 			`${AppComponent.appApi}/variables/organization/missing/${companyId}`,
-			{ headers: this.headers() }
+			{ headers: this.authService.headers() }
 		);
 	}
 
@@ -35,13 +34,7 @@ export class VariablesService {
 				variableId: variableInfo.variableId,
 				accountingCode: variableInfo.accountingCode
 			},
-			{ headers: this.headers() }
+			{ headers: this.authService.headers() }
 		);
 	}
-
-	private headers = (): HttpHeaders =>
-		new HttpHeaders({
-			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + this.authService.token
-		});
 }

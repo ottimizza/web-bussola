@@ -1,7 +1,7 @@
 import { UserService } from './../user/user.service';
 import { Jwt } from './../models/jwt';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -22,6 +22,13 @@ export class AuthService {
 		);
 		this.currentJwt = this.currentJwtSubject.asObservable();
 	}
+
+	public headers = (): HttpHeaders => {
+		return new HttpHeaders({
+			'Content-Type': 'application/json',
+			Authorization: 'Bearer ' + this.token
+		});
+	};
 
 	public get currentJwtValue(): Jwt {
 		return this.currentJwtSubject.value;

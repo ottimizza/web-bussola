@@ -8,14 +8,9 @@ export class CompanyService {
 	constructor(private http: HttpClient, private authService: AuthService) {}
 
 	getCompanies() {
-		const headers = new HttpHeaders({
-			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + this.authService.token
-		});
-
 		return this.http.get(
 			`${AppComponent.apiOauthService}/api/v1/organizations?page_size=10&page_index=0`,
-			{ headers }
+			{ headers: this.authService.headers() }
 		);
 	}
 }

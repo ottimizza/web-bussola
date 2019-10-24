@@ -25,25 +25,17 @@ export class KpiService {
 	}
 
 	getLucroAnual(cnpj: string) {
-		const headers = new HttpHeaders({
-			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + this.authService.token
-		});
-
 		return this.http.get(
 			`${AppComponent.appApi}/kpi/gain/${cnpj.replace(/\D/g, '')}`,
 			{
-				headers
+				headers: this.authService.headers()
 			}
 		);
 	}
 
 	requestGraphql(body: any) {
-		const headers = new HttpHeaders({
-			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + this.authService.token
+		return this.http.post(`${AppComponent.appApi}/graphql`, body, {
+			headers: this.authService.headers()
 		});
-
-		return this.http.post(`${AppComponent.appApi}/graphql`, body, { headers });
 	}
 }
