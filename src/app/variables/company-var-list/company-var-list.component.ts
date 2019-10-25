@@ -2,7 +2,13 @@ import { ToastService } from './../../shared/services/toast.service';
 import { VariablesService } from './../../shared/services/variables.service';
 import { debounceTime } from 'rxjs/operators';
 import { Company } from './../../shared/models/company';
-import { Component, OnInit, Input, HostListener } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	Input,
+	HostListener,
+	OnChanges
+} from '@angular/core';
 import { VariableInfo } from 'src/app/shared/models/variables';
 import { Subject } from 'rxjs';
 
@@ -15,7 +21,11 @@ export class CompanyVarListComponent implements OnInit {
 	@Input() variables: VariableInfo[];
 	@Input() selectedCompany: Company;
 
+	accountingId: number;
+
 	regexStr = /(\d)|(\.)|(\+)|(\-)|(\*)|(\/)/;
+	isContabilidade =
+		window.location.href.indexOf('variaveis/contabilidade') >= 0;
 
 	private variableSubject = new Subject<VariableInfo>();
 
@@ -29,6 +39,13 @@ export class CompanyVarListComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
+		if (this.isContabilidade) {
+			this.variablesService
+				.requestAccountingVariables()
+				.subscribe((res: VariableInfo[]) => {
+					this.variables = res;
+				});
+		}
 		this.variableSubject
 			.pipe(debounceTime(300))
 			.subscribe((term: VariableInfo) => this.updateVariable(term));
@@ -39,12 +56,20 @@ export class CompanyVarListComponent implements OnInit {
 	}
 
 	updateVariable(variableInfo: VariableInfo) {
-		this.variablesService
-			.postVariable(variableInfo, this.selectedCompany.id)
-			.subscribe(
-				res => this.toastService.show('Código alterado com sucesso'),
-				() =>
-					this.toastService.show('Erro ao alterar código da conta', 'danger')
-			);
+		if (this.isContabilidade) {
+			this.variablesService
+				.postOrganizationVariable(variableInfo)
+				.subscribe(
+					res => this.toastService.show('Parâmetro alterado com sucesso'),
+					() => this.toastService.show('Erro ao alterar parâmetro', 'danger')
+				);
+		} else {
+			this.variablesService
+				.postVariable(variableInfo, this.selectedCompany.id)
+				.subscribe(
+					res => this.toastService.show('Parâmetro alterado com sucesso'),
+					() => this.toastService.show('Erro ao alterar parâmetro', 'danger')
+				);
+		}
 	}
 }

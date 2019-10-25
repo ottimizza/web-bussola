@@ -6,6 +6,4 @@ export interface VariableInfo {
 	variableId: number;
 	organizationId?: number;
 	accountingCode: string;
-	isDefault?: boolean;
-	newAccountingCode?: string;
 }

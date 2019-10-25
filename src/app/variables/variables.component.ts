@@ -3,7 +3,6 @@ import { VariablesService } from './../shared/services/variables.service';
 import { CompanyService } from './../shared/services/company.service';
 import { Component, OnInit } from '@angular/core';
 import { Company } from '../shared/models/company';
-import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-variables',
@@ -48,12 +47,7 @@ export class VariablesComponent implements OnInit {
 		this.variablesService
 			.requestMissingVariables(this.selectedCompany.id)
 			.subscribe((res: VariableInfo[]) => {
-				this.variables = this.variables.concat(
-					res.map((varInfo: VariableInfo) => {
-						varInfo.isDefault = true;
-						return varInfo;
-					})
-				);
+				this.variables = this.variables.concat(res);
 			});
 	}
 

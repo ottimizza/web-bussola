@@ -8,18 +8,25 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 export const ROUTES: RouteInfo[] = [
 	{
-		path: '/home',
-		title: 'Home',
-		icon: 'fal fa-home',
+		path: '/indicadores',
+		title: 'Indicadores',
+		icon: 'fal fa-analytics',
 		class: '',
-		permissonLevelNeeded: 0
+		permissonLevelNeeded: 2
 	},
 	{
-		path: '/variables',
-		title: 'Variaveis',
+		path: '/variaveis/contabilidade',
+		title: 'Parâmetros da contabilidade',
 		icon: 'fal fa-th-list',
 		class: '',
-		permissonLevelNeeded: 0
+		permissonLevelNeeded: 1
+	},
+	{
+		path: '/variaveis/clientes',
+		title: 'Parâmetros dos clientes',
+		icon: 'fal fa-th-list',
+		class: '',
+		permissonLevelNeeded: 2
 	}
 ];
 
