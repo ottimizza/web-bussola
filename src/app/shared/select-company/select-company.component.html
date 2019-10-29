@@ -1,11 +1,10 @@
 <p-dropdown
 	[options]="companies"
-	[(ngModel)]="selectedCompany"
 	optionLabel="name"
 	autoDisplayFirst="true"
 	filter="true"
 	filterBy="name,cnpj"
-	(onChange)="requestKpis()"
+	(onChange)="onCompanyChanged($event)"
 >
 	<ng-template let-item pTemplate="selectedItem">
 		<span style="vertical-align:middle">{{ item.label }}</span>
@@ -16,11 +15,3 @@
 		<span style="vertical-align:middle">{{ company.value.cnpj }}</span>
 	</ng-template>
 </p-dropdown>
-
-<app-dashboard
-	[lucro]="lucro"
-	[kpis]="kpis"
-	[noKpis]="noKpi"
-	[isLoading]="isLoading"
-	[externalId]="selectedCompany?.externalId"
-></app-dashboard>

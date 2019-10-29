@@ -1,7 +1,7 @@
 import { UserService } from './../user/user.service';
 import { AuthService } from './../auth/auth.service';
 import { AppComponent } from './../../app.component';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { debounceTime } from 'rxjs/operators';
 

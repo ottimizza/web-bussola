@@ -1,6 +1,5 @@
 import { AppComponent } from './../../../app.component';
 import { UploadService } from './../../../shared/services/upload.service';
-import { AuthService } from './../../../shared/auth/auth.service';
 import { AnnotationService } from './../../../shared/services/annotation.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';

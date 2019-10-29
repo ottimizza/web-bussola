@@ -1,4 +1,7 @@
-import { CompanyVarListComponent } from './company-var-list/company-var-list.component';
+import { SharedModule } from './../shared/shared.module';
+import { CompanyVariablesComponent } from './company-variables/company-variables.component';
+import { OrganizationVariablesComponent } from './organization-variables/organization-variables.component';
+import { VarListComponent } from './var-list/var-list.component';
 import { CommonModule } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
@@ -9,16 +12,22 @@ import { TableModule } from 'primeng/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
-	declarations: [VariablesComponent, CompanyVarListComponent],
+	declarations: [
+		VariablesComponent,
+		VarListComponent,
+		OrganizationVariablesComponent,
+		CompanyVariablesComponent
+	],
 	imports: [
 		CommonModule,
 		FormsModule,
 		DropdownModule,
 		VariablesRoutingModule,
 		TableModule,
-		MatTooltipModule
+		MatTooltipModule,
+		SharedModule
 	],
-	exports: [],
+	exports: [VarListComponent],
 	providers: []
 })
 export class VariablesModule {}

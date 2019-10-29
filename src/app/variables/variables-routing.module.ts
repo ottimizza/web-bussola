@@ -1,17 +1,19 @@
-import { CompanyVarListComponent } from './company-var-list/company-var-list.component';
+import { OrganizationVariablesComponent } from './organization-variables/organization-variables.component';
+import { CompanyVariablesComponent } from './company-variables/company-variables.component';
 import { VariablesComponent } from './variables.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
 	{
-		path: 'clientes',
-		component: VariablesComponent,
-		children: []
+		path: 'company',
+		pathMatch: 'full',
+		component: CompanyVariablesComponent
 	},
 	{
-		path: 'contabilidade',
-		component: CompanyVarListComponent
+		path: 'organization',
+		pathMatch: 'full',
+		component: OrganizationVariablesComponent
 	}
 ];
 

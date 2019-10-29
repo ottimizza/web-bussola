@@ -1,4 +1,4 @@
-<table class="table">
+<table *ngIf="variables.length > 0" class="table">
 	<thead>
 		<tr>
 			<th scope="col">Parâmetro</th>
@@ -30,3 +30,5 @@
 		</tr>
 	</tbody>
 </table>
+
+<div *ngIf="variables.length === 0"></div>

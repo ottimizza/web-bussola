@@ -15,18 +15,18 @@ export const ROUTES: RouteInfo[] = [
 		permissonLevelNeeded: 2
 	},
 	{
-		path: '/variaveis/contabilidade',
+		path: '/variables/organization',
 		title: 'Parâmetros da contabilidade',
 		icon: 'fal fa-th-list',
 		class: '',
 		permissonLevelNeeded: 1
 	},
 	{
-		path: '/variaveis/clientes',
+		path: '/variables/company',
 		title: 'Parâmetros dos clientes',
 		icon: 'fal fa-th-list',
 		class: '',
-		permissonLevelNeeded: 2
+		permissonLevelNeeded: 1
 	}
 ];
 
