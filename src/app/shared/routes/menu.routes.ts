@@ -5,8 +5,8 @@ export const MenuRoutes: Routes = [
 		loadChildren: () => import('../../home/home.module').then(m => m.HomeModule)
 	},
 	{
-		path: 'variables',
+		path: 'options',
 		loadChildren: () =>
-			import('../../variables/variables.module').then(m => m.VariablesModule)
+			import('../../options/options.module').then(m => m.OptionsModule)
 	}
 ];

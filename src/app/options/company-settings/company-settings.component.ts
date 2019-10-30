@@ -1,15 +1,15 @@
-import { ToastService } from './../../shared/services/toast.service';
+import { ToastService } from '../../shared/services/toast.service';
 import { VariableService } from '../../shared/services/variable.service';
-import { VariableInfo } from './../../shared/models/variables';
-import { Company } from './../../shared/models/company';
+import { VariableInfo } from '../../shared/models/variables';
+import { Company } from '../../shared/models/company';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-	selector: 'app-company-variables',
-	templateUrl: 'company-variables.component.html',
-	styleUrls: ['company-variables.component.scss']
+	selector: 'app-company-settings',
+	templateUrl: 'company-settings.component.html',
+	styleUrls: ['company-settings.component.scss']
 })
-export class CompanyVariablesComponent implements OnInit {
+export class CompanySettingsComponent implements OnInit {
 	selectedCompany: Company;
 	variables: VariableInfo[] = [];
 
@@ -19,13 +19,6 @@ export class CompanyVariablesComponent implements OnInit {
 	) {}
 
 	ngOnInit() {}
-
-	onCompanyChanged(selectedCompany: Company) {
-		this.selectedCompany = selectedCompany;
-		this.variables = [];
-		this.requestVariables();
-		this.requestMissingVariables();
-	}
 
 	requestVariables() {
 		this.variableService
@@ -41,6 +34,13 @@ export class CompanyVariablesComponent implements OnInit {
 			.subscribe((res: VariableInfo[]) => {
 				this.variables = this.variables.concat(res);
 			});
+	}
+
+	onCompanyChanged(selectedCompany: Company) {
+		this.selectedCompany = selectedCompany;
+		this.variables = [];
+		this.requestVariables();
+		this.requestMissingVariables();
 	}
 
 	onVariableEdited(variableInfo: VariableInfo) {

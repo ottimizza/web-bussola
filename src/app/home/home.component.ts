@@ -4,114 +4,78 @@ import { Company } from './../shared/models/company';
 import { Component, OnInit } from '@angular/core';
 import { KpiService } from '../shared/services/kpi.service';
 import { Kpi, KpiFormatado } from '../shared/models/kpi';
-import { CompanyService } from '../shared/services/company.service';
 
-const dataRegex = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i;
+const dateRegex = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i;
 
 @Component({
 	selector: 'app-home',
 	templateUrl: './home.component.html',
 	styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 	companies: Company[];
 	selectedCompany: Company;
 
 	lucro: Lucro;
 	kpis: KpiFormatado[] = [];
-	noKpi = false;
 	isLoading = true;
 
-	constructor(
-		private kpiService: KpiService,
-		private companyService: CompanyService
-	) {}
-
-	ngOnInit(): void {
-		const that = this;
-
-		that.companyService.getCompanies().subscribe(
-			(response: any) => {
-				that.companies = response.records;
-				that.selectedCompany = that.companies[0];
-				that.requestKpis();
-			},
-			err => {
-				console.log(err);
-			}
-		);
-	}
+	constructor(private kpiService: KpiService) {}
 
 	requestKpis() {
+		this.isLoading = true;
 		this.lucro = undefined;
 		this.kpis = [];
-		this.isLoading = true;
 
-		const that = this;
-		const cnpj = that.selectedCompany.cnpj;
-
-		that.kpiService.getLucroAnual(cnpj).subscribe(
+		this.kpiService.getLucroAnual(this.selectedCompany.cnpj).subscribe(
 			(lucro: Lucro) => {
-				that.lucro = lucro;
+				this.lucro = lucro;
 			},
 			err => {
 				console.log(err);
 			}
 		);
 
-		that.kpiService.getKpis(cnpj).subscribe(
+		this.kpiService.getKpis(this.selectedCompany.cnpj).subscribe(
 			(response: any) => {
 				response.data.findKpi.forEach((kpi: Kpi) => {
-					const kpiFormatado: KpiFormatado = that.formatKpi(kpi);
+					const kpiFormatado: KpiFormatado = {
+						id: kpi.id,
+						kpiAlias: kpi.kpiAlias,
+						title: kpi.title,
+						chartType: kpi.chartType,
+						labelArray: kpi.labelArray,
+						chartOptions: JSON.parse(kpi.chartOptions),
+						data: []
+					};
 
 					kpiFormatado.labelArray.splice(0, 0, 'Coluna');
 
 					kpi.kpiDetail.forEach((detail: KpiDetail) => {
-						detail.valorArray.splice(0, 0, that.formatAxis(detail.columnX));
+						detail.valorArray.splice(0, 0, this.formatAxis(detail.columnX));
 						kpiFormatado.data.push(detail.valorArray);
 					});
 
-					that.kpis.push(kpiFormatado);
+					this.kpis.push(kpiFormatado);
 				});
-
-				that.checkKpis();
 			},
 			err => {
 				console.log(err);
-			}
+			},
+			() => (this.isLoading = false)
 		);
 	}
 
-	checkKpis() {
-		if (this.kpis[0]) {
-			this.noKpi = false;
-		} else {
-			this.noKpi = true;
-		}
-		this.isLoading = false;
-	}
-
 	formatAxis(axis: string) {
-		if (axis.match(dataRegex)) {
+		if (axis.match(dateRegex)) {
 			const [day, month, year] = axis.split('/');
 			return new Date(+year, +month - 1, +day);
 		}
 		return axis;
 	}
 
-	formatKpi(kpi: Kpi): KpiFormatado {
-		return {
-			id: kpi.id,
-			kpiAlias: kpi.kpiAlias,
-			title: kpi.title,
-			chartType: kpi.chartType,
-			labelArray: kpi.labelArray,
-			chartOptions: JSON.parse(kpi.chartOptions),
-			data: []
-		};
-	}
-
-	logSomething(thing: any) {
-		return thing;
+	onCompanyChanged(selectedCompany: Company) {
+		this.selectedCompany = selectedCompany;
+		this.requestKpis();
 	}
 }

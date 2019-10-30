@@ -1,28 +1,28 @@
-import { SharedModule } from './../shared/shared.module';
-import { CompanyVariablesComponent } from './company-variables/company-variables.component';
-import { OrganizationVariablesComponent } from './organization-variables/organization-variables.component';
+import { OrganizationSettingsComponent } from './organization-settings/organization-settings.component';
+import { CompanySettingsComponent } from './company-settings/company-settings.component';
+import { SharedModule } from '../shared/shared.module';
 import { VarListComponent } from './var-list/var-list.component';
 import { CommonModule } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { VariablesRoutingModule } from './variables-routing.module';
-import { VariablesComponent } from './variables.component';
+import { OptionsRoutingModule } from './options-routing.module';
+import { OptionsComponent } from './options.component';
 import { TableModule } from 'primeng/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
 	declarations: [
-		VariablesComponent,
+		OptionsComponent,
 		VarListComponent,
-		OrganizationVariablesComponent,
-		CompanyVariablesComponent
+		CompanySettingsComponent,
+		OrganizationSettingsComponent
 	],
 	imports: [
 		CommonModule,
 		FormsModule,
 		DropdownModule,
-		VariablesRoutingModule,
+		OptionsRoutingModule,
 		TableModule,
 		MatTooltipModule,
 		SharedModule
@@ -30,4 +30,4 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 	exports: [VarListComponent],
 	providers: []
 })
-export class VariablesModule {}
+export class OptionsModule {}

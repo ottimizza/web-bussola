@@ -1,14 +1,14 @@
-import { VariableService } from './../../shared/services/variable.service';
+import { VariableService } from '../../shared/services/variable.service';
 import { Component, OnInit } from '@angular/core';
 import { VariableInfo } from 'src/app/shared/models/variables';
 import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
-	selector: 'app-organization-variables',
-	templateUrl: 'organization-variables.component.html',
-	styleUrls: ['organization-variables.component.scss']
+	selector: 'app-organization-settings',
+	templateUrl: 'organization-settings.component.html',
+	styleUrls: ['organization-settings.component.scss']
 })
-export class OrganizationVariablesComponent implements OnInit {
+export class OrganizationSettingsComponent implements OnInit {
 	variables: VariableInfo[] = [];
 
 	constructor(

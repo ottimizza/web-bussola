@@ -1,5 +1,5 @@
+import { VariableInfo } from './../models/variables';
 import { UserService } from '../user/user.service';
-import { VariableInfo } from 'src/app/shared/models/variables';
 import { AppComponent } from 'src/app/app.component';
 import { AuthService } from '../auth/auth.service';
 import { HttpClient } from '@angular/common/http';

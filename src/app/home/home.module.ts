@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { MatDialogModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -24,6 +25,7 @@ import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
 		NgxLinkifyjsModule,
 		FileUploadModule,
 		ButtonModule,
+		SharedModule,
 		ContenteditableModule,
 		GoogleChartsModule.forRoot()
 	],
