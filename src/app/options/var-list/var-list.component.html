@@ -20,12 +20,19 @@
 		<tr *ngFor="let variable of variables">
 			<td>{{ variable.name }}</td>
 			<td>
-				<input
-					class="input-accounting-code"
-					type="text"
-					(input)="onVarEdited(variable)"
-					[(ngModel)]="variable.accountingCode"
-				/>
+				<div class="row">
+					<input
+						class="input-organization-code"
+						type="text"
+						(input)="onVarEdited(variable)"
+						[(ngModel)]="variable.accountingCode"
+					/>
+					<!-- <div>
+						<button class="btn outline-none focus-box-shadow-none" type="button" (click)="openModal()">
+							<i class="fal fa-file-search"></i>
+						</button>
+					</div> -->
+				</div>
 			</td>
 		</tr>
 	</tbody>

@@ -2,7 +2,11 @@
 @import './assets/styles/pure-css-loader.scss';
 
 .outline-none:focus {
-	outline: 0 none;
+	outline: 0 none !important;
+}
+
+.focus-box-shadow-none:focus {
+	box-shadow: none !important;
 }
 
 * {

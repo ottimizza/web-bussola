@@ -9,7 +9,7 @@
 		<i class="fal fa-bars"></i>
 	</button>
 	<div
-		*ngIf="!accountingLogoUrl"
+		*ngIf="!organizationLogoUrl"
 		class="logo-container float-left"
 		[ngClass]="{ 'mx-auto': isHandset$ | async }"
 	>
@@ -21,12 +21,12 @@
 		/>
 	</div>
 	<div
-		*ngIf="!!accountingLogoUrl"
+		*ngIf="!!organizationLogoUrl"
 		class="nop-logo float-left d-flex align-items-center justify-content-center"
 		[ngClass]="{ 'mx-auto': isHandset$ | async }"
 	>
 		<img
-			src="{{ accountingLogoUrl }}"
+			src="{{ organizationLogoUrl }}"
 			alt="Logo Contabilidade"
 			class="logo unselectable mx-auto"
 		/>

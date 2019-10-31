@@ -39,7 +39,7 @@ export class MenuComponent implements OnInit {
 	menuItems: RouteInfo[];
 	profileUrl: string;
 	avatarUrl?: string;
-	accountingLogoUrl?: string;
+	organizationLogoUrl?: string;
 	userPermissionLevel: number;
 
 	@ViewChild('drawer', { static: false }) drawer: ElementRef<MatSidenav>;
@@ -55,7 +55,7 @@ export class MenuComponent implements OnInit {
 
 	ngOnInit() {
 		this.avatarUrl = this.userService.currentUserValue.avatar;
-		this.accountingLogoUrl = this.userService.currentUserValue.organization.avatar;
+		this.organizationLogoUrl = this.userService.currentUserValue.organization.avatar;
 		this.userPermissionLevel = this.userService.currentUserValue.type;
 		this.profileUrl =
 			AppComponent.apiOauthService +

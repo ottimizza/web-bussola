@@ -1,3 +1,4 @@
+import { CompanyService } from './../../shared/services/company.service';
 import { ToastService } from '../../shared/services/toast.service';
 import { VariableService } from '../../shared/services/variable.service';
 import { VariableInfo } from '../../shared/models/variables';
@@ -10,15 +11,31 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['company-settings.component.scss']
 })
 export class CompanySettingsComponent implements OnInit {
+	sectors = [
+		{ label: 'Construção Civil', value: 1 },
+		{ label: 'Comércio Varejista', value: 2 },
+		{ label: 'Tecnologia', value: 3 },
+		{ label: 'Alimentação', value: 4 }
+	];
+
 	selectedCompany: Company;
+	selectedSector: number;
 	variables: VariableInfo[] = [];
+	shareCompanyData = false;
 
 	constructor(
 		private variableService: VariableService,
+		private companyService: CompanyService,
 		private toastService: ToastService
 	) {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.companyService
+			.findCompanyByCnpj(this.selectedCompany.cnpj)
+			.subscribe(res => {
+				console.log(res);
+			});
+	}
 
 	requestVariables() {
 		this.variableService
@@ -36,9 +53,20 @@ export class CompanySettingsComponent implements OnInit {
 			});
 	}
 
+	findSector() {
+		this.companyService
+			.findCompanyByCnpj(this.selectedCompany.cnpj)
+			.subscribe(companies => {
+				const company = companies[0];
+				this.shareCompanyData = !!company.sector;
+				this.selectedSector = company.sector;
+			});
+	}
+
 	onCompanyChanged(selectedCompany: Company) {
 		this.selectedCompany = selectedCompany;
 		this.variables = [];
+		this.findSector();
 		this.requestVariables();
 		this.requestMissingVariables();
 	}
@@ -50,6 +78,25 @@ export class CompanySettingsComponent implements OnInit {
 			.subscribe(
 				res => this.toastService.show('Parâmetro alterado com sucesso'),
 				() => this.toastService.show('Erro ao alterar parâmetro', 'danger')
+			);
+	}
+
+	updateSetor() {
+		this.companyService
+			.updateCompany(
+				this.selectedCompany.cnpj,
+				this.shareCompanyData && this.selectedSector
+					? this.selectedSector
+					: 0
+			)
+			.subscribe(
+				() => {
+					this.toastService.show('Setor salvo..');
+				},
+				err => {
+					console.log(err);
+					this.toastService.show('Ocorreu um erro, tente novamente.', 'danger');
+				}
 			);
 	}
 }

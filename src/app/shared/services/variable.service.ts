@@ -13,7 +13,7 @@ export class VariableService {
 		private userService: UserService
 	) {}
 
-	requestAccountingVariables() {
+	requestOrganizationVariables() {
 		return this.httpClient.get(
 			`${AppComponent.appApi}/variables/byOrganization/${this.userService.currentUserValue.organization.id}`,
 			{ headers: this.authService.headers() }
@@ -52,7 +52,7 @@ export class VariableService {
 			`${AppComponent.appApi}/variables`,
 			{
 				id: variableInfo.id,
-				accountingId: this.userService.currentUserValue.organization.id,
+				organizationId: this.userService.currentUserValue.organization.id,
 				accountingCode: variableInfo.accountingCode
 			},
 			{ headers: this.authService.headers() }

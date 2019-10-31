@@ -1,3 +1,4 @@
+import { ModalBalanceteComponent } from './modal-balancete/modal-balancete.component';
 import { debounceTime } from 'rxjs/operators';
 import {
 	Component,
@@ -7,8 +8,9 @@ import {
 	Output,
 	EventEmitter
 } from '@angular/core';
-import { VariableInfo } from 'src/app/shared/models/variables';
 import { Subject } from 'rxjs';
+import { MatDialog } from '@angular/material';
+import { VariableInfo } from 'src/app/shared/models/variables';
 
 @Component({
 	selector: 'app-var-list',
@@ -17,6 +19,7 @@ import { Subject } from 'rxjs';
 })
 export class VarListComponent implements OnInit {
 	@Input() variables: VariableInfo[] = [];
+	@Input() organizationCnpj: string;
 	@Output() onVariableEdited = new EventEmitter<VariableInfo>();
 
 	regexStr = /(\d)|(\.)|(\+)|(\-)/;
@@ -27,7 +30,7 @@ export class VarListComponent implements OnInit {
 		return new RegExp(this.regexStr).test(event.key);
 	}
 
-	constructor() {}
+	constructor(private matDialog: MatDialog) {}
 
 	ngOnInit(): void {
 		this.variableSubject
@@ -41,5 +44,18 @@ export class VarListComponent implements OnInit {
 
 	updateVariable(variableInfo: VariableInfo) {
 		this.onVariableEdited.emit(variableInfo);
+	}
+
+	openModal(variableInfo: VariableInfo) {
+		const that = this;
+		this.matDialog.open(ModalBalanceteComponent, {
+			width: '33rem',
+			data: {
+				variableInfo,
+				editVariable: (varInfo: VariableInfo) => {
+					that.onVariableEdited.emit(varInfo);
+				}
+			}
+		});
 	}
 }

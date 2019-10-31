@@ -16,12 +16,10 @@ export class UploadService {
 		const formData = new FormData();
 		formData.append('file', file);
 
-		const headers = { headers: this.noAuthHeaders() };
-
 		return this.httpClient.post(
-			`${AppComponent.storageUrl}/storage/${this.applicationId}/accounting/ottimizza/store`,
+			`${AppComponent.storageUrl}/storage/${this.applicationId}/organization/ottimizza/store`,
 			formData,
-			headers
+			{ headers: this.noAuthHeaders() }
 		);
 	}
 

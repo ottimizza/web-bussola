@@ -26,18 +26,12 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 						this.authService.refreshAccessToken();
 					}, 100);
 				}
-				let errorMessage = '';
-				if (error.error instanceof ErrorEvent) {
-					// client-side error
-					errorMessage = `Error: ${error.error.message}`;
-				} else {
-					// server-side error
-					errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-				}
 
-				console.log(error);
-
-				return throwError(errorMessage);
+				return throwError(
+					error.error instanceof ErrorEvent
+						? `Error: ${error.error.message}`
+						: `Error Code: ${error.status}\nMessage: ${error.message}`
+				);
 			})
 		);
 	}

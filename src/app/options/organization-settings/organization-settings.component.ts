@@ -22,7 +22,7 @@ export class OrganizationSettingsComponent implements OnInit {
 
 	requestVariables() {
 		this.variableService
-			.requestAccountingVariables()
+			.requestOrganizationVariables()
 			.subscribe((res: VariableInfo[]) => {
 				this.variables = res;
 			});
