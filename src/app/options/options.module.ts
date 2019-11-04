@@ -1,4 +1,4 @@
-import { ModalBalanceteComponent } from './var-list/modal-balancete/modal-balancete.component';
+import { BalanceModalComponent } from './var-list/modal-balance/modal-balance.component';
 import { OrganizationSettingsComponent } from './organization-settings/organization-settings.component';
 import { CompanySettingsComponent } from './company-settings/company-settings.component';
 import { SharedModule } from '../shared/shared.module';
@@ -20,7 +20,7 @@ import { MatDialogModule } from '@angular/material';
 		VarListComponent,
 		CompanySettingsComponent,
 		OrganizationSettingsComponent,
-		ModalBalanceteComponent
+		BalanceModalComponent
 	],
 	imports: [
 		CommonModule,
@@ -35,6 +35,6 @@ import { MatDialogModule } from '@angular/material';
 	],
 	exports: [VarListComponent],
 	providers: [],
-	entryComponents: [ModalBalanceteComponent]
+	entryComponents: [BalanceModalComponent]
 })
 export class OptionsModule {}

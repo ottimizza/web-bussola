@@ -29,13 +29,7 @@ export class CompanySettingsComponent implements OnInit {
 		private toastService: ToastService
 	) {}
 
-	ngOnInit() {
-		this.companyService
-			.findCompanyByCnpj(this.selectedCompany.cnpj)
-			.subscribe(res => {
-				console.log(res);
-			});
-	}
+	ngOnInit() {}
 
 	requestVariables() {
 		this.variableService
@@ -85,9 +79,7 @@ export class CompanySettingsComponent implements OnInit {
 		this.companyService
 			.updateCompany(
 				this.selectedCompany.cnpj,
-				this.shareCompanyData && this.selectedSector
-					? this.selectedSector
-					: 0
+				this.shareCompanyData && this.selectedSector ? this.selectedSector : 0
 			)
 			.subscribe(
 				() => {

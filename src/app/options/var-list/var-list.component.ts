@@ -1,4 +1,4 @@
-import { ModalBalanceteComponent } from './modal-balancete/modal-balancete.component';
+import { BalanceModalComponent } from './modal-balance/modal-balance.component';
 import { debounceTime } from 'rxjs/operators';
 import {
 	Component,
@@ -48,12 +48,12 @@ export class VarListComponent implements OnInit {
 
 	openModal(variableInfo: VariableInfo) {
 		const that = this;
-		this.matDialog.open(ModalBalanceteComponent, {
+		this.matDialog.open(BalanceModalComponent, {
 			width: '33rem',
 			data: {
 				variableInfo,
 				editVariable: (varInfo: VariableInfo) => {
-					that.onVariableEdited.emit(varInfo);
+					that.onVarEdited(varInfo);
 				}
 			}
 		});

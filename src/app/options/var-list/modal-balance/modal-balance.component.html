@@ -1,0 +1,64 @@
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="my-modal-title">Title</h5>
+			<button
+				class="close outline-none"
+				data-dismiss="modal"
+				aria-label="Close"
+			>
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<input type="text" [(ngModel)]="variableInfo.accountingCode" />
+			<table class="table">
+				<thead class="thead-light">
+					<tr>
+						<th>Descrição</th>
+						<th>Código</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let item of balance">
+						<td>
+							<div class="ml-2">{{ item.description }}</div>
+						</td>
+						<td>
+							<div class="ml-2">{{ item.analyticId }}</div>
+						</td>
+						<td>
+							<div class="ml-2 text-center">
+								<div class="row">
+									<button
+										class="btn btn-link"
+										type="button"
+										(click)="onVariableChanged('+', item.analyticId)"
+									>
+										+
+									</button>
+									<button
+										class="btn btn-link"
+										type="button"
+										(click)="onVariableChanged('-', item.analyticId)"
+									>
+										-
+									</button>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+				<!-- <tfoot>
+					<tr>
+						<th>#</th>
+					</tr>
+				</tfoot> -->
+			</table>
+		</div>
+		<div class="modal-footer">
+			Footer
+		</div>
+	</div>
+</div>

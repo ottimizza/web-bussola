@@ -1,4 +1,3 @@
-import { UserService } from './../user/user.service';
 import { Jwt } from './../models/jwt';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -6,10 +5,6 @@ import { Injectable } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, first } from 'rxjs/operators';
-
-const ACCESS_KEY = 'accessToken';
-const REFRESH_KEY = 'refreshToken';
-const ACCESS_TOKEN_EXPIRATION_DATE_KEY = 'accessTokenExpirationDate';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -57,13 +52,6 @@ export class AuthService {
 			);
 	}
 
-	logout() {
-		// remove user from local storage to log user out
-		localStorage.clear();
-		this.currentJwtSubject.next(null);
-		window.location.reload();
-	}
-
 	refreshAccessToken() {
 		this.http
 			.post(
@@ -93,38 +81,9 @@ export class AuthService {
 			);
 	}
 
-	setTokens(token: string, refreshToken: string) {
-		this.setToken(token);
-		this.setRefreshToken(refreshToken);
-	}
-
-	setToken(token: string) {
-		window.localStorage.setItem(ACCESS_KEY, token);
-	}
-
-	setRefreshToken(refreshToken: string) {
-		window.localStorage.setItem(REFRESH_KEY, refreshToken);
-	}
-
-	getRefreshToken(): string {
-		return window.localStorage.getItem(REFRESH_KEY);
-	}
-
-	getAccessTokenExpirationDate(): string {
-		return window.localStorage.getItem(ACCESS_TOKEN_EXPIRATION_DATE_KEY);
-	}
-
-	checkAndLogout() {
-		if (!this.isAuthenticated()) {
-			this.router.navigate(['/logout']);
-		}
-	}
-
-	isAuthenticated(): boolean {
-		return !!(
-			this.token !== 'undefined' &&
-			this.getRefreshToken() !== 'undefined' &&
-			this.getAccessTokenExpirationDate() !== 'Invalid Date'
-		);
+	logout() {
+		// remove user from local storage to log user out
+		localStorage.clear();
+		this.currentJwtSubject.next(null);
 	}
 }

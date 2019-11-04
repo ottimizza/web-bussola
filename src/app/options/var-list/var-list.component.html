@@ -17,21 +17,27 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr *ngFor="let variable of variables">
-			<td>{{ variable.name }}</td>
+		<tr *ngFor="let variable of variables" class="table-row">
 			<td>
-				<div class="row">
+				<span class="ml-3"> {{ variable.name }}</span>
+			</td>
+			<td>
+				<div class="row ml-3">
 					<input
 						class="input-organization-code"
 						type="text"
 						(input)="onVarEdited(variable)"
 						[(ngModel)]="variable.accountingCode"
 					/>
-					<!-- <div>
-						<button class="btn outline-none focus-box-shadow-none" type="button" (click)="openModal()">
-							<i class="fal fa-file-search"></i>
+					<div>
+						<button
+							class="btn outline-none btn-open-balance focus-box-shadow-none"
+							type="button"
+							(click)="openModal(variable)"
+						>
+							<i class="fal fa-file-search i-find-balance"></i>
 						</button>
-					</div> -->
+					</div>
 				</div>
 			</td>
 		</tr>

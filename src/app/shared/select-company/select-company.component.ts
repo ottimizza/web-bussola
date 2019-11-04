@@ -16,8 +16,7 @@ export class SelectCompanyComponent implements OnInit {
 
 	ngOnInit() {
 		this.companyService.getCompanies().subscribe(
-			(response: any) => {
-				console.log(response);
+			(response: { records: Company[] }) => {
 				this.companies = response.records;
 				this.selectedCompany.emit(this.companies[0]);
 			},

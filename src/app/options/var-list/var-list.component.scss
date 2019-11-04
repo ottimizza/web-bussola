@@ -1,3 +1,5 @@
+@import '../../../assets/styles/variables.scss';
+
 .input-organization-code {
 	border: none;
 	outline: 0;
@@ -5,6 +7,30 @@
 	background-color: unset;
 }
 
+.input-organization-code:focus {
+	border-bottom: 1px solid $base-color;
+	color: $base-color;
+}
+
+.input-organization-code:hover {
+	border-bottom: 1px solid $base-color;
+}
+
+.table-row:hover span {
+	color: $base-color;
+}
+
 .question-mark:hover {
 	cursor: pointer;
+}
+
+.btn-open-balance {
+	.i-find-balance {
+		color: #212529;
+	}
+	&:hover {
+		.i-find-balance {
+			color: $base-color;
+		}
+	}
 }
