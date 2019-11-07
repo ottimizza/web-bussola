@@ -10,9 +10,12 @@ export class BalanceService {
 		private authService: AuthService
 	) {}
 
-	findBalance(cnpj: string) {
-		return this.httpClient.get(`${AppComponent.appApi}/balance?cnpj=${cnpj}`, {
-			headers: this.authService.headers()
-		});
+	findBalance(cnpj: string, pageIndex: number, description: string) {
+		return this.httpClient.get(
+			`${AppComponent.appApi}/balance?page_index=${pageIndex}&page_size=10&description=${description}&cnpj=${cnpj}`,
+			{
+				headers: this.authService.headers()
+			}
+		);
 	}
 }

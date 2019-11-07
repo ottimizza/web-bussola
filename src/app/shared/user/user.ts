@@ -4,10 +4,10 @@ export interface User {
 	id: number;
 	username: string;
 	email: string;
-	phone?: any;
+	phone?: number;
 	firstName: string;
 	lastName: string;
 	type: number;
-	avatar: string;
+	avatar?: string;
 	organization: Organization;
 }

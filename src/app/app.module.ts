@@ -15,6 +15,8 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
 import { AsyncPipe } from '@angular/common';
 
+import * as $ from 'jquery';
+
 const appInitializerFn = (appConfig: ConfigService) => {
 	return () => {
 		return appConfig.setDefautlVariables();

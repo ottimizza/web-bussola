@@ -2,8 +2,6 @@ import { AppComponent } from './../../app.component';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { Component, OnInit, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { finalize } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 

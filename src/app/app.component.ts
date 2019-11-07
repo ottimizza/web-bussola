@@ -3,6 +3,7 @@ import { Subscription, BehaviorSubject } from 'rxjs';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { SwUpdate } from '@angular/service-worker';
+import { environment } from 'src/environments/environment';
 
 @Component({
 	selector: 'app-root',
@@ -37,6 +38,12 @@ export class AppComponent implements OnInit, OnDestroy {
 		// this.messagingService.requestPermission(userId);
 		// this.messagingService.receiveMessage();
 		// this.message = this.messagingService.currentMessage;
+
+		if (environment.production) {
+			if (location.protocol === 'http:') {
+				location.href = location.href.replace('http', 'https');
+			}
+		}
 
 		this.subscription = this.router.events
 			.pipe(filter(event => event instanceof NavigationEnd))

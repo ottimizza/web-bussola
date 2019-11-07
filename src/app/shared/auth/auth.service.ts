@@ -1,10 +1,10 @@
-import { Jwt } from './../models/jwt';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, first } from 'rxjs/operators';
+import { Jwt } from '../models/jwt';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
