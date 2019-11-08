@@ -23,13 +23,10 @@ export class UserService {
 	}
 
 	getUserInfo() {
-		const headers = new HttpHeaders().set(
-			'Authorization',
-			'Bearer ' + this.authService.token
-		);
-
 		return this.http
-			.get(`${AppComponent.apiOauthService}/oauth/userinfo`, { headers })
+			.get(`${AppComponent.apiOauthService}/oauth/userinfo`, {
+				headers: this.authService.headers()
+			})
 			.pipe(
 				map((user: { record: User }) => {
 					localStorage.setItem('user', JSON.stringify(user.record));

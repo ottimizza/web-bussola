@@ -30,7 +30,7 @@ export class AuthService {
 	}
 
 	public get token(): string {
-		return this.currentJwtSubject.value.access_token;
+		return this.currentJwtSubject.value.access_token; // PODE NÃO EXISTIR
 	}
 
 	public get refreshToken(): string {
