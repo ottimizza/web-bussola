@@ -23,7 +23,7 @@ const envConfigFile = `
 	"loginUrl": "${process.env.LOGIN_URL}",
 	"appApi": "${process.env.APP_API}",
 	"clientId": "${process.env.CLIENT_ID}",
-	"storageUrl": "${process.env.STORAGE_URL}"
+	"storageUrl": "${process.env.STORAGE_URL}",
 	"applicationId": "${process.env.APPLICATION_ID}"
 }
 `;
