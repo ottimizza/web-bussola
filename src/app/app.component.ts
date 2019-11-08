@@ -16,6 +16,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	public static appApi: string;
 	public static storageUrl: string;
 	public static clientId: string;
+	public static applicationId: string;
 
 	message: BehaviorSubject<any>;
 	subscription: Subscription;

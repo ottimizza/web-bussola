@@ -5,8 +5,6 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class UploadService {
-	private applicationId = `development-bussola-contabil`;
-
 	constructor(
 		private httpClient: HttpClient,
 		private authService: AuthService
@@ -17,7 +15,7 @@ export class UploadService {
 		formData.append('file', file);
 
 		return this.httpClient.post(
-			`${AppComponent.storageUrl}/storage/${this.applicationId}/organization/ottimizza/store`,
+			`${AppComponent.storageUrl}/storage/${AppComponent.applicationId}/organization/ottimizza/store`,
 			formData,
 			{ headers: this.noAuthHeaders() }
 		);

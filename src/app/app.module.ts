@@ -14,6 +14,7 @@ import { ConfigService } from './shared/services/config.service';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
 import { AsyncPipe } from '@angular/common';
+import { DeviceDetectorModule } from 'ngx-device-detector';
 
 import * as $ from 'jquery';
 
@@ -33,6 +34,7 @@ const appInitializerFn = (appConfig: ConfigService) => {
 		AngularFireMessagingModule,
 		GoogleChartsModule.forRoot(),
 		NgxLinkifyjsModule.forRoot(),
+		DeviceDetectorModule.forRoot(),
 		AngularFireModule.initializeApp(environment.firebase),
 		ServiceWorkerModule.register('ngsw-worker.js', {
 			enabled: environment.production

@@ -3,5 +3,6 @@
 	"loginUrl": "http://localhost:4200/login",
 	"appApi": "https://staging-api-bussolaweb.herokuapp.com",
 	"clientId": "bussola-contabil-client",
-	"storageUrl": "https://s4.ottimizzacontabil.com:55325"
+	"storageUrl": "https://s4.ottimizzacontabil.com:55325",
+	"applicationId": "development-bussola-contabil"
 }

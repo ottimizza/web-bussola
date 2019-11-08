@@ -14,16 +14,18 @@
 			<input
 				class="input-accounting-code"
 				type="text"
+				(input)="onVariableInput()"
 				[(ngModel)]="variableInfo.accountingCode"
 			/>
 
-			<div class="mb-2">
+			<div class="mb-2 pl-0 pr-3 col-7">
 				<label for="filterInput" class="m-0">Filtro</label>
 				<br />
 				<input
 					id="filterInput"
-					(input)="onFilterInput()"
+					class="w-100"
 					type="text"
+					(input)="onFilterInput()"
 					[(ngModel)]="filter"
 				/>
 			</div>

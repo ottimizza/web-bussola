@@ -27,6 +27,7 @@ export class ConfigService {
 				AppComponent.appApi = data.appApi;
 				AppComponent.clientId = data.clientId;
 				AppComponent.storageUrl = data.storageUrl;
+				AppComponent.applicationId = data.applicationId;
 
 				resolve();
 			});

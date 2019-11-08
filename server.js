@@ -24,6 +24,7 @@ const envConfigFile = `
 	"appApi": "${process.env.APP_API}",
 	"clientId": "${process.env.CLIENT_ID}",
 	"storageUrl": "${process.env.STORAGE_URL}"
+	"applicationId": "${process.env.APPLICATION_ID}"
 }
 `;
 

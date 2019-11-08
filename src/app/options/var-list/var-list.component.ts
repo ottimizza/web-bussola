@@ -4,13 +4,16 @@ import {
 	Component,
 	OnInit,
 	Input,
-	HostListener,
 	Output,
-	EventEmitter
+	EventEmitter,
+	HostListener
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { VariableInfo } from 'src/app/shared/models/variables';
+import { DeviceDetectorService } from 'ngx-device-detector';
+
+const regexStr = /(\d)|(\.)|(\+)|(\-)/;
 
 @Component({
 	selector: 'app-var-list',
@@ -21,16 +24,18 @@ export class VarListComponent implements OnInit {
 	@Input() variables: VariableInfo[] = [];
 	@Input() organizationCnpj: string;
 	@Output() onVariableEdited = new EventEmitter<VariableInfo>();
-
-	regexStr = /(\d)|(\.)|(\+)|(\-)/;
+	isMobile = this.deviceService.isMobile;
 
 	private variableSubject = new Subject<VariableInfo>();
 
 	@HostListener('keypress', ['$event']) onKeyPress(event: any) {
-		return new RegExp(this.regexStr).test(event.key);
+		return new RegExp(regexStr).test(event.key);
 	}
 
-	constructor(private matDialog: MatDialog) {}
+	constructor(
+		private matDialog: MatDialog,
+		private deviceService: DeviceDetectorService
+	) {}
 
 	ngOnInit(): void {
 		this.variableSubject

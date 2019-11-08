@@ -1,4 +1,4 @@
-import { CompanyService } from './../../shared/services/company.service';
+import { CompanyService } from '../../shared/services/company.service';
 import { ToastService } from '../../shared/services/toast.service';
 import { VariableService } from '../../shared/services/variable.service';
 import { VariableInfo } from '../../shared/models/variables';

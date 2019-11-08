@@ -2,10 +2,12 @@ import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { BalanceItem } from './../../../shared/models/balante-item';
 import { BalanceService } from './../../../shared/services/balance.service';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, HostListener } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NgxLinkifyjsService } from 'ngx-linkifyjs';
 import { VariableInfo } from 'src/app/shared/models/variables';
+
+const regexStr = /(\d)|(\.)|(\+)|(\-)/;
 
 @Component({
 	selector: 'app-modal-balance',
@@ -23,6 +25,10 @@ export class BalanceModalComponent implements OnInit {
 
 	private filterSubject = new Subject();
 
+	@HostListener('keypress', ['$event']) onKeyPress(event: any) {
+		return new RegExp(regexStr).test(event.key);
+	}
+
 	constructor(
 		public dialogRef: MatDialogRef<BalanceModalComponent>,
 		public linkifyService: NgxLinkifyjsService,
@@ -31,14 +37,14 @@ export class BalanceModalComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
+		this.variableInfo = this.data.variableInfo;
+		this.loadMoreBalance();
+
 		this.filterSubject.pipe(debounceTime(300)).subscribe(() => {
 			this.pageIndex = 0;
 			this.balance = [];
 			this.loadMoreBalance();
 		});
-
-		this.variableInfo = this.data.variableInfo;
-		this.loadMoreBalance();
 
 		const that = this;
 		$('#scrollContent').on('scroll', function() {
@@ -71,6 +77,10 @@ export class BalanceModalComponent implements OnInit {
 
 	onVariableChanged(sign: string, code: string) {
 		this.variableInfo.accountingCode += sign + code;
+		this.data.editVariable(this.variableInfo);
+	}
+
+	onVariableInput() {
 		this.data.editVariable(this.variableInfo);
 	}
 }

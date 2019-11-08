@@ -2,6 +2,7 @@ import { VariableService } from '../../shared/services/variable.service';
 import { Component, OnInit } from '@angular/core';
 import { VariableInfo } from 'src/app/shared/models/variables';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { variable } from '@angular/compiler/src/output/output_ast';
 
 @Component({
 	selector: 'app-organization-settings',
@@ -29,7 +30,9 @@ export class OrganizationSettingsComponent implements OnInit {
 	}
 
 	onVariableEdited(variableInfo: VariableInfo) {
-		this.variables.splice(this.variables.indexOf(variableInfo), 1);
+		// const varIndex = this.variables.indexOf(variableInfo);
+		this.variables[this.variables.indexOf(variableInfo)] = variableInfo;
+
 		this.variableService
 			.postOrganizationVariable(variableInfo)
 			.subscribe(
