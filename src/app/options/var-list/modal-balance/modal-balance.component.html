@@ -41,7 +41,11 @@
 					<tbody id="scrollContent">
 						<tr *ngFor="let item of balance">
 							<td class="col-7">
-								<span class="d-block text-break">{{ item.description }}</span>
+								<span
+									class="d-block text-truncate"
+									title="{{ item.description }}"
+									>{{ item.description }}</span
+								>
 							</td>
 							<td class="col-3">
 								<span class="pl-0">{{ item.analyticId }}</span>
