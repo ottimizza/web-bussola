@@ -66,7 +66,8 @@ export class CompanySettingsComponent implements OnInit {
 	}
 
 	onVariableEdited(variableInfo: VariableInfo) {
-		this.variables.splice(this.variables.indexOf(variableInfo), 1);
+		this.variables[this.variables.indexOf(variableInfo)] = variableInfo;
+
 		this.variableService
 			.postVariable(variableInfo, this.selectedCompany.id)
 			.subscribe(

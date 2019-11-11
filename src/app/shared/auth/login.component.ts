@@ -36,10 +36,12 @@ export class LoginComponent implements OnInit {
 		const baseUrl = `${that.ottimizzaAuthServerDetails.url}/oauth/authorize`;
 		const clientId = `${that.ottimizzaAuthServerDetails.clientId}`;
 		const redirectUri = `${that.ottimizzaAuthServerDetails.redirectUri}`;
+		const logoUrl =
+			'https://s4.ottimizzacontabil.com:55325/storage/QzpcYnVja2V0c1x6YXAtY29udGFiaWxcT3R0aW1penphc2lzdGVtYXNcMjAxOVwxMVwxMVw3MDkyZGY3ZC04YTE4LTQ1NDgtOGIwYS01YjM1MDMxMWQ3YjJfX2xvZ28tZGVmYXVsdC5wbmc=';
 		const state = that.genState();
 
 		that.writeCookieState(state, true).then(() => {
-			const url = `${baseUrl}?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUri}`;
+			const url = `${baseUrl}?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUri}&logo=${logoUrl}`;
 			this.document.location.href = url;
 		});
 	}
