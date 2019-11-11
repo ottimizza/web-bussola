@@ -91,8 +91,10 @@ export class LoginComponent implements OnInit {
 							this.userService
 								.getUserInfo()
 								.pipe(first())
-								.subscribe(res => console.log(res), err => console.log(err));
-							this.router.navigate(['']);
+								.subscribe(
+									() => this.router.navigateByUrl(''),
+									err => console.log(err)
+								);
 						},
 						err => console.log(err)
 					);

@@ -71,12 +71,12 @@ export class AuthService {
 					if (!res.error) {
 						window.location.reload();
 					} else {
-						this.router.navigate(['login']);
+						this.router.navigate(['/login']);
 					}
 				},
 				err => {
 					console.log(err);
-					this.router.navigate(['login']);
+					this.router.navigate(['/login']);
 				}
 			);
 	}

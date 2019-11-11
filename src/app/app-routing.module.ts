@@ -9,11 +9,6 @@ import { LoginComponent } from './shared/auth/login.component';
 const routes: Routes = [
 	{
 		path: '',
-		pathMatch: 'full',
-		redirectTo: 'indicadores'
-	},
-	{
-		path: '',
 		component: MenuComponent,
 		data: { title: 'menu' },
 		children: MenuRoutes,
