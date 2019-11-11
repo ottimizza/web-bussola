@@ -24,7 +24,7 @@ export class VarListComponent implements OnInit {
 	@Input() variables: VariableInfo[] = [];
 	@Input() organizationCnpj: string;
 	@Output() onVariableEdited = new EventEmitter<VariableInfo>();
-	isMobile = this.deviceService.isMobile;
+	isMobile = this.deviceService.isMobile();
 
 	private variableSubject = new Subject<VariableInfo>();
 
@@ -38,6 +38,7 @@ export class VarListComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
+		console.log(this.deviceService);
 		this.variableSubject
 			.pipe(debounceTime(300))
 			.subscribe((term: VariableInfo) => this.updateVariable(term));

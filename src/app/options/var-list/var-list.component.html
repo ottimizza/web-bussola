@@ -29,7 +29,7 @@
 						(input)="onVarEdited(variable)"
 						[(ngModel)]="variable.accountingCode"
 					/>
-					<div *ngIf="isMobile">
+					<div *ngIf="!isMobile">
 						<button
 							class="btn outline-none btn-open-balance focus-box-shadow-none"
 							type="button"
