@@ -22,7 +22,7 @@ const regexStr = /(\d)|(\.)|(\+)|(\-)/;
 })
 export class VarListComponent implements OnInit {
 	@Input() variables: VariableInfo[] = [];
-	@Input() organizationCnpj: string;
+	@Input() cnpj: any;
 	@Output() onVariableEdited = new EventEmitter<VariableInfo>();
 	isMobile = this.deviceService.isMobile();
 
@@ -38,7 +38,6 @@ export class VarListComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		console.log(this.deviceService);
 		this.variableSubject
 			.pipe(debounceTime(300))
 			.subscribe((term: VariableInfo) => this.updateVariable(term));
@@ -58,6 +57,7 @@ export class VarListComponent implements OnInit {
 			width: '50rem',
 			data: {
 				variableInfo,
+				cnpj: this.cnpj,
 				editVariable: (varInfo: VariableInfo) => {
 					that.onVarEdited(varInfo);
 				}

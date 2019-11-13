@@ -15,6 +15,7 @@ import { VariableInfo } from 'src/app/shared/models/variables';
 export class BalanceModalComponent implements OnInit {
 	variableInfo: VariableInfo;
 	balance: BalanceItem[] = [];
+	cnpj: string;
 
 	hasMore = true;
 	scrollIsLoading = false;
@@ -32,6 +33,7 @@ export class BalanceModalComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.variableInfo = this.data.variableInfo;
+		this.cnpj = this.data.cnpj;
 		this.loadMoreBalance();
 
 		this.filterSubject.pipe(debounceTime(300)).subscribe(() => {
@@ -56,7 +58,7 @@ export class BalanceModalComponent implements OnInit {
 
 	loadMoreBalance() {
 		this.balanceService
-			.findBalance('09008007000199', this.pageIndex, this.filter)
+			.findBalance(this.cnpj, this.pageIndex, this.filter)
 			.subscribe((balance: any) => {
 				this.pageIndex++;
 				this.balance = this.balance.concat(balance.content);

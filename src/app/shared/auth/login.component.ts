@@ -36,8 +36,7 @@ export class LoginComponent implements OnInit {
 		const baseUrl = `${that.ottimizzaAuthServerDetails.url}/oauth/authorize`;
 		const clientId = `${that.ottimizzaAuthServerDetails.clientId}`;
 		const redirectUri = `${that.ottimizzaAuthServerDetails.redirectUri}`;
-		const logoUrl =
-			'https://s4.ottimizzacontabil.com:55325/storage/QzpcYnVja2V0c1x6YXAtY29udGFiaWxcT3R0aW1penphc2lzdGVtYXNcMjAxOVwxMVwxMVw3MDkyZGY3ZC04YTE4LTQ1NDgtOGIwYS01YjM1MDMxMWQ3YjJfX2xvZ28tZGVmYXVsdC5wbmc=';
+		const logoUrl = `${window.location.origin}/assets/img/logo-white.png`;
 		const state = that.genState();
 
 		that.writeCookieState(state, true).then(() => {
@@ -77,7 +76,9 @@ export class LoginComponent implements OnInit {
 		const possible =
 			'GV9Jm2u7rmsCe65wKzPTw5jtS38n2tVEGiijklmnopqrstuvwxyz0123456789';
 		for (let i = 0; i < 16; i++) {
-			state += possible.charAt(Math.floor(Math.random() * possible.length));
+			state += possible.charAt(
+				Math.floor(Math.random() * possible.length)
+			);
 		}
 		return state;
 	}
