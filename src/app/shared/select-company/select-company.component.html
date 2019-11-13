@@ -1,9 +1,11 @@
 <p-dropdown
-	[options]="companies"
 	optionLabel="name"
 	autoDisplayFirst="true"
 	filter="true"
-	filterBy="name,cnpj"
+	filterBy="label, value.cnpj"
+	itemSize="30"
+	[options]="companies"
+	[virtualScroll]="true"
 	(onChange)="onCompanyChanged($event)"
 >
 	<ng-template let-item pTemplate="selectedItem">

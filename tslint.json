@@ -28,8 +28,7 @@
 		"interface-name": false,
 		"max-classes-per-file": false,
 		"max-line-length": [
-			true,
-			140
+			false
 		],
 		"indent": [
 			true,
@@ -69,6 +68,7 @@
 		"no-switch-case-fall-through": true,
 		"no-use-before-declare": true,
 		"no-var-requires": false,
+		"variable-name": false,
 		"object-literal-key-quotes": [
 			true,
 			"as-needed"

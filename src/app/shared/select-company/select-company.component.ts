@@ -1,6 +1,8 @@
+import { filter } from 'rxjs/operators';
 import { CompanyService } from './../services/company.service';
 import { OnInit, Component, Output, EventEmitter } from '@angular/core';
 import { Company } from '../models/company';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
 	selector: 'app-select-company',
@@ -8,17 +10,35 @@ import { Company } from '../models/company';
 	styleUrls: ['./select-company.component.scss']
 })
 export class SelectCompanyComponent implements OnInit {
-	companies: Company[];
+	companies: Company[] = [];
+
+	pageIndex = 0;
+
+	// private _filter: string;
+
+	// get filter() {
+	// 	return this._filter;
+	// }
+
+	// set filter(value: string) {
+	// 	this._filter = value;
+	// }
 
 	@Output() selectedCompany = new EventEmitter<Company>();
 
 	constructor(private companyService: CompanyService) {}
 
 	ngOnInit() {
-		this.companyService.getCompanies().subscribe(
+		this.findCompanies(true);
+	}
+
+	findCompanies(firstRequest: boolean) {
+		this.companyService.getCompanies(this.pageIndex).subscribe(
 			(response: { records: Company[] }) => {
-				this.companies = response.records;
-				this.selectedCompany.emit(this.companies[0]);
+				this.companies = this.companies.concat(response.records);
+				if (firstRequest) this.selectedCompany.emit(this.companies[0]);
+				this.pageIndex++;
+				if (response.records.length === 30) this.findCompanies(false);
 			},
 			err => {
 				console.log(err);

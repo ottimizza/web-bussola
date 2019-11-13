@@ -8,9 +8,9 @@ import { AppComponent } from 'src/app/app.component';
 export class CompanyService {
 	constructor(private http: HttpClient, private authService: AuthService) {}
 
-	getCompanies() {
+	getCompanies(pageIndex: number) {
 		return this.http.get(
-			`${AppComponent.apiOauthService}/api/v1/organizations?page_size=10&page_index=0`,
+			`${AppComponent.apiOauthService}/api/v1/organizations?page_size=30&page_index=${pageIndex}`,
 			{ headers: this.authService.headers() }
 		);
 	}
