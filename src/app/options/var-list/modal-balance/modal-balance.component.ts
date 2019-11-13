@@ -39,7 +39,6 @@ export class BalanceModalComponent implements OnInit {
 		this.filterSubject.pipe(debounceTime(300)).subscribe(() => {
 			this.pageIndex = 0;
 			this.loadMoreBalance();
-			this.balance = [];
 		});
 
 		const that = this;
@@ -56,12 +55,14 @@ export class BalanceModalComponent implements OnInit {
 		});
 	}
 
-	loadMoreBalance() {
+	loadMoreBalance(filtered: boolean = false) {
 		this.balanceService
 			.findBalance(this.cnpj, this.pageIndex, this.filter)
 			.subscribe((balance: any) => {
 				this.pageIndex++;
-				this.balance = this.balance.concat(balance.content);
+				this.balance = filtered
+					? this.balance.concat(balance.content)
+					: balance.content;
 				this.scrollIsLoading = false;
 				this.hasMore = balance.content.length === 10;
 			});
