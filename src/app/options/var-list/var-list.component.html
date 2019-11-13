@@ -7,6 +7,7 @@
 					<div>
 						<span>Classificações Relacionadas </span>
 						<i
+							*ngIf="!isMobile"
 							class="fad fa-question-circle question-mark"
 							matTooltip="Informe as classificações relacionadas ao parâmetro separando-as por '+' ou '-'. Exemplo: '4.1+4.2-5.3'"
 							[matTooltipPosition]="'below'"
@@ -19,10 +20,10 @@
 	<tbody>
 		<tr *ngFor="let variable of variables" class="table-row">
 			<td>
-				<span class="ml-3"> {{ variable.name }}</span>
+				<span class="ml-3 w-100"> {{ variable.name }}</span>
 			</td>
 			<td>
-				<div class="row ml-3">
+				<div class="row ml-3 w-100">
 					<input
 						class="input-organization-code"
 						type="text"
