@@ -5,6 +5,12 @@
 	outline: 0;
 	border-bottom: 1px solid black;
 	background-color: unset;
+	width: 9rem;
+}
+
+.var-name-span {
+	display: block;
+	overflow-wrap: break-word;
 }
 
 .input-organization-code:focus {
@@ -32,5 +38,15 @@
 		.i-find-balance {
 			color: $base-color;
 		}
+	}
+}
+
+.vertical-align-middle {
+	vertical-align: middle !important;
+}
+
+@media only screen and (max-width: 800px) {
+	#accounting-code {
+		margin: 0 !important;
 	}
 }

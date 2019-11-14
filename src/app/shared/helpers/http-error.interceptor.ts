@@ -23,7 +23,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 					this.toast.show('Re-autenticando...', 'primary');
 					setTimeout(() => {
 						this.authService.refreshAccessToken();
-					}, 100);
+					}, 300);
 				}
 
 				return throwError(
