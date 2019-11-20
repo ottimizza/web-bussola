@@ -1,35 +1,38 @@
+import { AuthenticationService } from './../../core/authentication/authentication.service';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
-import { AppComponent } from 'src/app/app.component';
+import { environment } from './../../../environments/environment.prod';
 
 @Injectable({ providedIn: 'root' })
 export class CompanyService {
-	constructor(private http: HttpClient, private authService: AuthService) {}
+	constructor(
+		private http: HttpClient,
+		private authService: AuthenticationService
+	) {}
 
 	getCompanies(pageIndex: number) {
 		return this.http.get(
-			`${AppComponent.apiOauthService}/api/v1/organizations?page_size=30&page_index=${pageIndex}`,
-			{ headers: this.authService.headers() }
+			`${environment.oauthBaseUrl}/api/v1/organizations?page_size=30&page_index=${pageIndex}`,
+			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}
 
 	findCompanyByCnpj(cnpj: string) {
 		return this.http.post(
-			`${AppComponent.appApi}/company/find/cnpj`,
+			`${environment.appApi}/company/find/cnpj`,
 			{
 				cnpj: [cnpj]
 			},
-			{ headers: this.authService.headers() }
+			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}
 
 	updateCompany(cnpj: string, sector?: number): Observable<any> {
 		return this.http.patch(
-			`${AppComponent.appApi}/company`,
+			`${environment.appApi}/company`,
 			{ cnpj, sector },
-			{ headers: this.authService.headers() }
+			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}
 }

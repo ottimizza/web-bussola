@@ -1,6 +1,6 @@
-import { UserService } from './../user/user.service';
-import { AuthService } from './../auth/auth.service';
-import { AppComponent } from './../../app.component';
+import { User } from './../models/User';
+import { AuthenticationService } from './../../core/authentication/authentication.service';
+import { environment } from './../../../environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { debounceTime } from 'rxjs/operators';
@@ -9,43 +9,42 @@ import { debounceTime } from 'rxjs/operators';
 export class AnnotationService {
 	constructor(
 		private http: HttpClient,
-		private authService: AuthService,
-		private userService: UserService
+		private authService: AuthenticationService
 	) {}
 
 	getAnnotations(externalId: string, kpiAlias: string) {
 		return this.http.get(
-			`${AppComponent.appApi}/annotations?organizationId=${externalId}&kpiAlias=${kpiAlias}`,
-			{ headers: this.authService.headers() }
+			`${environment.appApi}/annotations?organizationId=${externalId}&kpiAlias=${kpiAlias}`,
+			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}
 
 	postAnnotation(externalId: string, kpiAlias: string, description: string) {
 		return this.http.post(
-			`${AppComponent.appApi}/annotations`,
+			`${environment.appApi}/annotations`,
 			{
 				organizationId: externalId,
-				createdBy: this.userService.currentUserValue.username,
+				createdBy: User.fromLocalStorage().username, // PODERIA SER ID AO INVÉS DE USERNAME
 				kpiAlias,
 				description
 			},
-			{ headers: this.authService.headers() }
+			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}
 
 	deleteAnnotation(id: number) {
-		return this.http.delete(`${AppComponent.appApi}/annotations/${id}`, {
-			headers: this.authService.headers()
+		return this.http.delete(`${environment.appApi}/annotations/${id}`, {
+			headers: this.authService.getAuthorizationHeaders()
 		});
 	}
 
 	patchAnnotation(annotation: any) {
 		return this.http
 			.patch(
-				`${AppComponent.appApi}/annotations/${annotation.id}`,
+				`${environment.appApi}/annotations/${annotation.id}`,
 				annotation,
 				{
-					headers: this.authService.headers()
+					headers: this.authService.getAuthorizationHeaders()
 				}
 			)
 			.pipe(debounceTime(10000));

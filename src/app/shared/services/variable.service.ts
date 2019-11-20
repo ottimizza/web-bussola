@@ -1,7 +1,7 @@
+import { User } from './../models/User';
+import { AuthenticationService } from './../../core/authentication/authentication.service';
 import { VariableInfo } from './../models/variables';
-import { UserService } from '../user/user.service';
-import { AppComponent } from 'src/app/app.component';
-import { AuthService } from '../auth/auth.service';
+import { environment } from './../../../environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -9,53 +9,54 @@ import { Injectable } from '@angular/core';
 export class VariableService {
 	constructor(
 		private httpClient: HttpClient,
-		private authService: AuthService,
-		private userService: UserService
+		private authService: AuthenticationService
 	) {}
 
 	requestOrganizationVariables() {
 		return this.httpClient.get(
-			`${AppComponent.appApi}/variables/byOrganization/${this.userService.currentUserValue.organization.id}`,
-			{ headers: this.authService.headers() }
+			`${environment.appApi}/variables/byOrganization/${
+				User.fromLocalStorage().organization.id
+			}`,
+			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}
 
 	requestCompanyVariables(companyId: number) {
 		return this.httpClient.get(
-			`${AppComponent.appApi}/variables/organization/byCompany/${companyId}`,
-			{ headers: this.authService.headers() }
+			`${environment.appApi}/variables/organization/byCompany/${companyId}`,
+			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}
 
 	requestMissingVariables(companyId: number) {
 		return this.httpClient.get(
-			`${AppComponent.appApi}/variables/organization/missing/${companyId}`,
-			{ headers: this.authService.headers() }
+			`${environment.appApi}/variables/organization/missing/${companyId}`,
+			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}
 
 	postVariable(variableInfo: VariableInfo, companyId?: number) {
 		return this.httpClient.post(
-			`${AppComponent.appApi}/variables/organization`,
+			`${environment.appApi}/variables/organization`,
 			{
 				id: variableInfo.id,
 				organizationId: variableInfo.organizationId || companyId,
 				variableId: variableInfo.variableId,
 				accountingCode: variableInfo.accountingCode
 			},
-			{ headers: this.authService.headers() }
+			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}
 
 	postOrganizationVariable(variableInfo: VariableInfo) {
 		return this.httpClient.post(
-			`${AppComponent.appApi}/variables`,
+			`${environment.appApi}/variables`,
 			{
 				id: variableInfo.id,
-				organizationId: this.userService.currentUserValue.organization.id,
+				organizationId: User.fromLocalStorage().organization.id,
 				accountingCode: variableInfo.accountingCode
 			},
-			{ headers: this.authService.headers() }
+			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}
 }

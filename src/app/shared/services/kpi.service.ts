@@ -1,11 +1,14 @@
-import { AuthService } from '../auth/auth.service';
-import { AppComponent } from 'src/app/app.component';
+import { AuthenticationService } from './../../core/authentication/authentication.service';
+import { environment } from './../../../environments/environment.prod';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class KpiService {
-	constructor(private http: HttpClient, private authService: AuthService) {}
+	constructor(
+		private http: HttpClient,
+		private authService: AuthenticationService
+	) {}
 
 	getKpis(cnpj: string) {
 		return this.requestGraphql({
@@ -26,16 +29,16 @@ export class KpiService {
 
 	getLucroAnual(cnpj: string) {
 		return this.http.get(
-			`${AppComponent.appApi}/kpi/gain/${cnpj.replace(/\D/g, '')}`,
+			`${environment.appApi}/kpi/gain/${cnpj.replace(/\D/g, '')}`,
 			{
-				headers: this.authService.headers()
+				headers: this.authService.getAuthorizationHeaders()
 			}
 		);
 	}
 
 	requestGraphql(body: any) {
-		return this.http.post(`${AppComponent.appApi}/graphql`, body, {
-			headers: this.authService.headers()
+		return this.http.post(`${environment.appApi}/graphql`, body, {
+			headers: this.authService.getAuthorizationHeaders()
 		});
 	}
 }

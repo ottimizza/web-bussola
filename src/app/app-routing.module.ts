@@ -1,28 +1,23 @@
-import { LogoutComponent } from './shared/auth/logout.component';
-import { MenuRoutes } from './shared/routes/menu.routes';
-import { MenuComponent } from './shared/menu/menu.component';
+import { MenuLayoutComponent } from './layout/menu/menu-layout.component';
+import { MenuRoutes } from './layout/menu/menu-layout.routes';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from './shared/auth/auth.guard';
-import { LoginComponent } from './shared/auth/login.component';
+import { AuthGuard } from './core/guard/auth.guard';
+import { AuthLayoutComponent } from './layout/auth/auth-layout.component';
 
 const routes: Routes = [
 	{
 		path: '',
-		component: MenuComponent,
+		component: MenuLayoutComponent,
 		data: { title: 'menu' },
 		children: MenuRoutes,
 		canActivate: [AuthGuard]
 	},
 	{
-		path: 'login',
-		component: LoginComponent,
-		data: { title: 'login' }
-	},
-	{
-		path: 'logout',
-		component: LogoutComponent,
-		data: { title: 'logout' }
+		path: 'auth/callback',
+		component: AuthLayoutComponent,
+		loadChildren: () =>
+			import('./modules/auth/auth.module').then(m => m.AuthModule)
 	}
 ];
 

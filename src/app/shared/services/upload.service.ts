@@ -1,5 +1,5 @@
-import { AuthService } from './../auth/auth.service';
-import { AppComponent } from './../../app.component';
+import { environment } from './../../../environments/environment.prod';
+import { AuthenticationService } from './../../core/authentication/authentication.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class UploadService {
 	constructor(
 		private httpClient: HttpClient,
-		private authService: AuthService
+		private authService: AuthenticationService
 	) {}
 
 	uploadSingleFile(file: File) {
@@ -15,12 +15,12 @@ export class UploadService {
 		formData.append('file', file);
 
 		return this.httpClient.post(
-			`${AppComponent.storageUrl}/storage/${AppComponent.applicationId}/organization/ottimizza/store`,
+			`${environment.storageUrl}/storage/${environment.applicationId}/organization/ottimizza/store`,
 			formData,
 			{ headers: this.noAuthHeaders() }
 		);
 	}
 
 	private noAuthHeaders = (): HttpHeaders =>
-		new HttpHeaders({ Authorization: this.authService.token });
+		new HttpHeaders({ Authorization: this.authService.getAccessToken() });
 }

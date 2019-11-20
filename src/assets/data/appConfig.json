@@ -1,7 +1,7 @@
 {
-	"apiOauthService": "https://staging-oauth-server.herokuapp.com",
+	"apiOauthService": "https://staging-oauth.ottimizza.com.br",
+	"appApi": "https://staging-api-bussolapwa.ottimizza.com.br",
 	"loginUrl": "http://localhost:4200/login",
-	"appApi": "https://staging-api-bussolaweb.herokuapp.com",
 	"clientId": "bussola-contabil-client",
 	"storageUrl": "https://s4.ottimizzacontabil.com:55325",
 	"applicationId": "development-bussola-contabil"

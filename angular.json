@@ -35,12 +35,17 @@
 							"node_modules/@fortawesome/fontawesome-pro/css/all.min.css",
 							"node_modules/primeicons/primeicons.css",
 							"node_modules/primeng/resources/themes/nova-light/theme.css",
-							"node_modules/primeng/resources/primeng.min.css"
+							"node_modules/primeng/resources/primeng.min.css",
+							"src/assets/bee3d/css/bee3D.css"
 						],
 						"scripts": [
 							"node_modules/jquery/dist/jquery.min.js",
+							"node_modules/popper.js/dist/popper.min.js",
+							"src/assets/bootstrap/js/bootstrap.min.js",
 							"node_modules/popper.js/dist/umd/popper.min.js",
-							"src/assets/bootstrap/js/bootstrap.min.js"
+							"node_modules/desandro-classie/classie.js",
+							"node_modules/parallax-js/dist/parallax.min.js",
+							"src/assets/bee3d/js/bee3D.js"
 						]
 					},
 					"configurations": {
