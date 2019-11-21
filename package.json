@@ -27,6 +27,7 @@
 		"@ng-stack/contenteditable": "^1.0.1",
 		"angular-google-charts": "^0.1.6",
 		"bootstrap": "^4.3.1",
+		"compression": "^1.7.4",
 		"desandro-classie": "^1.0.1",
 		"dotenv": "^8.1.0",
 		"express": "^4.17.1",
