@@ -48,7 +48,7 @@ fs.writeFile(`./@env.ts`, environmentFile, err => {
 	}
 });
 
-app.use(express.static(__dirname + '/dist/ng-accounts'));
+app.use(express.static(__dirname + '/dist/bussola-pwa'));
 
 app.disable('etag');
 
@@ -59,6 +59,6 @@ app.listen(process.env.PORT || 4200);
 // redirect traffic to index.html
 
 app.get('*', function(req, res) {
-	const index = __dirname + '/dist/ng-accounts/index.html';
+	const index = __dirname + '/dist/bussola-pwa/index.html';
 	res.sendFile(path.join(index));
 });
