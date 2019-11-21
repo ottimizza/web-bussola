@@ -1,21 +1,29 @@
-import { AuthGuard } from './../../core/guard/auth.guard';
+import { AuthGuard } from '@app/guard/auth.guard';
 import { Routes } from '@angular/router';
 export const MenuRoutes: Routes = [
 	{
 		path: '',
 		pathMatch: 'full',
-		redirectTo: 'home'
+		redirectTo: 'comparatives'
 	},
+	// {
+	// 	path: 'home',
+	// 	loadChildren: () =>
+	// 		import('@modules/home/home.module').then(m => m.HomeModule),
+	// 	canActivate: [AuthGuard]
+	// },
 	{
-		path: 'home',
+		path: 'comparatives',
 		loadChildren: () =>
-			import('../../modules/home/home.module').then(m => m.HomeModule),
+			import('@modules/comparatives/comparatives.module').then(
+				m => m.ComparativesModule
+			),
 		canActivate: [AuthGuard]
 	},
 	{
-		path: 'indicadores',
+		path: 'pointers',
 		loadChildren: () =>
-			import('../../modules/pointers/pointers.module').then(
+			import('@modules/pointers/pointers.module').then(
 				m => m.PointersModule
 			),
 		canActivate: [AuthGuard]
@@ -23,7 +31,7 @@ export const MenuRoutes: Routes = [
 	{
 		path: 'options',
 		loadChildren: () =>
-			import('../../modules/options/options.module').then(
+			import('@modules/options/options.module').then(
 				m => m.OptionsModule
 			),
 		canActivate: [AuthGuard]

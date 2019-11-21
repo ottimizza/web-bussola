@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthenticationService } from '../authentication/authentication.service';
-import { GenericResponse } from 'src/app/shared/models/GenericResponse';
-import { environment } from 'src/environments/environment';
-import { GenericPageableResponse } from 'src/app/shared/models/GenericPageableResponse';
+import { AuthenticationService } from '@app/authentication/authentication.service';
+import { GenericResponse } from '@shared/models/GenericResponse';
+import { environment } from '@env';
+import { GenericPageableResponse } from '@shared/models/GenericPageableResponse';
 
 @Injectable({
 	providedIn: 'root'

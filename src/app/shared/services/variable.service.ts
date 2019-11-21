@@ -1,7 +1,7 @@
-import { User } from './../models/User';
-import { AuthenticationService } from './../../core/authentication/authentication.service';
-import { VariableInfo } from './../models/variables';
-import { environment } from './../../../environments/environment.prod';
+import { User } from '@shared/models/User';
+import { AuthenticationService } from '@app/authentication/authentication.service';
+import { VariableInfo } from '@shared/models/variables';
+import { environment } from '@env';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 

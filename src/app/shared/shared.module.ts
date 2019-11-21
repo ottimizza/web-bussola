@@ -1,4 +1,4 @@
-import { SelectCompanyComponent } from './components/select-company/select-company.component';
+import { SelectCompanyComponent } from '@shared/components/select-company/select-company.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';

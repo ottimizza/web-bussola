@@ -12,7 +12,7 @@ import { OptionsComponent } from './options.component';
 import { TableModule } from 'primeng/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
 	declarations: [

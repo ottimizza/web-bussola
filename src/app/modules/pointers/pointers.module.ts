@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { ModalDashboardComponent } from './dashboard/modal-dashboard/modal-dashboard.component';
 import { ContenteditableModule } from '@ng-stack/contenteditable';
 import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
 	declarations: [

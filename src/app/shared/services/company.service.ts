@@ -1,8 +1,8 @@
-import { AuthenticationService } from './../../core/authentication/authentication.service';
+import { AuthenticationService } from '@app//authentication/authentication.service';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from './../../../environments/environment.prod';
+import { environment } from '@env';
 
 @Injectable({ providedIn: 'root' })
 export class CompanyService {
@@ -13,7 +13,7 @@ export class CompanyService {
 
 	getCompanies(pageIndex: number) {
 		return this.http.get(
-			`${environment.oauthBaseUrl}/api/v1/organizations?page_size=30&page_index=${pageIndex}`,
+			`${environment.oauthBaseUrl}/api/v1/organizations?pageSize=30&pageIndex=${pageIndex}`,
 			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}

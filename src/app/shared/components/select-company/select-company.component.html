@@ -3,7 +3,7 @@
 	autoDisplayFirst="true"
 	filter="true"
 	filterBy="label, value.cnpj"
-	itemSize="30"
+	itemSize="{{ companies.length > 2 ? 30 : companies.length * 10 }}"
 	[options]="companies"
 	[virtualScroll]="true"
 	(onChange)="onCompanyChanged($event)"

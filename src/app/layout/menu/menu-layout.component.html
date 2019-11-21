@@ -48,7 +48,7 @@
 			<i *ngIf="!avatarUrl" class="fal fa-user"></i>
 		</button>
 		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-			<a class="dropdown-item" href="{{ profileUrl }}">Ver Perfil</a>
+			<a class="dropdown-item" href="{{ profileUrl }}" target="_blank">Ver Perfil</a>
 			<a class="dropdown-item" [routerLink]="['/logout']">Sair</a>
 		</div>
 	</div>
@@ -74,7 +74,8 @@
 				>
 					<div class="d-flex mb-2 ml-3 mr-1 p-2">
 						<div class="d-flex">
-							<span class="icon-span h-100 d-flex align-items-center"
+							<span
+								class="icon-span h-100 d-flex align-items-center"
 								><i class="{{ menuItem.icon }}"></i
 							></span>
 						</div>
@@ -89,8 +90,8 @@
 		</mat-nav-list>
 	</mat-sidenav>
 	<mat-sidenav-content>
-		<div class="p-3 page-content">
-			<router-outlet></router-outlet>
+		<div class="p-3 page-content h-100">
+			<router-outlet class="h-100"></router-outlet>
 		</div>
 	</mat-sidenav-content>
 </mat-sidenav-container>

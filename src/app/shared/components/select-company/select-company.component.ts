@@ -1,11 +1,11 @@
 import { OnInit, Component, Output, EventEmitter } from '@angular/core';
-import { Company } from '../../models/company';
-import { CompanyService } from '../../services/company.service';
+import { Company } from '@shared/models/company';
+import { CompanyService } from '@shared/services/company.service';
 
 @Component({
 	selector: 'app-select-company',
 	templateUrl: 'select-company.component.html',
-	styleUrls: ['./select-company.component.scss']
+	styleUrls: ['select-company.component.scss']
 })
 export class SelectCompanyComponent implements OnInit {
 	companies: Company[] = [];

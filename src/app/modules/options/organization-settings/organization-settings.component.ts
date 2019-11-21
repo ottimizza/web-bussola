@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { VariableInfo } from 'src/app/shared/models/variables';
-import { VariableService } from 'src/app/shared/services/variable.service';
-import { ToastService } from 'src/app/shared/services/toast.service';
+import { VariableInfo } from '@shared/models/variables';
+import { VariableService } from '@shared/services/variable.service';
+import { ToastService } from '@shared/services/toast.service';
 
 @Component({
 	selector: 'app-organization-settings',

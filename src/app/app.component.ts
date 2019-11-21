@@ -3,7 +3,7 @@ import { Subscription, BehaviorSubject } from 'rxjs';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { SwUpdate } from '@angular/service-worker';
-import { environment } from 'src/environments/environment';
+import { environment } from '@env';
 
 @Component({
 	selector: 'app-root',
@@ -11,13 +11,6 @@ import { environment } from 'src/environments/environment';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy {
-	public static apiOauthService: string;
-	public static loginUrl: string;
-	public static appApi: string;
-	public static storageUrl: string;
-	public static clientId: string;
-	public static applicationId: string;
-
 	message: BehaviorSubject<any>;
 	subscription: Subscription;
 	deferredPrompt: any;

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { VariableService } from 'src/app/shared/services/variable.service';
-import { CompanyService } from 'src/app/shared/services/company.service';
-import { ToastService } from 'src/app/shared/services/toast.service';
-import { Company } from 'src/app/shared/models/company';
-import { VariableInfo } from 'src/app/shared/models/variables';
+import { VariableService } from '@shared/services/variable.service';
+import { CompanyService } from '@shared/services/company.service';
+import { ToastService } from '@shared/services/toast.service';
+import { Company } from '@shared/models/company';
+import { VariableInfo } from '@shared/models/variables';
 
 @Component({
 	selector: 'app-company-settings',

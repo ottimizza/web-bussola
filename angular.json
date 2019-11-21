@@ -40,9 +40,8 @@
 						],
 						"scripts": [
 							"node_modules/jquery/dist/jquery.min.js",
-							"node_modules/popper.js/dist/popper.min.js",
-							"src/assets/bootstrap/js/bootstrap.min.js",
 							"node_modules/popper.js/dist/umd/popper.min.js",
+							"src/assets/bootstrap/js/bootstrap.min.js",
 							"node_modules/desandro-classie/classie.js",
 							"node_modules/parallax-js/dist/parallax.min.js",
 							"src/assets/bee3d/js/bee3D.js"
@@ -52,8 +51,8 @@
 						"production": {
 							"fileReplacements": [
 								{
-									"replace": "src/environments/environment.ts",
-									"with": "src/environments/environment.prod.ts"
+									"replace": "@env.ts",
+									"with": "@env.prod.ts"
 								}
 							],
 							"optimization": true,

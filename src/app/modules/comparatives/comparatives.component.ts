@@ -1,39 +1,29 @@
-import { Component } from '@angular/core';
-import { Company } from '@shared/models/company';
-import { Lucro } from '@shared/models/lucro';
-import { KpiFormatado, Kpi } from '@shared/models/kpi';
+import { Kpi } from './../../shared/models/kpi';
 import { KpiService } from '@shared/services/kpi.service';
+import { Component, OnInit } from '@angular/core';
+import { Company } from '@shared/models/company';
+import { KpiFormatado } from '@shared/models/kpi';
 import { KpiDetail } from '@shared/models/kpi-detail';
 
 @Component({
-	selector: 'app-pointers',
-	templateUrl: './pointers.component.html',
-	styleUrls: ['./pointers.component.scss']
+	selector: 'app-comparatives',
+	templateUrl: 'comparatives.component.html',
+	styleUrls: ['comparatives.component.scss']
 })
-export class PointersComponent {
+export class ComparativesComponent implements OnInit {
 	selectedCompany: Company;
-
-	lucro: Lucro;
 	kpis: KpiFormatado[] = [];
 	isLoading = true;
 
 	constructor(private kpiService: KpiService) {}
 
+	ngOnInit(): void {}
+
 	requestKpis() {
 		this.isLoading = true;
-		this.lucro = undefined;
 		this.kpis = [];
 
-		this.kpiService.getLucroAnual(this.selectedCompany.cnpj).subscribe(
-			(lucro: Lucro) => {
-				this.lucro = lucro;
-			},
-			err => {
-				console.log(err);
-			}
-		);
-
-		this.kpiService.getKpis(this.selectedCompany.cnpj).subscribe(
+		this.kpiService.getKpis(this.selectedCompany.cnpj, 2).subscribe(
 			(response: any) => {
 				response.data.findKpi.forEach((kpi: Kpi) => {
 					const kpiFormatado: KpiFormatado = {
@@ -57,7 +47,10 @@ export class PointersComponent {
 						kpiFormatado.data.push(detail.valorArray);
 					});
 
-					this.kpis.push(kpiFormatado);
+					// this.kpis.push(kpiFormatado);
+					this.kpis = [...this.kpis, kpiFormatado]
+					// this.kpis.push(kpiFormatado);
+					console.log(this.kpis)
 				});
 				console.log(this.kpis);
 			},
@@ -67,8 +60,6 @@ export class PointersComponent {
 			() => (this.isLoading = false)
 		);
 	}
-
-
 
 	onCompanyChanged(selectedCompany: Company) {
 		this.selectedCompany = selectedCompany;

@@ -3,9 +3,9 @@ import { Subject } from 'rxjs';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NgxLinkifyjsService } from 'ngx-linkifyjs';
-import { VariableInfo } from 'src/app/shared/models/variables';
-import { BalanceService } from 'src/app/shared/services/balance.service';
-import { BalanceItem } from 'src/app/shared/models/balante-item';
+import { VariableInfo } from '@shared/models/variables';
+import { BalanceService } from '@shared/services/balance.service';
+import { BalanceItem } from '@shared/models/balante-item';
 
 @Component({
 	selector: 'app-modal-balance',

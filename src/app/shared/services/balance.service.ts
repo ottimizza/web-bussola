@@ -1,5 +1,5 @@
-import { AuthenticationService } from './../../core/authentication/authentication.service';
-import { environment } from './../../../environments/environment.prod';
+import { AuthenticationService } from '@app//authentication/authentication.service';
+import { environment } from '@env';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 

@@ -3,9 +3,9 @@ import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
 
-import { StorageService } from 'src/app/shared/services/storage.service';
-import { AuthSession } from 'src/app/shared/models/AuthSession';
-import { environment } from 'src/environments/environment';
+import { StorageService } from '@shared/services/storage.service';
+import { AuthSession } from '@shared/models/AuthSession';
+import { environment } from '@env';
 
 @Injectable({
 	providedIn: 'root'
@@ -114,7 +114,7 @@ export class AuthenticationService {
 
 	public refresh(refreshToken: string) {
 		const clientId = `${environment.appApi}`;
-		const url = `${environment.oauthBaseUrl}/oauth/refresh?refresh_token=${refreshToken}&client_id=${clientId}`;
+		const url = `${environment.appApi}/oauth/refresh?refresh_token=${refreshToken}&client_id=${clientId}`;
 		return this.http.post(url, {}, {});
 	}
 

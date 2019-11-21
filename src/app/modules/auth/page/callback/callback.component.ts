@@ -1,9 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
-import { AuthSession } from 'src/app/shared/models/AuthSession';
-
-// import { Project } from '../../../../data/schema/project';
+import { AuthenticationService } from '@app/authentication/authentication.service';
+import { AuthSession } from '@shared/models/AuthSession';
 
 @Component({
 	selector: 'app-auth-callback',
@@ -38,7 +36,7 @@ export class AuthCallbackComponent implements OnInit {
 									//   storeUserInfo,
 									//   storeTokenInfo
 									// ]).then((values) => {
-									that.router.navigate(['dashboard']);
+									that.router.navigate(['']);
 									// }).catch((e) => {
 									//   console.log(e);
 									// });

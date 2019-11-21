@@ -1,0 +1,38 @@
+<div class="h-100">
+	<div>
+		<app-select-company
+			(selectedCompany)="onCompanyChanged($event)"
+		></app-select-company>
+	</div>
+	<div>
+		<p-carousel
+			[value]="kpis"
+			[numScroll]="1"
+			[numVisible]="1"
+			[circular]="true"
+		>
+			<ng-template let-kpi pTemplate="item">
+				<div class="w-100 card" style="height: calc(55vh - 1px);">
+					<div class="chart-title">
+						<div
+							class="float-left text-truncate d-block w-100 pl-2 pt-1"
+						>
+							<h3>
+								{{ kpi.title }}
+							</h3>
+						</div>
+					</div>
+					<google-chart
+						class="chart"
+						[dynamicResize]="true"
+						[type]="kpi.chartType"
+						[data]="kpi.data"
+						[columnNames]="kpi.labelArray"
+						[options]="kpi.chartOptions"
+					>
+					</google-chart>
+				</div>
+			</ng-template>
+		</p-carousel>
+	</div>
+</div>

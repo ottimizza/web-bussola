@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material';
-import { VariableInfo } from 'src/app/shared/models/variables';
+import { VariableInfo } from '@shared/models/variables';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
 const regexStr = /(\d)|(\.)|(\+)|(\-)/;

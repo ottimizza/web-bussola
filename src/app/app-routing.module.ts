@@ -17,7 +17,7 @@ const routes: Routes = [
 		path: 'auth/callback',
 		component: AuthLayoutComponent,
 		loadChildren: () =>
-			import('./modules/auth/auth.module').then(m => m.AuthModule)
+			import('@modules/auth/auth.module').then(m => m.AuthModule)
 	}
 ];
 

@@ -42,7 +42,7 @@ console.log(`
   ${environmentFile}
 `);
 
-fs.writeFile(`./src/environments/environment.ts`, environmentFile, err => {
+fs.writeFile(`./@env.ts`, environmentFile, err => {
 	if (err) {
 		console.log(err);
 	}

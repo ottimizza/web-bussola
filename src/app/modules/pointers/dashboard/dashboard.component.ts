@@ -1,8 +1,8 @@
 import { ModalDashboardComponent } from './modal-dashboard/modal-dashboard.component';
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Lucro } from 'src/app/shared/models/lucro';
-import { KpiFormatado } from 'src/app/shared/models/kpi';
+import { Lucro } from '@shared/models/lucro';
+import { KpiFormatado } from '@shared/models/kpi';
 
 @Component({
 	selector: 'app-dashboard',

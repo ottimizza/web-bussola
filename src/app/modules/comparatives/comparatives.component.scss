@@ -1,7 +1,8 @@
-@import '../../../../assets/styles/variables.scss';
+@import '../../../assets/styles/variables.scss';
 
 .card {
 	background-color: #fafafa !important;
+	height: fit-content;
 }
 
 .card:hover {
@@ -46,6 +47,11 @@
 	height: 70vh;
 	font-weight: 700;
 	color: darkgray;
+}
+
+h3 {
+	width: fit-content;
+	margin: auto;
 }
 
 @media only screen and (max-width: 800px) {

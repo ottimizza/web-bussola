@@ -1,5 +1,5 @@
-import { User } from '../../shared/models/User';
-import { environment } from 'src/environments/environment';
+import { User } from '@shared/models/User';
+import { environment } from '@env';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { Observable } from 'rxjs';
@@ -7,15 +7,22 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 export const ROUTES: RouteInfo[] = [
+	// {
+	// 	path: '/home',
+	// 	title: 'Início',
+	// 	icon: 'fal fa-home',
+	// 	class: '',
+	// 	permissonLevelNeeded: 2
+	// },
 	{
-		path: '/home',
-		title: 'Início',
-		icon: 'fal fa-home',
+		path: '/comparatives',
+		title: 'Comparativos',
+		icon: 'fal fa-chart-line',
 		class: '',
 		permissonLevelNeeded: 2
 	},
 	{
-		path: '/indicadores',
+		path: '/pointers',
 		title: 'Indicadores',
 		icon: 'fal fa-analytics',
 		class: '',

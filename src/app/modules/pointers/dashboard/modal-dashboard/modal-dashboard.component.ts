@@ -1,11 +1,11 @@
-import { environment } from './../../../../../environments/environment.prod';
+import { environment } from '@env';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NgxLinkifyjsService } from 'ngx-linkifyjs';
 import { FileUpload } from 'primeng/fileupload';
-import { AnnotationService } from 'src/app/shared/services/annotation.service';
-import { UploadService } from 'src/app/shared/services/upload.service';
-import { ToastService } from 'src/app/shared/services/toast.service';
+import { AnnotationService } from '@shared/services/annotation.service';
+import { UploadService } from '@shared/services/upload.service';
+import { ToastService } from '@shared/services/toast.service';
 
 @Component({
 	selector: 'app-modal-dashboard',

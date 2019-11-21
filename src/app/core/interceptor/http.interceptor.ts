@@ -10,8 +10,8 @@ import {
 
 import { Observable, EMPTY, throwError, of, Subject } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
-import { AuthenticationService } from '../authentication/authentication.service';
-import { AuthSession } from 'src/app/shared/models/AuthSession';
+import { AuthenticationService } from '@app/authentication/authentication.service';
+import { AuthSession } from '@shared/models/AuthSession';
 
 @Injectable({
 	providedIn: 'root'
@@ -44,6 +44,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 	): Observable<HttpEvent<any>> {
 		return next.handle(request).pipe(
 			catchError((error: HttpErrorResponse) => {
+				alert('error');
+				console.log(error);
 				if (error.error instanceof Error) {
 					// A client-side or network error occurred. Handle it accordingly.
 				} else {
