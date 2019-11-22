@@ -1,9 +1,9 @@
 export const environment = {
 	production: true,
-	oauthBaseUrl: 'https://development-oauth-server.herokuapp.com',
-	appApi: 'https://development-api-bussolapwa.ottimizza.com.br',
+	oauthBaseUrl: 'https://staging-oauth.ottimizza.com.br',
+	appApi: 'https://staging-api-bussolapwa.ottimizza.com.br',
 	storageUrl: 'https://s4.ottimizzacontabil.com:55325',
-	oauthClientId: 'be511540971aa9a0ea3c',
+	oauthClientId: 'bussola-contabil-client',
 	applicationId: 'staging-bussola-contabil',
 	firebase: {
 		apiKey: 'your apikey',
