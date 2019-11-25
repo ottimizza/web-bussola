@@ -103,7 +103,8 @@ export class AuthenticationService {
 		const that = this;
 		const baseUrl = `${environment.oauthBaseUrl}/oauth/authorize`;
 		const clientId = `${environment.oauthClientId}`;
-		const url = `${baseUrl}?response_type=${responseType}&prompt=login&client_id=${clientId}&redirect_uri=${this.redirectURI}`;
+		const logoUrl = `${window.location.origin}/assets/img/logo-white.png`;
+		const url = `${baseUrl}?response_type=${responseType}&prompt=login&client_id=${clientId}&redirect_uri=${this.redirectURI}&logo=${logoUrl}`;
 		this.document.location.href = url;
 	}
 
