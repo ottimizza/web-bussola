@@ -54,6 +54,7 @@ export class PointersComponent {
 							0,
 							this.kpiService.formatAxis(detail.columnX)
 						);
+						console.log(kpiFormatado);
 						kpiFormatado.data.push(detail.valorArray);
 					});
 
@@ -67,8 +68,6 @@ export class PointersComponent {
 			() => (this.isLoading = false)
 		);
 	}
-
-
 
 	onCompanyChanged(selectedCompany: Company) {
 		this.selectedCompany = selectedCompany;

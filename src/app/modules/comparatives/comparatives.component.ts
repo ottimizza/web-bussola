@@ -46,6 +46,7 @@ export class ComparativesComponent implements OnInit {
 					kpiFormatado.labelArray.splice(0, 0, 'Month');
 
 					kpi.kpiDetail.forEach((detail: KpiDetail) => {
+						console.log(detail);
 						detail.valorArray.splice(
 							0,
 							0,
@@ -54,12 +55,8 @@ export class ComparativesComponent implements OnInit {
 						kpiFormatado.data.push(detail.valorArray);
 					});
 
-					// this.kpis.push(kpiFormatado);
 					this.kpis = [...this.kpis, kpiFormatado];
-					// this.kpis.push(kpiFormatado);
-					console.log(this.kpis);
 				});
-				console.log(this.kpis);
 			},
 			err => {
 				console.log(err);

@@ -15,7 +15,7 @@ export class UploadService {
 		formData.append('file', file);
 
 		return this.httpClient.post(
-			`${environment.storageUrl}/storage/${environment.applicationId}/organization/ottimizza/store`,
+			`${environment.storageUrl}/storage/${environment.applicationId}/accounting/ottimizza/store`,
 			formData,
 			{ headers: this.noAuthHeaders() }
 		);

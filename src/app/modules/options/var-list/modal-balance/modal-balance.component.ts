@@ -55,6 +55,10 @@ export class BalanceModalComponent implements OnInit {
 		});
 	}
 
+	close() {
+		this.dialogRef.close();
+	}
+
 	loadMoreBalance(filtered: boolean = false) {
 		this.balanceService
 			.findBalance(this.cnpj, this.pageIndex, this.filter)
