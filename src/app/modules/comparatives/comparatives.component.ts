@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Company } from '@shared/models/company';
 import { KpiFormatado } from '@shared/models/kpi';
 import { KpiDetail } from '@shared/models/kpi-detail';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
 	selector: 'app-comparatives',
@@ -13,11 +14,15 @@ import { KpiDetail } from '@shared/models/kpi-detail';
 export class ComparativesComponent implements OnInit {
 	selectedCompany: Company;
 	kpis: KpiFormatado[] = [];
+
 	isLoading = true;
-
 	isPortrait = window.innerHeight > window.innerWidth;
+	isMobile = this.deviceService.isMobile();
 
-	constructor(private kpiService: KpiService) {}
+	constructor(
+		private kpiService: KpiService,
+		private deviceService: DeviceDetectorService
+	) {}
 
 	ngOnInit(): void {}
 
