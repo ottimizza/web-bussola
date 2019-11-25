@@ -15,6 +15,8 @@ export class ComparativesComponent implements OnInit {
 	kpis: KpiFormatado[] = [];
 	isLoading = true;
 
+	isPortrait = window.innerHeight > window.innerWidth;
+
 	constructor(private kpiService: KpiService) {}
 
 	ngOnInit(): void {}
@@ -48,9 +50,9 @@ export class ComparativesComponent implements OnInit {
 					});
 
 					// this.kpis.push(kpiFormatado);
-					this.kpis = [...this.kpis, kpiFormatado]
+					this.kpis = [...this.kpis, kpiFormatado];
 					// this.kpis.push(kpiFormatado);
-					console.log(this.kpis)
+					console.log(this.kpis);
 				});
 				console.log(this.kpis);
 			},
