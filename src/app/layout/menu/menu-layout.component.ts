@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../core/authentication/authentication.service';
 import { User } from '@shared/models/User';
 import { environment } from '@env';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
@@ -62,7 +63,10 @@ export class MenuLayoutComponent implements OnInit {
 		.observe(Breakpoints.Handset)
 		.pipe(map(result => result.matches));
 
-	constructor(private breakpointObserver: BreakpointObserver) {}
+	constructor(
+		private breakpointObserver: BreakpointObserver,
+		private authenticationService: AuthenticationService
+	) {}
 
 	ngOnInit() {
 		this.avatarUrl = User.fromLocalStorage().avatar;
@@ -73,6 +77,13 @@ export class MenuLayoutComponent implements OnInit {
 			'/usuarios/' +
 			User.fromLocalStorage().id;
 		this.menuItems = ROUTES.filter(menuItem => menuItem);
+	}
+
+	logout() {
+		this.authenticationService.logout().subscribe((response: any) => {
+			this.authenticationService.clearStorage();
+			this.authenticationService.authorize();
+		});
 	}
 }
 
