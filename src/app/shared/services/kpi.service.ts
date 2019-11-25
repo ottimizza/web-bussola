@@ -22,7 +22,7 @@ export class KpiService {
 				'id: $id, companyId: $companyId, title: $title, kpiAlias: $kpiAlias, subtitle:' +
 				'$subtitle, description: $description, graphType: $graphType, columnX0Label: $columnX0Label,' +
 				'label: $label, label2: $label2, label3: $label3, label4: $label4, kind: $kind, visible: $visible)' +
-				'{id, title, kpiAlias, chartType, labelArray, chartOptions, kpiDetail { id, columnX, valorArray} } }',
+				'{id, title, kpiAlias, chartType, labelArray, chartOptions, kpiDetail { id, columnX, valorStringArray} } }',
 			variables: {
 				cnpj,
 				kind

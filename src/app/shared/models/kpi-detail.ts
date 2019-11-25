@@ -1,4 +1,4 @@
 export interface KpiDetail {
 	columnX: string;
-	valorArray?: any[];
+	valorStringArray: any;
 }

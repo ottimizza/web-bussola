@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { Kpi } from './../../shared/models/kpi';
 import { KpiService } from '@shared/services/kpi.service';
 import { Component, OnInit } from '@angular/core';
@@ -46,13 +47,17 @@ export class ComparativesComponent implements OnInit {
 					kpiFormatado.labelArray.splice(0, 0, 'Month');
 
 					kpi.kpiDetail.forEach((detail: KpiDetail) => {
-						console.log(detail);
-						detail.valorArray.splice(
-							0,
-							0,
+						const valorArray = [
 							this.kpiService.formatAxis(detail.columnX)
+						].concat(
+							detail.valorStringArray
+								.split(';')
+								.map((item: string) => {
+									return parseInt(item, 10) || null;
+								})
 						);
-						kpiFormatado.data.push(detail.valorArray);
+						console.log(valorArray);
+						kpiFormatado.data.push(valorArray);
 					});
 
 					this.kpis = [...this.kpis, kpiFormatado];

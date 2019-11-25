@@ -82,7 +82,7 @@ export class MenuLayoutComponent implements OnInit {
 	logout() {
 		this.authenticationService.logout().subscribe((response: any) => {
 			this.authenticationService.clearStorage();
-			this.authenticationService.authorize();
+			window.location.reload();
 		});
 	}
 }
