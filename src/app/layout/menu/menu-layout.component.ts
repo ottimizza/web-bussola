@@ -6,6 +6,7 @@ import { MatSidenav } from '@angular/material';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { AppComponent } from 'app/app.component';
 
 export const ROUTES: RouteInfo[] = [
 	// {
@@ -48,7 +49,10 @@ export const ROUTES: RouteInfo[] = [
 @Component({
 	selector: 'app-menu-layout',
 	templateUrl: './menu-layout.component.html',
-	styleUrls: ['./menu-layout.component.scss']
+	styleUrls: [
+		'./menu-layout.component.scss',
+		`@shared/themes/${AppComponent.theme}.scss`
+	]
 })
 export class MenuLayoutComponent implements OnInit {
 	menuItems: RouteInfo[];
@@ -80,9 +84,9 @@ export class MenuLayoutComponent implements OnInit {
 	}
 
 	logout() {
-		this.authenticationService.logout().subscribe((response: any) => {
+		this.authenticationService.logout().subscribe(() => {
 			this.authenticationService.clearStorage();
-			window.location.reload();
+			this.authenticationService.authorize();
 		});
 	}
 }

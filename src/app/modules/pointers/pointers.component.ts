@@ -62,8 +62,6 @@ export class PointersComponent {
 						kpiFormatado.data.push(valorArray);
 					});
 
-					this.kpis = [...this.kpis, kpiFormatado];
-
 					this.kpis.push(kpiFormatado);
 				});
 				console.log(this.kpis);

@@ -60,7 +60,7 @@ export class ComparativesComponent implements OnInit {
 						kpiFormatado.data.push(valorArray);
 					});
 
-					this.kpis = [...this.kpis, kpiFormatado];
+					this.kpis.push(kpiFormatado);
 				});
 			},
 			err => {

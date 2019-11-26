@@ -8,9 +8,14 @@ import { environment } from '@env';
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.scss']
+	styleUrls: [
+		'./app.component.scss',
+		`@shared/themes/${AppComponent.theme}.scss`
+	]
 })
 export class AppComponent implements OnInit, OnDestroy {
+	public static theme = 'bussola-default';
+
 	message: BehaviorSubject<any>;
 	subscription: Subscription;
 	deferredPrompt: any;
