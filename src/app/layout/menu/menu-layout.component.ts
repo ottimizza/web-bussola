@@ -49,10 +49,7 @@ export const ROUTES: RouteInfo[] = [
 @Component({
 	selector: 'app-menu-layout',
 	templateUrl: './menu-layout.component.html',
-	styleUrls: [
-		'./menu-layout.component.scss',
-		`@shared/themes/${AppComponent.theme}.scss`
-	]
+	styleUrls: ['./menu-layout.component.scss']
 })
 export class MenuLayoutComponent implements OnInit {
 	menuItems: RouteInfo[];
