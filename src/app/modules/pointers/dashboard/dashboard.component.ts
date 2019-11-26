@@ -42,6 +42,7 @@ export class DashboardComponent implements OnInit {
 	ngOnInit(): void {}
 
 	openModal(kpiAlias: string) {
+		console.log(this.kpis);
 		const that = this;
 		const externalId = that.externalId; // ?????????
 		that.dialog.open(ModalDashboardComponent, {

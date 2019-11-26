@@ -49,22 +49,19 @@ export class PointersComponent {
 					kpiFormatado.labelArray.splice(0, 0, 'Month');
 
 					kpi.kpiDetail.forEach((detail: KpiDetail) => {
-						const valorArray = [
-							this.kpiService.formatAxis(detail.columnX)
-						].concat(
-							detail.valorStringArray
-								.split(';')
-								.map((item: string) => {
-									return parseInt(item, 10) || null;
-								})
+						kpiFormatado.data.push(
+							[this.kpiService.formatAxis(detail.columnX)].concat(
+								detail.valorStringArray
+									.split(';')
+									.map((item: string) => {
+										return parseFloat(item) || null;
+									})
+							)
 						);
-						console.log(valorArray);
-						kpiFormatado.data.push(valorArray);
 					});
 
 					this.kpis.push(kpiFormatado);
 				});
-				console.log(this.kpis);
 			},
 			err => {
 				console.log(err);
