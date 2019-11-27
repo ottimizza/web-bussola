@@ -1,4 +1,4 @@
-import { ModalDashboardComponent } from './modal-dashboard/modal-dashboard.component';
+import { ModalAnnotationsComponent } from './modal-annotations/modal-annotations.component';
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Lucro } from '@shared/models/lucro';
@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
 		console.log(this.kpis);
 		const that = this;
 		const externalId = that.externalId; // ?????????
-		that.dialog.open(ModalDashboardComponent, {
+		that.dialog.open(ModalAnnotationsComponent, {
 			width: '33rem',
 			data: { externalId, kpiAlias }
 		});

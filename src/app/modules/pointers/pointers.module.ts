@@ -9,7 +9,7 @@ import { GoogleChartsModule } from 'angular-google-charts';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
-import { ModalDashboardComponent } from './dashboard/modal-dashboard/modal-dashboard.component';
+import { ModalAnnotationsComponent } from './dashboard/modal-annotations/modal-annotations.component';
 import { ContenteditableModule } from '@ng-stack/contenteditable';
 import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
 import { SharedModule } from '@shared/shared.module';
@@ -18,7 +18,7 @@ import { SharedModule } from '@shared/shared.module';
 	declarations: [
 		PointersComponent,
 		DashboardComponent,
-		ModalDashboardComponent
+		ModalAnnotationsComponent
 	],
 	imports: [
 		CommonModule,
@@ -35,6 +35,6 @@ import { SharedModule } from '@shared/shared.module';
 	],
 	exports: [],
 	providers: [],
-	entryComponents: [ModalDashboardComponent]
+	entryComponents: [ModalAnnotationsComponent]
 })
 export class PointersModule {}

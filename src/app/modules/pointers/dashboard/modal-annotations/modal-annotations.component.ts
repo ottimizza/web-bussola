@@ -8,11 +8,11 @@ import { UploadService } from '@shared/services/upload.service';
 import { ToastService } from '@shared/services/toast.service';
 
 @Component({
-	selector: 'app-modal-dashboard',
-	templateUrl: './modal-dashboard.component.html',
-	styleUrls: ['./modal-dashboard.component.scss']
+	selector: 'app-modal-annotations',
+	templateUrl: './modal-annotations.component.html',
+	styleUrls: ['./modal-annotations.component.scss']
 })
-export class ModalDashboardComponent implements OnInit {
+export class ModalAnnotationsComponent implements OnInit {
 	description = '';
 	annotations: any;
 	isLoading = true;
@@ -22,7 +22,7 @@ export class ModalDashboardComponent implements OnInit {
 	regex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/i;
 
 	constructor(
-		public dialogRef: MatDialogRef<ModalDashboardComponent>,
+		public dialogRef: MatDialogRef<ModalAnnotationsComponent>,
 		public linkifyService: NgxLinkifyjsService,
 		@Inject(MAT_DIALOG_DATA) public data: any,
 		private annotationService: AnnotationService,
@@ -39,6 +39,8 @@ export class ModalDashboardComponent implements OnInit {
 	}
 
 	postAnnotation(description?: string) {
+		this.isLoading = true;
+
 		this.annotationService
 			.postAnnotation(
 				this.data.externalId,
@@ -51,7 +53,6 @@ export class ModalDashboardComponent implements OnInit {
 	}
 
 	requestAnnotations() {
-		this.isLoading = true;
 		this.annotationService
 			.getAnnotations(this.data.externalId, this.data.kpiAlias)
 			.subscribe((annotations: []) => {
@@ -92,6 +93,7 @@ export class ModalDashboardComponent implements OnInit {
 	}
 
 	onUpload(event: FileUpload) {
+		this.isLoading = true;
 		this.uploadService
 			.uploadSingleFile(event.files[0])
 			.subscribe((res: any) => {

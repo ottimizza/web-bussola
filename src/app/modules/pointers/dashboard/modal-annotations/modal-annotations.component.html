@@ -4,7 +4,9 @@
 		<div class="modal-header">
 			<div class="container p-0">
 				<div class="pl-3 mheader row">
-					<h5 class="modal-title" id="exampleModalLabel">Anotações</h5>
+					<h5 class="modal-title" id="exampleModalLabel">
+						Anotações
+					</h5>
 					<div class="div-btn-nova-anotacao">
 						<button type="button" class="close" (click)="close()">
 							<span class="pr-1" aria-hidden="true">&times;</span>
@@ -32,7 +34,9 @@
 										[maxLength]="255"
 										pInputTextarea
 									></textarea>
-									<span class="float-left">{{ 255 - description.length }}</span>
+									<span class="float-left">{{
+										255 - description.length
+									}}</span>
 								</div>
 							</div>
 							<p-button
@@ -53,7 +57,9 @@
 								data-target="#new-annotation-collapse"
 								chooseLabel="Enviar arquivo"
 								maxFileSize="10000000"
-								(uploadHandler)="onUpload($event); upload.clear()"
+								(uploadHandler)="
+									onUpload($event); upload.clear()
+								"
 								[auto]="true"
 							></p-fileUpload>
 						</div>
@@ -81,9 +87,12 @@
 				<!-- ANNOTATIONS LOADING -->
 
 				<!-- ANNOTATIONS LOADING ENDED -->
-				<div *ngIf="!isLoading" class="row">
+				<div class="row">
 					<!-- NO ANNOTATIONS FOUND -->
-					<div *ngIf="noAnnotation" class="mb-4 w-100 text-center">
+					<div
+						*ngIf="!isLoading && noAnnotation"
+						class="mb-4 w-100 text-center"
+					>
 						<span class="w-100 mx-auto no-annotation-text">
 							Nenhuma anotação encontrada
 						</span>
@@ -92,9 +101,14 @@
 
 					<!-- ANNOTATIONS -->
 					<div *ngIf="!noAnnotation" class="pl-3 pr-3 w-100">
-						<div *ngFor="let annotation of annotations" class="mb-3">
+						<div
+							*ngFor="let annotation of annotations"
+							class="mb-3"
+						>
 							<div class="mb-2">
-								<div class="shadow-sm rouded bg-lightblue fit-content mx-auto">
+								<div
+									class="shadow-sm rouded bg-lightblue fit-content mx-auto"
+								>
 									<span class="m-2 fit-content">{{
 										formatDate(annotation.createAt)
 									}}</span>
@@ -124,17 +138,26 @@
 												aria-labelledby="dropdownMenuButton"
 											>
 												<a
-													*ngIf="!isFile(annotation.description)"
+													*ngIf="
+														!isFile(
+															annotation.description
+														)
+													"
 													class="dropdown-item hover-cursor"
 													(click)="
 														annotation.contenteditable = true;
-														annotation.beforeEdit = annotation.description
+														annotation.beforeEdit =
+															annotation.description
 													"
 													>Editar</a
 												>
 												<a
 													class="dropdown-item hover-cursor"
-													(click)="deleteAnnotation(annotation.id)"
+													(click)="
+														deleteAnnotation(
+															annotation.id
+														)
+													"
 													>Excluir</a
 												>
 											</div>
@@ -144,21 +167,35 @@
 										<div>
 											<div
 												#annotationDiv
-												*ngIf="!isFile(annotation.description)"
+												*ngIf="
+													!isFile(
+														annotation.description
+													)
+												"
 												[ngClass]="{
 													'editable-div': !!annotation.contenteditable
 												}"
-												[(ngModel)]="annotation.description"
+												[(ngModel)]="
+													annotation.description
+												"
 												class="card-text"
 												propValueAccessor="innerHTML"
-												contenteditable="{{ !!annotation.contenteditable }}"
+												contenteditable="{{
+													!!annotation.contenteditable
+												}}"
 											></div>
-											<div *ngIf="!!annotation.contenteditable">
+											<div
+												*ngIf="
+													!!annotation.contenteditable
+												"
+											>
 												<button
 													class="btn btn-link float-right"
 													type="button"
 													(click)="
-														editAnnotation(annotation);
+														editAnnotation(
+															annotation
+														);
 														annotation.contenteditable = false
 													"
 												>
@@ -168,7 +205,8 @@
 													class="btn btn-link float-right"
 													type="button"
 													(click)="
-														annotation.description = annotation.beforeEdit;
+														annotation.description =
+															annotation.beforeEdit;
 														annotation.contenteditable = false
 													"
 												>
@@ -178,11 +216,17 @@
 										</div>
 
 										<a
-											*ngIf="isFile(annotation.description)"
+											*ngIf="
+												isFile(annotation.description)
+											"
 											[href]="annotation.description"
 											class="card-text"
 										>
-											{{ substrFileName(annotation.description) }}
+											{{
+												substrFileName(
+													annotation.description
+												)
+											}}
 										</a>
 									</div>
 								</div>
