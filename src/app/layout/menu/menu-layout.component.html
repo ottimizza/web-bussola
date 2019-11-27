@@ -70,9 +70,10 @@
 				<div
 					*ngIf="userPermissionLevel <= menuItem.permissonLevelNeeded"
 					class="item outline-none w-100"
-					[routerLink]="[menuItem.path]"
 					routerLinkActive="selected-item"
+					[routerLink]="[menuItem.path]"
 					[routerLinkActiveOptions]="{ exact: false }"
+					(click)="isHandset$ && drawer.toggle()"
 				>
 					<div class="d-flex mb-2 ml-3 mr-1 p-2">
 						<div class="d-flex">
