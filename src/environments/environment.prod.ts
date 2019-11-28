@@ -1,10 +1,10 @@
 export const environment = {
 	production: true,
-	oauthBaseUrl: process.env['API_OAUTH_SERVICE'] || '',
-	appApi: process.env['APP_API'] || '',
-	storageUrl: process.env['STORAGE_URL'] || '',
-	oauthClientId: process.env['CLIENT_ID'] || '',
-	applicationId: process.env['APPLICATION_ID'] || '',
+	oauthBaseUrl: 'https://oauth.ottimizza.com.br',
+	appApi: 'https://api-bussolapwa.ottimizza.com.br',
+	storageUrl: 'https://s4.ottimizzacontabil.com:55325',
+	oauthClientId: 'ab81522e9491661af9b9',
+	applicationId: 'bussola-contabil',
 	firebase: {
 		apiKey: 'your apikey',
 		authDomain: 'your authDomain',
