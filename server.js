@@ -14,27 +14,25 @@ const fs = require('fs');
 
 require('dotenv').config();
 
-const envConfigFile = `export const environment = {
-	production: true
-   apiBaseUrl: '${process.env.API_BASE_URL}',
-   apiUrl: '${process.env.API_URL}',
-   appName: '${process.env.APP_NAME}',
-   awsPubKey: '${process.env.AWSKEY}',
-   nodeEnv: '${process.env.NODE_ENV}',
-   production: '${process.env.PRODUCTION}'
-};
-`;
+// const envConfigFile = `export const environment = {
+// 	production: true
+//   apiBaseUrl: '${process.env.API_BASE_URL}',
+//   apiUrl: '${process.env.API_URL}',
+//   appName: '${process.env.APP_NAME}',
+//   awsPubKey: '${process.env.AWSKEY}',
+//   nodeEnv: '${process.env.NODE_ENV}',
+//   production: '${process.env.PRODUCTION}'
+// };
+// `;
 
-console.log(envConfigFile);
-fs.writeFile('./src/environments/environment.ts', envConfigFile, err => {
-	if (err) {
-		throw console.error(err);
-	} else {
-		console.log(
-			`Angular environment.ts file generated correctly \n`
-		);
-	}
-});
+// console.log(envConfigFile);
+// fs.writeFile('./src/environments/environment.ts', envConfigFile, err => {
+// 	if (err) {
+// 		throw console.error(err);
+// 	} else {
+// 		console.log(`Angular environment.ts file generated correctly \n`);
+// 	}
+// });
 
 app.use(express.static(__dirname + '/dist/bussola-pwa'));
 

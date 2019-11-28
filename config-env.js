@@ -17,13 +17,7 @@ const envConfigFile = `export const environment = {
 };
 `;
 
-console.log(`
-  ENVIRONMENT -> ${getEnvironmentVariable('ENVIRONMENT')}
-  ---
-  ${envConfigFile}
-`);
-
-fs.writeFile(`./src/environments/environment.prod.ts`, envConfigFile, err => {
+fs.writeFile(`./src/environments/environment.ts`, envConfigFile, err => {
 	if (err) {
 		console.log(err);
 	}
