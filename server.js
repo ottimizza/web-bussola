@@ -31,7 +31,7 @@ fs.writeFile('./src/environments/environment.ts', envConfigFile, err => {
 		throw console.error(err);
 	} else {
 		console.log(
-			`Angular environment.ts file generated correctly at ${targetPath} \n`
+			`Angular environment.ts file generated correctly \n`
 		);
 	}
 });
