@@ -17,7 +17,7 @@ const envConfigFile = `export const environment = {
 };
 `;
 
-fs.writeFile(`./src/environments/environment.ts`, envConfigFile, err => {
+fs.writeFile(`./src/environments/environment.prod.ts`, envConfigFile, err => {
 	if (err) {
 		console.log(err);
 	}
