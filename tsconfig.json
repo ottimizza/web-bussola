@@ -20,7 +20,7 @@
 			"@modules/*": ["app/modules/*"],
 			"@assets/*": ["assets/*"]
 		},
-		"types": ["jquery"],
+		"types": ["jquery", "node"],
 		"lib": ["es2018", "dom"]
 	},
 	"angularCompilerOptions": {
