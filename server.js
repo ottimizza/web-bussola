@@ -25,20 +25,13 @@ const envConfigFile = `export const environment = {
 };
 `;
 
-console.log(
-	colors.magenta(
-		'The file `environment.ts` will be written with the following content: \n'
-	)
-);
-console.log(colors.grey(envConfigFile));
+console.log(envConfigFile);
 fs.writeFile(targetPath, envConfigFile, err => {
 	if (err) {
 		throw console.error(err);
 	} else {
 		console.log(
-			colors.magenta(
-				`Angular environment.ts file generated correctly at ${targetPath} \n`
-			)
+			`Angular environment.ts file generated correctly at ${targetPath} \n`
 		);
 	}
 });

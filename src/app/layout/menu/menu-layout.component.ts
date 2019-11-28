@@ -30,20 +30,20 @@ export const ROUTES: RouteInfo[] = [
 		class: '',
 		permissonLevelNeeded: 2
 	},
-	{
-		path: '/options/organization',
-		title: 'Parâmetros da contabilidade',
-		icon: 'fal fa-th-list',
-		class: '',
-		permissonLevelNeeded: 1
-	},
-	{
-		path: '/options/company',
-		title: 'Parâmetros dos clientes',
-		icon: 'fal fa-th-list',
-		class: '',
-		permissonLevelNeeded: 1
-	}
+	// {
+	// 	path: '/options/organization',
+	// 	title: 'Parâmetros da contabilidade',
+	// 	icon: 'fal fa-th-list',
+	// 	class: '',
+	// 	permissonLevelNeeded: 1
+	// },
+	// {
+	// 	path: '/options/company',
+	// 	title: 'Parâmetros dos clientes',
+	// 	icon: 'fal fa-th-list',
+	// 	class: '',
+	// 	permissonLevelNeeded: 1
+	// }
 ];
 
 @Component({
