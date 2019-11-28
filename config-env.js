@@ -8,13 +8,12 @@ function getEnvironmentVariable(key, _default = '') {
 }
 
 const envConfigFile = `export const environment = {
-	production: true
-   apiBaseUrl: '${getEnvironmentVariable('API_BASE_URL')}',
-   apiUrl: '${getEnvironmentVariable('API_URL')}',
-   appName: '${getEnvironmentVariable('APP_NAME')}',
-   awsPubKey: '${getEnvironmentVariable('AWSKEY')}',
-   nodeEnv: '${getEnvironmentVariable('NODE_ENV')}',
-   production: '${getEnvironmentVariable('PRODUCTION')}'
+	production: true,
+  oauthBaseUrl: '${getEnvironmentVariable('API_OAUTH_SERVICE')}',
+  appApi: '${getEnvironmentVariable('APP_API')}',
+  storageUrl: '${getEnvironmentVariable('STORAGE_URL')}',
+  oauthClientId: '${getEnvironmentVariable('CLIENT_ID')}',
+  applicationId: '${getEnvironmentVariable('APPLICATION_ID')}'
 };
 `;
 
