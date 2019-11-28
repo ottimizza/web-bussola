@@ -14,25 +14,25 @@ const fs = require('fs');
 
 require('dotenv').config();
 
-// const envConfigFile = `export const environment = {
-// 	production: true
-//   apiBaseUrl: '${process.env.API_BASE_URL}',
-//   apiUrl: '${process.env.API_URL}',
-//   appName: '${process.env.APP_NAME}',
-//   awsPubKey: '${process.env.AWSKEY}',
-//   nodeEnv: '${process.env.NODE_ENV}',
-//   production: '${process.env.PRODUCTION}'
-// };
-// `;
+function getEnvironmentVariable(key, _default = '') {
+	return process.env[key] || _default;
+}
 
-// console.log(envConfigFile);
-// fs.writeFile('./src/environments/environment.ts', envConfigFile, err => {
-// 	if (err) {
-// 		throw console.error(err);
-// 	} else {
-// 		console.log(`Angular environment.ts file generated correctly \n`);
-// 	}
-// });
+const envConfigFile = `export const environment = {
+	production: true,
+  oauthBaseUrl: '${getEnvironmentVariable('API_OAUTH_SERVICE')}',
+  appApi: '${getEnvironmentVariable('APP_API')}',
+  storageUrl: '${getEnvironmentVariable('STORAGE_URL')}',
+  oauthClientId: '${getEnvironmentVariable('CLIENT_ID')}',
+  applicationId: '${getEnvironmentVariable('APPLICATION_ID')}'
+};
+`;
+
+fs.writeFile(`./src/environments/environment.ts`, envConfigFile, err => {
+	if (err) {
+		console.log(err);
+	}
+});
 
 app.use(express.static(__dirname + '/dist/bussola-pwa'));
 
