@@ -1,4 +1,4 @@
-import { writeFile } from 'fs';
+const fs = require('fs');
 // Configure Angular `environment.ts` file path
 const targetPath = './src/environments/environment.ts';
 // Load node modules
@@ -21,7 +21,7 @@ console.log(
 	)
 );
 console.log(colors.grey(envConfigFile));
-writeFile(targetPath, envConfigFile, err => {
+fs.writeFile(targetPath, envConfigFile, err => {
 	if (err) {
 		throw console.error(err);
 	} else {
