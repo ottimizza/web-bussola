@@ -3,19 +3,23 @@ const fs = require('fs');
 // store a projects environment variables in a .gitignore'd file
 require('dotenv').config();
 
+function getEnvironmentVariable(key, _default = '') {
+	return process.env[key] || _default;
+}
+
 const envConfigFile = `export const environment = {
 	production: true
-   apiBaseUrl: '${process.env.API_BASE_URL}',
-   apiUrl: '${process.env.API_URL}',
-   appName: '${process.env.APP_NAME}',
-   awsPubKey: '${process.env.AWSKEY}',
-   nodeEnv: '${process.env.NODE_ENV}',
-   production: '${process.env.PRODUCTION}'
+   apiBaseUrl: '${getEnvironmentVariable('API_BASE_URL')}',
+   apiUrl: '${getEnvironmentVariable('API_URL')}',
+   appName: '${getEnvironmentVariable('APP_NAME')}',
+   awsPubKey: '${getEnvironmentVariable('AWSKEY')}',
+   nodeEnv: '${getEnvironmentVariable('NODE_ENV')}',
+   production: '${getEnvironmentVariable('PRODUCTION')}'
 };
 `;
 
 console.log(`
-  ENVIRONMENT -> ${process.env.ENVIRONMENT}
+  ENVIRONMENT -> ${getEnvironmentVariable('ENVIRONMENT')}
   ---
   ${envConfigFile}
 `);
