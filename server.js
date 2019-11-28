@@ -14,45 +14,6 @@ const fs = require('fs');
 
 require('dotenv').config();
 
-function getEnvironmentVariable(key, _default = '') {
-	return process.env[key] || _default;
-}
-
-function createEnvironementFile() {
-	return `export const environment = {
-  production: true,
-  oauthBaseUrl: '${getEnvironmentVariable('OAUTH2_BASE_URL')}',
-	appApiUrl: '${getEnvironmentVariable('APP_API_URL')}'
-	storageUrl: '${getEnvironmentVariable('STORAGE_URL')}'
-	oauthClientId: '${getEnvironmentVariable('OAUTH2_CLIENT_ID')}',
-	applicationId: '${getEnvironmentVariable('APPLICATION_ID')}'
-};`;
-}
-
-const PACKAGE_NAME = getEnvironmentVariable('npm_package_name');
-
-console.log(PACKAGE_NAME);
-
-const environment = getEnvironmentVariable('ENVIRONMENT');
-const environmentFile = createEnvironementFile();
-
-console.log(`
-  ENVIRONMENT -> ${environment}
-  ---
-  ${environmentFile}
-`);
-
-fs.writeFile(`./src/environments/environment.ts`, environmentFile, err => {
-	if (err) {
-		console.log(err);
-	}
-});
-fs.writeFile(`./src/environments/environment.prod.ts`, environmentFile, err => {
-	if (err) {
-		console.log(err);
-	}
-});
-
 app.use(express.static(__dirname + '/dist/bussola-pwa'));
 
 app.disable('etag');
