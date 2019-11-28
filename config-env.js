@@ -14,8 +14,6 @@ const envConfigFile = `export const environment = {
 };
 `;
 
-const environment = getEnvironmentVariable('ENVIRONMENT');
-
 console.log(`
   ENVIRONMENT -> ${process.env.ENVIRONMENT}
   ---
