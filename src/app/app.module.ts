@@ -61,7 +61,6 @@ import * as $ from 'jquery';
 		GoogleChartsModule.forRoot(),
 		NgxLinkifyjsModule.forRoot(),
 		DeviceDetectorModule.forRoot(),
-		AngularFireModule.initializeApp(environment.firebase),
 		ServiceWorkerModule.register('ngsw-worker.js', {
 			enabled: environment.production
 		})
