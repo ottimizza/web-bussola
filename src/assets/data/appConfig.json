@@ -1,8 +1,8 @@
 {
-	"apiOauthService": "https://staging-oauth.ottimizza.com.br",
+	"production": false,
+	"oauthBaseUrl": "https://staging-oauth.ottimizza.com.br",
 	"appApi": "https://staging-api-bussolapwa.ottimizza.com.br",
-	"loginUrl": "http://localhost:4200/login",
-	"clientId": "bussola-contabil-client",
-	"storageUrl": "https://s4.ottimizzacontabil.com:55325",
-	"applicationId": "development-bussola-contabil"
+	"storageUrl": "http://localhost:4200/login",
+	"oauthClientId": "bussola-contabil-client",
+	"applicationId": "https://s4.ottimizzacontabil.com:55325"
 }
