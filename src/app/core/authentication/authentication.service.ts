@@ -6,6 +6,7 @@ import { finalize } from 'rxjs/operators';
 import { StorageService } from '@shared/services/storage.service';
 import { AuthSession } from '@shared/models/AuthSession';
 import { environment } from '@env';
+import { User } from '@shared/models/User';
 
 @Injectable({
 	providedIn: 'root'
@@ -142,6 +143,12 @@ export class AuthenticationService {
 			return JSON.parse(authSession);
 		}
 		return null;
+	}
+
+	public getUserInfo(): User {
+		return JSON.parse(
+			localStorage.getItem(AuthenticationService.STORAGE_KEY_USERINFO)
+		);
 	}
 
 	genState() {

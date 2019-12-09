@@ -1,0 +1,22 @@
+<div class="w-100 h-100 card">
+	<div class="card-title">
+		<div class="float-left text-truncate d-block pl-2 pt-1">
+			<span style="font-style: bold;" [ngClass]="{ 'font-1': isMobile }">
+				{{ title }}
+			</span>
+		</div>
+		<!-- *ngIf="!!organizationId && !!kpiAlias" -->
+		<div class="float-right pr-1">
+			<i
+				class="far fa-question-circle hover-cursor"
+				(click)="openModal()"
+			></i>
+		</div>
+	</div>
+	<div class="h-100">
+		<ng-content class="h-100" select="[body]"></ng-content>
+	</div>
+	<div class="chart-footer w-100">
+		<ng-content select="[footer]"></ng-content>
+	</div>
+</div>

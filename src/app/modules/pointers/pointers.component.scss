@@ -1,0 +1,43 @@
+@import '../../../assets/styles/variables.scss';
+
+.page-content {
+	margin-right: 0px;
+}
+
+.lucro-anual {
+	width: fit-content;
+	font-weight: bold;
+	font-size: -webkit-xxx-large;
+	padding-top: 10%;
+}
+
+.lucro-anual span {
+	height: fit-content;
+}
+
+.no-kpi-container {
+	padding: 15px;
+	height: 70vh;
+	font-weight: 700;
+	color: darkgray;
+}
+
+.chart-container {
+	margin-bottom: 20px;
+	padding-right: 0px;
+}
+
+@media only screen and (max-width: 800px) {
+	.chart-container {
+		height: unset;
+		min-height: 16rem;
+	}
+
+	.lucro-container {
+		min-height: 11rem;
+	}
+
+	.lucro-anual {
+		font-size: 2rem !important;
+	}
+}

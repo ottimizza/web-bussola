@@ -4,7 +4,7 @@ export const MenuRoutes: Routes = [
 	{
 		path: '',
 		pathMatch: 'full',
-		redirectTo: 'comparatives'
+		redirectTo: 'pointers'
 	},
 	// {
 	// 	path: 'home',
@@ -13,18 +13,18 @@ export const MenuRoutes: Routes = [
 	// 	canActivate: [AuthGuard]
 	// },
 	{
-		path: 'comparatives',
-		loadChildren: () =>
-			import('@modules/comparatives/comparatives.module').then(
-				m => m.ComparativesModule
-			),
-		canActivate: [AuthGuard]
-	},
-	{
 		path: 'pointers',
 		loadChildren: () =>
 			import('@modules/pointers/pointers.module').then(
 				m => m.PointersModule
+			),
+		canActivate: [AuthGuard]
+	},
+	{
+		path: 'comparatives',
+		loadChildren: () =>
+			import('@modules/comparatives/comparatives.module').then(
+				m => m.ComparativesModule
 			),
 		canActivate: [AuthGuard]
 	},

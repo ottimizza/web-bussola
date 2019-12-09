@@ -1,0 +1,25 @@
+@import '../../../../assets/styles/variables.scss';
+
+.card {
+	background-color: #fafafa !important;
+}
+
+.card:hover {
+	border-color: rgba($base-color, 0.5);
+}
+
+.card-title {
+	font-size: 1rem !important;
+	position: absolute;
+	width: 100%;
+	top: 0;
+	z-index: 1;
+}
+
+.chart-footer {
+	bottom: 2px;
+}
+
+.font-1 {
+	font-size: 1rem;
+}

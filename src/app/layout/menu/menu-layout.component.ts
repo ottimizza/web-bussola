@@ -17,19 +17,19 @@ export const ROUTES: RouteInfo[] = [
 	// 	permissonLevelNeeded: 2
 	// },
 	{
-		path: '/comparatives',
-		title: 'Comparativos',
-		icon: 'fal fa-chart-line',
-		class: '',
-		permissonLevelNeeded: 2
-	},
-	{
 		path: '/pointers',
 		title: 'Indicadores',
 		icon: 'fal fa-analytics',
 		class: '',
 		permissonLevelNeeded: 2
 	},
+	{
+		path: '/comparatives',
+		title: 'Comparativos',
+		icon: 'fal fa-chart-line',
+		class: '',
+		permissonLevelNeeded: 2
+	}
 	// {
 	// 	path: '/options/organization',
 	// 	title: 'Parâmetros da contabilidade',

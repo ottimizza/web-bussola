@@ -1,9 +1,13 @@
+import { User } from '@shared/models/User';
+import { AuthenticationService } from '@app/authentication/authentication.service';
+import { MatDialog } from '@angular/material';
 import { Component } from '@angular/core';
 import { Company } from '@shared/models/company';
 import { Lucro } from '@shared/models/lucro';
 import { KpiFormatado, Kpi } from '@shared/models/kpi';
 import { KpiService } from '@shared/services/kpi.service';
 import { KpiDetail } from '@shared/models/kpi-detail';
+import { AnnotationsComponent } from '@shared/components/annotations/annotations.component';
 
 @Component({
 	selector: 'app-pointers',
@@ -16,8 +20,13 @@ export class PointersComponent {
 	lucro: Lucro;
 	kpis: KpiFormatado[] = [];
 	isLoading = true;
+	externalId = User.fromLocalStorage().organization.externalId;
 
-	constructor(private kpiService: KpiService) {}
+	constructor(
+		private kpiService: KpiService,
+		private dialog: MatDialog,
+		private authService: AuthenticationService
+	) {}
 
 	requestKpis() {
 		this.isLoading = true;
@@ -73,5 +82,15 @@ export class PointersComponent {
 	onCompanyChanged(selectedCompany: Company) {
 		this.selectedCompany = selectedCompany;
 		this.requestKpis();
+	}
+
+	openModal(kpiAlias: string) {
+		// console.log(this.externalId);
+		// console.log(this.cnpj);
+
+		this.dialog.open(AnnotationsComponent, {
+			width: '33rem',
+			data: { externalId: this.selectedCompany.externalId, kpiAlias }
+		});
 	}
 }

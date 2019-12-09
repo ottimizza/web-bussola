@@ -1,0 +1,71 @@
+<div class="modal-dialog modal-dialog-scrollable m-0 h-100" role="document">
+	<div class="modal-content">
+		<!-- HEADER -->
+		<div class="modal-header">
+			<div class="container p-0">
+				<div class="pl-3 mheader row">
+					<h5 class="modal-title" id="exampleModalLabel">
+						Descrição
+					</h5>
+					<div class="div-btn-nova-anotacao"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal-body pb-0 pt-2">
+			<div *ngIf="description" style="display: grid;">
+				<div *ngIf="userType < 2">
+					<div
+						*ngIf="!contentEditable; else editingIcons"
+						class="row d-block pr-4"
+					>
+						<div
+							class="float-right hover-cursor"
+							(click)="
+								contentEditable = true;
+								preEditedDescription = description.description
+							"
+						>
+							<i class="fal fa-money-check-edit"></i>
+						</div>
+					</div>
+				</div>
+
+				<ng-template #editingIcons>
+					<div class="row d-block pr-4">
+						<div
+							class="float-right hover-cursor"
+							(click)="saveDescription()"
+						>
+							<i class="far fa-check"></i>
+						</div>
+						<div
+							class="float-right mr-2 hover-cursor"
+							(click)="
+								contentEditable = false;
+								description.description = preEditedDescription
+							"
+						>
+							<i class="far fa-times"></i>
+						</div>
+					</div>
+				</ng-template>
+
+				<div class="row">
+					<div class="ml-4 mb-4 pr-4 w-100">
+						<div
+							#annotationDiv
+							[ngClass]="{
+								'editable-div': !!contentEditable
+							}"
+							[(ngModel)]="description.description"
+							class="card-text"
+							propValueAccessor="innerHTML"
+							contenteditable="{{ !!contentEditable }}"
+						></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

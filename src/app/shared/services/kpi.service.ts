@@ -48,7 +48,6 @@ export class KpiService {
 	formatAxis(axis: string) {
 		if (axis.match(dateRegex)) {
 			const [day, month, year] = axis.split('/');
-			console.log(axis);
 			return new Date(+year, +month - 1, +day);
 		}
 		return axis;

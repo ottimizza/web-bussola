@@ -34,6 +34,19 @@ fs.writeFile(`./src/environments/environment.ts`, envConfigFile, err => {
 	}
 });
 
+// HTTPS only middleware
+const forceSSL = function() {
+	return function(req, res, next) {
+		if (req.headers['x-forwarded-proto'] !== 'https') {
+			return res.redirect(
+				['https://', req.get('Host'), req.url].join('')
+			);
+		}
+		next();
+	};
+};
+app.use(forceSSL());
+
 app.use(express.static(__dirname + '/dist/bussola-pwa'));
 
 app.disable('etag');

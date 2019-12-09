@@ -12,16 +12,6 @@ export class SelectCompanyComponent implements OnInit {
 
 	pageIndex = 0;
 
-	// private _filter: string;
-
-	// get filter() {
-	// 	return this._filter;
-	// }
-
-	// set filter(value: string) {
-	// 	this._filter = value;
-	// }
-
 	@Output() selectedCompany = new EventEmitter<Company>();
 
 	constructor(private companyService: CompanyService) {}

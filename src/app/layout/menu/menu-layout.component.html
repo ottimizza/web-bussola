@@ -47,12 +47,12 @@
 			/>
 			<i *ngIf="!avatarUrl" class="fal fa-user"></i>
 		</button>
-		<!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 			<a class="dropdown-item" href="{{ profileUrl }}" target="_blank"
 				>Ver Perfil</a
 			>
 			<a class="dropdown-item" (click)="logout()">Sair</a>
-		</div> -->
+		</div>
 	</div>
 </div>
 
@@ -67,27 +67,61 @@
 	>
 		<mat-nav-list>
 			<div *ngFor="let menuItem of menuItems; let i = index">
-				<div
-					*ngIf="userPermissionLevel <= menuItem.permissonLevelNeeded"
-					class="item outline-none w-100"
-					routerLinkActive="selected-item"
-					[routerLink]="[menuItem.path]"
-					[routerLinkActiveOptions]="{ exact: false }"
-				>
-					<div class="d-flex mb-2 ml-3 mr-1 p-2">
-						<div class="d-flex">
-							<span
-								class="icon-span h-100 d-flex align-items-center"
-								><i class="{{ menuItem.icon }}"></i
-							></span>
-						</div>
-						<div class="float-right pl-4">
-							<span class="title unselectable" mat-list-item>{{
-								menuItem.title
-							}}</span>
+				<div *ngIf="!(isHandset$ | async); else mobileMenuItem">
+					<div
+						*ngIf="
+							userPermissionLevel <= menuItem.permissonLevelNeeded
+						"
+						class="item outline-none w-100"
+						routerLinkActive="selected-item"
+						[routerLink]="[menuItem.path]"
+						[routerLinkActiveOptions]="{ exact: false }"
+					>
+						<div class="d-flex mb-2 ml-3 mr-1 p-2">
+							<div class="d-flex">
+								<span
+									class="icon-span h-100 d-flex align-items-center"
+									><i class="{{ menuItem.icon }}"></i
+								></span>
+							</div>
+							<div class="float-right pl-4">
+								<span
+									class="title unselectable"
+									mat-list-item
+									>{{ menuItem.title }}</span
+								>
+							</div>
 						</div>
 					</div>
 				</div>
+				<ng-template #mobileMenuItem>
+					<div
+						*ngIf="
+							userPermissionLevel <= menuItem.permissonLevelNeeded
+						"
+						class="item outline-none w-100"
+						routerLinkActive="selected-item"
+						(click)="drawer.toggle()"
+						[routerLink]="[menuItem.path]"
+						[routerLinkActiveOptions]="{ exact: false }"
+					>
+						<div class="d-flex mb-2 ml-3 mr-1 p-2">
+							<div class="d-flex">
+								<span
+									class="icon-span h-100 d-flex align-items-center"
+									><i class="{{ menuItem.icon }}"></i
+								></span>
+							</div>
+							<div class="float-right pl-4">
+								<span
+									class="title unselectable"
+									mat-list-item
+									>{{ menuItem.title }}</span
+								>
+							</div>
+						</div>
+					</div>
+				</ng-template>
 			</div>
 		</mat-nav-list>
 	</mat-sidenav>

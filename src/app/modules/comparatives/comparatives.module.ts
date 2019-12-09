@@ -1,19 +1,19 @@
-import { SharedModule } from '@shared/shared.module';
+import { ChartModule } from '@shared/components/chart/chart.module';
+import { CardModule } from '@shared/components/card/card.module';
+import { SelectCompanyModule } from '@shared/components/select-company/select-company.module';
 import { ComparativesRoutingModule } from './comparatives-routing.module';
-import { CarouselModule } from 'primeng/carousel';
 import { NgModule } from '@angular/core';
 import { ComparativesComponent } from './comparatives.component';
 import { CommonModule } from '@angular/common';
-import { GoogleChartsModule } from 'angular-google-charts';
 
 @NgModule({
 	declarations: [ComparativesComponent],
 	imports: [
 		CommonModule,
 		ComparativesRoutingModule,
-		CarouselModule,
-		SharedModule,
-		GoogleChartsModule.forRoot()
+		SelectCompanyModule,
+		CardModule,
+		ChartModule
 	],
 	exports: [],
 	providers: []

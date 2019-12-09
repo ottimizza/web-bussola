@@ -12,18 +12,22 @@ export class AnnotationService {
 		private authService: AuthenticationService
 	) {}
 
-	getAnnotations(externalId: string, kpiAlias: string) {
+	getAnnotations(organizationId: string, kpiAlias: string) {
 		return this.http.get(
-			`${environment.appApi}/annotations?organizationId=${externalId}&kpiAlias=${kpiAlias}`,
+			`${environment.appApi}/annotations?organizationId=${organizationId}&kpiAlias=${kpiAlias}`,
 			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}
 
-	postAnnotation(externalId: string, kpiAlias: string, description: string) {
+	postAnnotation(
+		organizationId: string,
+		kpiAlias: string,
+		description: string
+	) {
 		return this.http.post(
 			`${environment.appApi}/annotations`,
 			{
-				organizationId: externalId,
+				organizationId,
 				createdBy: User.fromLocalStorage().username, // PODERIA SER ID AO INVÉS DE USERNAME
 				kpiAlias,
 				description

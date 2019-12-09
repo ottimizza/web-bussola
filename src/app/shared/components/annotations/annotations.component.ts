@@ -8,11 +8,11 @@ import { UploadService } from '@shared/services/upload.service';
 import { ToastService } from '@shared/services/toast.service';
 
 @Component({
-	selector: 'app-modal-annotations',
-	templateUrl: './modal-annotations.component.html',
-	styleUrls: ['./modal-annotations.component.scss']
+	selector: 'app-annotations',
+	templateUrl: './annotations.component.html',
+	styleUrls: ['./annotations.component.scss']
 })
-export class ModalAnnotationsComponent implements OnInit {
+export class AnnotationsComponent implements OnInit {
 	description = '';
 	annotations: any;
 	isLoading = true;
@@ -22,7 +22,7 @@ export class ModalAnnotationsComponent implements OnInit {
 	regex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/i;
 
 	constructor(
-		public dialogRef: MatDialogRef<ModalAnnotationsComponent>,
+		public dialogRef: MatDialogRef<AnnotationsComponent>,
 		public linkifyService: NgxLinkifyjsService,
 		@Inject(MAT_DIALOG_DATA) public data: any,
 		private annotationService: AnnotationService,

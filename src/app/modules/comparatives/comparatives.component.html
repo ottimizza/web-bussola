@@ -6,25 +6,19 @@
 	</div>
 	<div *ngFor="let kpi of kpis">
 		<div
+			class="chart-card mb-4"
 			[ngClass]="{ 'mobile-height': isPortrait }"
-			class="w-100 card mb-3"
 		>
-			<div class="chart-title">
-				<div class="float-left text-truncate d-block w-100 pl-2 pt-1">
-					<h4 [ngClass]="{ 'font-1': isMobile }">
-						{{ kpi.title }}
-					</h4>
-				</div>
-			</div>
-			<google-chart
-				class="chart pb-2"
-				[dynamicResize]="true"
-				[type]="kpi.chartType"
-				[data]="kpi.data"
-				[columnNames]="kpi.labelArray"
-				[options]="kpi.chartOptions"
+			<app-card
+				[title]="kpi.title"
+				[kpiAlias]="'07'"
+				[externalId]="selectedCompany.externalId"
+				[cnpj]="selectedCompany.cnpj"
 			>
-			</google-chart>
+				<div body class="h-100 pt-4">
+					<app-chart [kpi]="kpi" [noAnnotations]="true"></app-chart>
+				</div>
+			</app-card>
 		</div>
 	</div>
 </div>

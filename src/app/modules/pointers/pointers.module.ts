@@ -1,40 +1,25 @@
-import { MatDialogModule } from '@angular/material';
+import { AnnotationsModule } from './../../shared/components/annotations/annotations.module';
+import { SelectCompanyModule } from '@shared/components/select-company/select-company.module';
+import { ChartModule } from '@shared/components/chart/chart.module';
+import { CardModule } from '@shared/components/card/card.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PointersComponent } from './pointers.component';
-import { FileUploadModule } from 'primeng/fileupload';
-import { ButtonModule } from 'primeng/button';
 import { PointersRoutingModule } from './pointers-routing.module';
-import { GoogleChartsModule } from 'angular-google-charts';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { DropdownModule } from 'primeng/dropdown';
-import { FormsModule } from '@angular/forms';
-import { ModalAnnotationsComponent } from './dashboard/modal-annotations/modal-annotations.component';
-import { ContenteditableModule } from '@ng-stack/contenteditable';
-import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
-import { SharedModule } from '@shared/shared.module';
+import { MatDialogModule } from '@angular/material';
 
 @NgModule({
-	declarations: [
-		PointersComponent,
-		DashboardComponent,
-		ModalAnnotationsComponent
-	],
+	declarations: [PointersComponent],
 	imports: [
 		CommonModule,
-		FormsModule,
-		DropdownModule,
-		PointersRoutingModule,
 		MatDialogModule,
-		NgxLinkifyjsModule,
-		FileUploadModule,
-		ButtonModule,
-		SharedModule,
-		ContenteditableModule,
-		GoogleChartsModule.forRoot()
+		PointersRoutingModule,
+		CardModule,
+		ChartModule,
+		AnnotationsModule,
+		SelectCompanyModule
 	],
 	exports: [],
-	providers: [],
-	entryComponents: [ModalAnnotationsComponent]
+	providers: []
 })
 export class PointersModule {}
