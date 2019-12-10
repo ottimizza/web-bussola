@@ -47,7 +47,7 @@ const forceSSL = function() {
 };
 app.use(forceSSL());
 
-app.use(express.static(__dirname + '/dist/bussola-pwa'));
+app.use(express.static(__dirname + '/dist'));
 
 app.disable('etag');
 
