@@ -58,6 +58,6 @@ app.listen(process.env.PORT || 4200);
 // redirect traffic to index.html
 
 app.get('*', function(req, res) {
-	const index = __dirname + '/dist/bussola-pwa/index.html';
+	const index = __dirname + '/dist/index.html';
 	res.sendFile(path.join(index));
 });
