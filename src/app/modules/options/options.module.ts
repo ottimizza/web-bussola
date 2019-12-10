@@ -13,6 +13,7 @@ import { TableModule } from 'primeng/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material';
 import { SharedModule } from '@shared/shared.module';
+import { SelectCompanyModule } from '@shared/components/select-company/select-company.module';
 
 @NgModule({
 	declarations: [
@@ -29,6 +30,7 @@ import { SharedModule } from '@shared/shared.module';
 		DropdownModule,
 		OptionsRoutingModule,
 		CheckboxModule,
+		SelectCompanyModule,
 		TableModule,
 		MatTooltipModule,
 		SharedModule

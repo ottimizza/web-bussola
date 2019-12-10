@@ -1,5 +1,5 @@
-import { AnnotationsModule } from './../../shared/components/annotations/annotations.module';
 import { SelectCompanyModule } from '@shared/components/select-company/select-company.module';
+import { AnnotationsModule } from '@shared/components/annotations/annotations.module';
 import { ChartModule } from '@shared/components/chart/chart.module';
 import { CardModule } from '@shared/components/card/card.module';
 import { NgModule } from '@angular/core';
@@ -13,11 +13,11 @@ import { MatDialogModule } from '@angular/material';
 	imports: [
 		CommonModule,
 		MatDialogModule,
+		SelectCompanyModule,
 		PointersRoutingModule,
 		CardModule,
 		ChartModule,
-		AnnotationsModule,
-		SelectCompanyModule
+		AnnotationsModule
 	],
 	exports: [],
 	providers: []
