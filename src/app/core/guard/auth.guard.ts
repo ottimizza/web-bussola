@@ -34,18 +34,32 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 									authSession.getAuthenticated().refreshToken
 								)
 								.pipe(finalize(() => resolve(true)))
-								.subscribe((response: any) => {
-									if (response.access_token) {
-										AuthSession.fromOAuthResponse(response)
-											.store()
-											.then(async () => {
-												this.authenticationService.storeUserInfo();
-												this.authenticationService.storeTokenInfo();
+								.subscribe(
+									(response: any) => {
+										if (response.access_token) {
+											AuthSession.fromOAuthResponse(
+												response
+											)
+												.store()
+												.then(async () => {
+													this.authenticationService.storeUserInfo();
+													this.authenticationService.storeTokenInfo();
+												});
+										} else if (response.error) {
+											this.authenticationService.authorize();
+										}
+									},
+									() => {
+										this.authenticationService
+											.logout()
+											.subscribe({
+												complete: () => {
+													this.authenticationService.clearStorage();
+													this.authenticationService.authorize();
+												}
 											});
-									} else if (response.error) {
-										this.authenticationService.authorize();
 									}
-								});
+								);
 						}
 					}
 				});

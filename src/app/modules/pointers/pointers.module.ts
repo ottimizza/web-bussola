@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { PointersComponent } from './pointers.component';
 import { PointersRoutingModule } from './pointers-routing.module';
 import { MatDialogModule } from '@angular/material';
+import { CompanySelectDropdownModule } from '@shared/components/company-select-dropdown/company-select-dropdown.module';
 
 @NgModule({
 	declarations: [PointersComponent],
@@ -17,6 +18,7 @@ import { MatDialogModule } from '@angular/material';
 		PointersRoutingModule,
 		CardModule,
 		ChartModule,
+		CompanySelectDropdownModule,
 		AnnotationsModule
 	],
 	exports: [],

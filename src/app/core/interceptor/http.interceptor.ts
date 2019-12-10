@@ -25,6 +25,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
 	private _ifTokenExpired() {
 		this._refreshSubject.subscribe({
+			error: () => {
+				this.authenticationService.clearStorage();
+				this.authenticationService.authorize();
+			},
 			complete: () => {
 				this._refreshSubject = new Subject<any>();
 			}
