@@ -14,26 +14,6 @@ const fs = require('fs');
 
 require('dotenv').config();
 
-function getEnvironmentVariable(key, _default = '') {
-	return process.env[key] || _default;
-}
-
-const envConfigFile = `export const environment = {
-	production: true,
-  oauthBaseUrl: '${getEnvironmentVariable('API_OAUTH_SERVICE')}',
-  appApi: '${getEnvironmentVariable('APP_API')}',
-  storageUrl: '${getEnvironmentVariable('STORAGE_URL')}',
-  oauthClientId: '${getEnvironmentVariable('CLIENT_ID')}',
-  applicationId: '${getEnvironmentVariable('APPLICATION_ID')}'
-};
-`;
-
-fs.writeFile(`./src/environments/environment.prod.ts`, envConfigFile, err => {
-	if (err) {
-		console.log(err);
-	}
-});
-
 // HTTPS only middleware
 const forceSSL = function() {
 	return function(req, res, next) {
