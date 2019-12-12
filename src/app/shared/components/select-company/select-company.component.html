@@ -1,4 +1,5 @@
-<p-dropdown
+<!-- <p-dropdown
+	#dropdown
 	optionLabel="name"
 	autoDisplayFirst="true"
 	filter="true"
@@ -16,4 +17,36 @@
 		<br />
 		<span style="vertical-align:middle">{{ company.value.cnpj }}</span>
 	</ng-template>
-</p-dropdown>
+</p-dropdown> -->
+
+<div class="pb-3">
+	<mat-expansion-panel>
+		<mat-expansion-panel-header>
+			<mat-panel-title>
+				{{ company?.name }}
+			</mat-panel-title>
+			<mat-panel-description>
+				{{ company?.cnpj }}
+			</mat-panel-description>
+		</mat-expansion-panel-header>
+
+		<div class="pb-3">
+			<input
+				class="form-control "
+				type="text"
+				name="Filtrar empresa"
+				[(ngModel)]="filter"
+			/>
+		</div>
+
+		<div style="height: 20rem;" id="scrollContent" class="company-list">
+			<div *ngFor="let comp of companies" class="pb-3">
+				<div class="item" (click)="onCompanyChanged(comp)">
+					<span style="vertical-align:middle">{{ comp.name }}</span>
+					<br />
+					<span style="vertical-align:middle">{{ comp.cnpj }}</span>
+				</div>
+			</div>
+		</div>
+	</mat-expansion-panel>
+</div>

@@ -11,9 +11,9 @@ export class CompanyService {
 		private authService: AuthenticationService
 	) {}
 
-	getCompanies(pageIndex: number) {
+	getCompanies(pageIndex: number, filter: string = '') {
 		return this.http.get(
-			`${environment.oauthBaseUrl}/api/v1/organizations?pageSize=30&pageIndex=${pageIndex}`,
+			`${environment.oauthBaseUrl}/api/v1/organizations?pageSize=10&pageIndex=${pageIndex}&name=${filter}`,
 			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}
