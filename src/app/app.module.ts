@@ -27,16 +27,13 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DropdownModule } from 'primeng/dropdown';
 import { LayoutModule } from '@angular/cdk/layout';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorInterceptorProvider } from './core/interceptor/http.interceptor';
 
 import * as $ from 'jquery';
 
-// const appInitializerFn = (appConfig: ConfigService) => {
-// 	return () => {
-// 		return appConfig.setDefautlVariables();
-// 	};
-// };
+export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
 @NgModule({
 	declarations: [AppComponent, MenuLayoutComponent, AuthLayoutComponent],
@@ -58,6 +55,7 @@ import * as $ from 'jquery';
 		MatToolbarModule,
 		HttpClientModule,
 		MatSnackBarModule,
+		NgxMaskModule.forRoot(options),
 		GoogleChartsModule.forRoot(),
 		NgxLinkifyjsModule.forRoot(),
 		DeviceDetectorModule.forRoot(),

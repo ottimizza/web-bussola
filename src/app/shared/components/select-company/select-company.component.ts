@@ -8,6 +8,9 @@ import {
 	ViewChild
 } from '@angular/core';
 import { CompanyService } from '@shared/services/company.service';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { VariableInfo } from '@shared/models/variables';
 
 @Component({
 	selector: 'app-select-company',
@@ -35,9 +38,6 @@ export class SelectCompanyComponent implements OnInit {
 
 	set filter(filter: string) {
 		this._filter = filter;
-		this.pageIndex = 0;
-		this.hasMore = true;
-		this.findCompanies();
 	}
 
 	get filter(): string {
@@ -47,11 +47,19 @@ export class SelectCompanyComponent implements OnInit {
 	@ViewChild('dropdown', { static: false }) dropdownView: ElementRef;
 	@Output() selectedCompany = new EventEmitter<Company>();
 
+	private filterSubject = new Subject();
+
 	filterView: any;
 
 	constructor(private companyService: CompanyService) {}
 
 	ngOnInit() {
+		this.filterSubject.pipe(debounceTime(300)).subscribe(() => {
+			this.pageIndex = 0;
+			this.hasMore = true;
+			this.findCompanies();
+		});
+
 		this.company = this.company;
 
 		this.findCompanies(!this.company);
@@ -97,5 +105,9 @@ export class SelectCompanyComponent implements OnInit {
 	onCompanyChanged(event: any) {
 		console.log(event);
 		this.company = event;
+	}
+
+	updateFilter() {
+		this.filterSubject.next();
 	}
 }

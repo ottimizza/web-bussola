@@ -1,3 +1,4 @@
+@import '../../../../assets/styles/variables.scss';
 @import '../../../../assets/styles/pure-css-loader.scss';
 
 .item {
@@ -11,6 +12,20 @@
 
 .company-list {
 	overflow-y: scroll;
+}
+
+mat-expansion-panel {
+	box-shadow: none !important;
+	border: 1px solid rgba(0, 0, 0, 0.125);
+	background-color: $background-color;
+}
+
+mat-expansion-panel:hover {
+	border-color: rgba($base-color, 0.5);
+}
+
+mat-expansion-panel mat-expansion-panel-header:hover {
+	background-color: $background-color !important;
 }
 
 /* width */

@@ -1,24 +1,3 @@
-<!-- <p-dropdown
-	#dropdown
-	optionLabel="name"
-	autoDisplayFirst="true"
-	filter="true"
-	filterBy="label, value.cnpj"
-	itemSize="{{ companies.length > 2 ? 30 : companies.length * 10 }}"
-	[options]="companies"
-	[virtualScroll]="true"
-	(onChange)="onCompanyChanged($event)"
->
-	<ng-template let-item pTemplate="selectedItem">
-		<span style="vertical-align:middle">{{ item.label }}</span>
-	</ng-template>
-	<ng-template let-company pTemplate="item">
-		<span style="vertical-align:middle">{{ company.label }}</span>
-		<br />
-		<span style="vertical-align:middle">{{ company.value.cnpj }}</span>
-	</ng-template>
-</p-dropdown> -->
-
 <div class="pb-3">
 	<mat-expansion-panel>
 		<mat-expansion-panel-header>
@@ -26,25 +5,32 @@
 				{{ company?.name }}
 			</mat-panel-title>
 			<mat-panel-description>
-				{{ company?.cnpj }}
+				{{ company?.cnpj | mask: '00.000.000/0000-00' }}
 			</mat-panel-description>
 		</mat-expansion-panel-header>
 
 		<div class="pb-3">
 			<input
-				class="form-control "
+				pInputText
 				type="text"
+				class="w-100"
 				name="Filtrar empresa"
+				(input)="updateFilter()"
 				[(ngModel)]="filter"
 			/>
 		</div>
 
 		<div style="height: 20rem;" id="scrollContent" class="company-list">
-			<div *ngFor="let comp of companies" class="pb-3">
-				<div class="item" (click)="onCompanyChanged(comp)">
+			<div *ngFor="let comp of companies" class="pb-2">
+				<div
+					class="item pl-3 pr-3 pt-2 pb-2 rounded"
+					(click)="onCompanyChanged(comp)"
+				>
 					<span style="vertical-align:middle">{{ comp.name }}</span>
 					<br />
-					<span style="vertical-align:middle">{{ comp.cnpj }}</span>
+					<span style="vertical-align:middle">{{
+						comp.cnpj | mask: '00.000.000/0000-00'
+					}}</span>
 				</div>
 			</div>
 		</div>
