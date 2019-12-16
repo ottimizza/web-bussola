@@ -33,7 +33,7 @@ import { ErrorInterceptorProvider } from './core/interceptor/http.interceptor';
 
 import * as $ from 'jquery';
 
-export let options: Partial<IConfig> | (() => Partial<IConfig>);
+// export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
 @NgModule({
 	declarations: [AppComponent, MenuLayoutComponent, AuthLayoutComponent],
@@ -55,7 +55,7 @@ export let options: Partial<IConfig> | (() => Partial<IConfig>);
 		MatToolbarModule,
 		HttpClientModule,
 		MatSnackBarModule,
-		NgxMaskModule.forRoot(options),
+		NgxMaskModule.forRoot(),
 		GoogleChartsModule.forRoot(),
 		NgxLinkifyjsModule.forRoot(),
 		DeviceDetectorModule.forRoot(),
