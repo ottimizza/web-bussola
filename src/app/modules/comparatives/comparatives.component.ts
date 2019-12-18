@@ -6,6 +6,7 @@ import { Company } from '@shared/models/company';
 import { KpiFormatado } from '@shared/models/kpi';
 import { KpiDetail } from '@shared/models/kpi-detail';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
 	selector: 'app-comparatives',
@@ -22,7 +23,8 @@ export class ComparativesComponent implements OnInit {
 
 	constructor(
 		private kpiService: KpiService,
-		private deviceService: DeviceDetectorService
+		private deviceService: DeviceDetectorService,
+		private cp: CurrencyPipe
 	) {}
 
 	ngOnInit(): void {}
@@ -31,7 +33,7 @@ export class ComparativesComponent implements OnInit {
 		this.isLoading = true;
 		this.kpis = [];
 
-		this.kpiService.getKpis(this.selectedCompany.cnpj, 2).subscribe(
+		this.kpiService.getKpis(this.selectedCompany.cnpj).subscribe(
 			(response: any) => {
 				response.data.findKpi.forEach((kpi: Kpi) => {
 					const kpiFormatado: KpiFormatado = {
@@ -41,22 +43,49 @@ export class ComparativesComponent implements OnInit {
 						chartType: kpi.chartType,
 						labelArray: kpi.labelArray,
 						chartOptions: JSON.parse(kpi.chartOptions),
+						roles: [],
 						data: []
 					};
 
+					kpi.kpiDetail.forEach((detail: KpiDetail) => {
+						const valArray = detail.valorStringArray
+							.split(';')
+							.map((item: string) => {
+								return parseFloat(item) || null;
+							});
+
+						const arr = [
+							this.kpiService.formatAxis(detail.columnX)
+						];
+						valArray.forEach(value => {
+							arr.push(value);
+							arr.push(
+								this.cp.transform(
+									value,
+									'BRL',
+									'symbol-narrow',
+									'0.0-0'
+								)
+							);
+						});
+
+						kpiFormatado.data.push(arr);
+					});
+
 					kpiFormatado.labelArray.splice(0, 0, 'Month');
 
-					kpi.kpiDetail.forEach((detail: KpiDetail) => {
-						kpiFormatado.data.push(
-							[this.kpiService.formatAxis(detail.columnX)].concat(
-								detail.valorStringArray
-									.split(';')
-									.map((item: string) => {
-										return parseFloat(item) || null;
-									})
-							)
-						);
-					});
+					for (
+						let index = 1;
+						index <=
+						kpi.kpiDetail[0].valorStringArray.split(';').length;
+						index++
+					) {
+						kpiFormatado.roles.push({
+							role: 'tooltip',
+							type: 'string',
+							index
+						});
+					}
 
 					this.kpis.push(kpiFormatado);
 				});

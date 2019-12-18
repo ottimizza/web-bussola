@@ -4,7 +4,7 @@ import { CardModule } from '@shared/components/card/card.module';
 import { ComparativesRoutingModule } from './comparatives-routing.module';
 import { NgModule } from '@angular/core';
 import { ComparativesComponent } from './comparatives.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 
 @NgModule({
 	declarations: [ComparativesComponent],
@@ -16,6 +16,6 @@ import { CommonModule } from '@angular/common';
 		ChartModule
 	],
 	exports: [],
-	providers: []
+	providers: [CurrencyPipe]
 })
 export class ComparativesModule {}

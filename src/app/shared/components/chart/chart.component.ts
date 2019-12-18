@@ -1,14 +1,18 @@
 import { KpiFormatado } from '@shared/models/kpi';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
 	selector: 'app-chart',
 	templateUrl: 'chart.component.html',
 	styleUrls: ['chart.component.scss']
 })
-export class ChartComponent {
+export class ChartComponent implements OnInit {
 	@Input() kpi: KpiFormatado;
 	@Input() noAnnotations = false;
 
+	roles = [{ role: 'tooltip', type: 'string', index: 2 }];
+
 	constructor() {}
+
+	ngOnInit() {}
 }

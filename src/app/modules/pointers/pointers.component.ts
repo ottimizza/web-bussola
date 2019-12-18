@@ -1,13 +1,15 @@
+import { map } from 'rxjs/operators';
 import { User } from '@shared/models/User';
 import { AuthenticationService } from '@app/authentication/authentication.service';
 import { MatDialog } from '@angular/material';
-import { Component } from '@angular/core';
+import { Component, PipeTransform } from '@angular/core';
 import { Company } from '@shared/models/company';
 import { Lucro } from '@shared/models/lucro';
 import { KpiFormatado, Kpi } from '@shared/models/kpi';
 import { KpiService } from '@shared/services/kpi.service';
 import { KpiDetail } from '@shared/models/kpi-detail';
 import { AnnotationsComponent } from '@shared/components/annotations/annotations.component';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
 	selector: 'app-pointers',
@@ -25,7 +27,7 @@ export class PointersComponent {
 	constructor(
 		private kpiService: KpiService,
 		private dialog: MatDialog,
-		private authService: AuthenticationService
+		private cp: CurrencyPipe
 	) {}
 
 	requestKpis() {
@@ -52,22 +54,49 @@ export class PointersComponent {
 						chartType: kpi.chartType,
 						labelArray: kpi.labelArray,
 						chartOptions: JSON.parse(kpi.chartOptions),
+						roles: [],
 						data: []
 					};
 
+					kpi.kpiDetail.forEach((detail: KpiDetail) => {
+						const valArray = detail.valorStringArray
+							.split(';')
+							.map((item: string) => {
+								return parseFloat(item) || null;
+							});
+
+						const arr = [
+							this.kpiService.formatAxis(detail.columnX)
+						];
+						valArray.forEach(value => {
+							arr.push(value);
+							arr.push(
+								this.cp.transform(
+									value,
+									'BRL',
+									'symbol-narrow',
+									'0.0-0'
+								)
+							);
+						});
+
+						kpiFormatado.data.push(arr);
+					});
+
 					kpiFormatado.labelArray.splice(0, 0, 'Month');
 
-					kpi.kpiDetail.forEach((detail: KpiDetail) => {
-						kpiFormatado.data.push(
-							[this.kpiService.formatAxis(detail.columnX)].concat(
-								detail.valorStringArray
-									.split(';')
-									.map((item: string) => {
-										return parseFloat(item) || null;
-									})
-							)
-						);
-					});
+					for (
+						let index = 1;
+						index <=
+						kpi.kpiDetail[0].valorStringArray.split(';').length;
+						index++
+					) {
+						kpiFormatado.roles.push({
+							role: 'tooltip',
+							type: 'string',
+							index
+						});
+					}
 
 					this.kpis.push(kpiFormatado);
 				});

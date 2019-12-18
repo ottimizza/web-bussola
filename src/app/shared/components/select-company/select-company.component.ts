@@ -23,7 +23,7 @@ export class SelectCompanyComponent implements OnInit {
 	companies: Company[] = [];
 	pageIndex = 0;
 	hasMore = true;
-	scrollIsLoading = true;
+	isLoading = true;
 
 	private _filter: string;
 
@@ -55,9 +55,13 @@ export class SelectCompanyComponent implements OnInit {
 
 	ngOnInit() {
 		this.filterSubject.pipe(debounceTime(300)).subscribe(() => {
-			this.pageIndex = 0;
-			this.hasMore = true;
-			this.findCompanies();
+			if (!this.isLoading) {
+				this.pageIndex = 0;
+				this.hasMore = true;
+				this.findCompanies();
+			} else {
+				this.filterSubject.next();
+			}
 		});
 
 		this.company = this.company;
@@ -71,9 +75,9 @@ export class SelectCompanyComponent implements OnInit {
 			if (
 				scrollTop + $(this).innerHeight() >= this.scrollHeight - 1 &&
 				that.hasMore &&
-				!that.scrollIsLoading
+				!that.isLoading
 			) {
-				that.scrollIsLoading = true;
+				that.isLoading = true;
 				that.findCompanies();
 			}
 		});
@@ -97,7 +101,7 @@ export class SelectCompanyComponent implements OnInit {
 				console.log(err);
 			},
 			() => {
-				this.scrollIsLoading = false;
+				this.isLoading = false;
 			}
 		);
 	}

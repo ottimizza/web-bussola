@@ -2,11 +2,19 @@
 	<mat-expansion-panel>
 		<mat-expansion-panel-header>
 			<mat-panel-title>
-				{{ company?.name }}
+				<div class="mt-2 mb-2">
+					<span style="vertical-align:middle">{{
+						company?.name
+					}}</span>
+					<br />
+					<span style="vertical-align:middle">{{
+						company?.cnpj | mask: '00.000.000/0000-00'
+					}}</span>
+				</div>
 			</mat-panel-title>
-			<mat-panel-description>
+			<!-- <mat-panel-description>
 				{{ company?.cnpj | mask: '00.000.000/0000-00' }}
-			</mat-panel-description>
+			</mat-panel-description> -->
 		</mat-expansion-panel-header>
 
 		<div class="pb-3">
