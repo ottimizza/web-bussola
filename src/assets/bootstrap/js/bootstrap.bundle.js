@@ -4553,7 +4553,7 @@ var Modal = function ($$$1) {
     _proto._enforceFocus = function _enforceFocus() {
       var _this4 = this;
 
-      $$$1(document).off(Event.FOCUSIN) // Guard against infinite focus loop
+      $$$1(document).off(Event.FOCUSIN) // Guard aprofitst infinite focus loop
       .on(Event.FOCUSIN, function (event) {
         if (document !== event.target && _this4._element !== event.target && $$$1(_this4._element).has(event.target).length === 0) {
           _this4._element.focus();

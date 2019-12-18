@@ -3,7 +3,7 @@ import { Kpi } from './../../shared/models/kpi';
 import { KpiService } from '@shared/services/kpi.service';
 import { Component, OnInit } from '@angular/core';
 import { Company } from '@shared/models/company';
-import { KpiFormatado } from '@shared/models/kpi';
+import { FormatedKpi } from '@shared/models/kpi';
 import { KpiDetail } from '@shared/models/kpi-detail';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { CurrencyPipe } from '@angular/common';
@@ -15,7 +15,7 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class ComparativesComponent implements OnInit {
 	selectedCompany: Company;
-	kpis: KpiFormatado[] = [];
+	kpis: FormatedKpi[] = [];
 
 	isLoading = true;
 	isPortrait = window.innerHeight > window.innerWidth;
@@ -36,7 +36,7 @@ export class ComparativesComponent implements OnInit {
 		this.kpiService.getKpis(this.selectedCompany.cnpj).subscribe(
 			(response: any) => {
 				response.data.findKpi.forEach((kpi: Kpi) => {
-					const kpiFormatado: KpiFormatado = {
+					const formatedKpi: FormatedKpi = {
 						id: kpi.id,
 						kpiAlias: kpi.kpiAlias,
 						title: kpi.title,
@@ -51,43 +51,30 @@ export class ComparativesComponent implements OnInit {
 						const valArray = detail.valorStringArray
 							.split(';')
 							.map((item: string) => {
-								return parseFloat(item) || null;
+								return parseFloat(item) || item;
 							});
 
 						const arr = [
 							this.kpiService.formatAxis(detail.columnX)
-						];
-						valArray.forEach(value => {
-							arr.push(value);
-							arr.push(
-								this.cp.transform(
-									value,
-									'BRL',
-									'symbol-narrow',
-									'0.0-0'
-								)
-							);
-						});
+						].concat(valArray);
 
-						kpiFormatado.data.push(arr);
+						formatedKpi.data.push(arr);
 					});
 
-					kpiFormatado.labelArray.splice(0, 0, 'Month');
-
-					for (
-						let index = 1;
-						index <=
-						kpi.kpiDetail[0].valorStringArray.split(';').length;
-						index++
-					) {
-						kpiFormatado.roles.push({
+					let index = 1;
+					formatedKpi.labelArray.forEach(() => {
+						formatedKpi.roles.push({
 							role: 'tooltip',
 							type: 'string',
 							index
 						});
-					}
 
-					this.kpis.push(kpiFormatado);
+						index = index + 2;
+					});
+
+					formatedKpi.labelArray.splice(0, 0, 'Month');
+
+					this.kpis.push(formatedKpi);
 				});
 			},
 			err => {

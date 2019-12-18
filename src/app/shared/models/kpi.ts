@@ -1,5 +1,4 @@
 import { KpiDetail } from './kpi-detail';
-import { Role } from 'angular-google-charts/lib/models/role.model';
 
 export interface Kpi {
 	id?: number;
@@ -11,7 +10,7 @@ export interface Kpi {
 	kpiDetail: KpiDetail[];
 }
 
-export interface KpiFormatado {
+export interface FormatedKpi {
 	id?: number;
 	kpiAlias: string;
 	title: string;

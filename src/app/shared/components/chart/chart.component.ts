@@ -1,4 +1,4 @@
-import { KpiFormatado } from '@shared/models/kpi';
+import { FormatedKpi } from '@shared/models/kpi';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 	styleUrls: ['chart.component.scss']
 })
 export class ChartComponent implements OnInit {
-	@Input() kpi: KpiFormatado;
+	@Input() kpi: FormatedKpi;
 	@Input() noAnnotations = false;
 
 	roles = [{ role: 'tooltip', type: 'string', index: 2 }];

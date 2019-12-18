@@ -4,8 +4,8 @@ import { AuthenticationService } from '@app/authentication/authentication.servic
 import { MatDialog } from '@angular/material';
 import { Component, PipeTransform } from '@angular/core';
 import { Company } from '@shared/models/company';
-import { Lucro } from '@shared/models/lucro';
-import { KpiFormatado, Kpi } from '@shared/models/kpi';
+import { Profit } from '@shared/models/profit';
+import { FormatedKpi, Kpi } from '@shared/models/kpi';
 import { KpiService } from '@shared/services/kpi.service';
 import { KpiDetail } from '@shared/models/kpi-detail';
 import { AnnotationsComponent } from '@shared/components/annotations/annotations.component';
@@ -19,8 +19,8 @@ import { CurrencyPipe } from '@angular/common';
 export class PointersComponent {
 	selectedCompany: Company;
 
-	lucro: Lucro;
-	kpis: KpiFormatado[] = [];
+	profit: Profit;
+	kpis: FormatedKpi[] = [];
 	isLoading = true;
 	externalId = User.fromLocalStorage().organization.externalId;
 
@@ -32,12 +32,12 @@ export class PointersComponent {
 
 	requestKpis() {
 		this.isLoading = true;
-		this.lucro = undefined;
+		this.profit = undefined;
 		this.kpis = [];
 
-		this.kpiService.getLucroAnual(this.selectedCompany.cnpj).subscribe(
-			(lucro: Lucro) => {
-				this.lucro = lucro;
+		this.kpiService.getYearlyProfit(this.selectedCompany.cnpj).subscribe(
+			(profit: Profit) => {
+				this.profit = profit;
 			},
 			err => {
 				console.log(err);
@@ -47,7 +47,7 @@ export class PointersComponent {
 		this.kpiService.getKpis(this.selectedCompany.cnpj).subscribe(
 			(response: any) => {
 				response.data.findKpi.forEach((kpi: Kpi) => {
-					const kpiFormatado: KpiFormatado = {
+					const formatedKpi: FormatedKpi = {
 						id: kpi.id,
 						kpiAlias: kpi.kpiAlias,
 						title: kpi.title,
@@ -62,43 +62,64 @@ export class PointersComponent {
 						const valArray = detail.valorStringArray
 							.split(';')
 							.map((item: string) => {
-								return parseFloat(item) || null;
+								return parseFloat(item) || item;
 							});
 
 						const arr = [
 							this.kpiService.formatAxis(detail.columnX)
-						];
-						valArray.forEach(value => {
-							arr.push(value);
-							arr.push(
-								this.cp.transform(
-									value,
-									'BRL',
-									'symbol-narrow',
-									'0.0-0'
-								)
-							);
-						});
+						].concat(valArray);
 
-						kpiFormatado.data.push(arr);
+						// valArray.forEach(value => {
+						// 	arr.push(value);
+						// 	arr.push(
+						// 		this.cp.transform(
+						// 			value,
+						// 			'BRL',
+						// 			'symbol-narrow',
+						// 			'0.0-0'
+						// 		)
+						// 	);
+						// 	// arr.push(
+						// 	// 	`<div style="background-color: blue;"> <span> ${this.cp.transform(
+						// 	// 		value,
+						// 	// 		'BRL',
+						// 	// 		'symbol-narrow',
+						// 	// 		'0.0-0'
+						// 	// 	)} </span> </div>`
+						// 	// );
+						// });
+
+						formatedKpi.data.push(arr);
 					});
 
-					kpiFormatado.labelArray.splice(0, 0, 'Month');
-
-					for (
-						let index = 1;
-						index <=
-						kpi.kpiDetail[0].valorStringArray.split(';').length;
-						index++
-					) {
-						kpiFormatado.roles.push({
+					let index = 1;
+					formatedKpi.labelArray.forEach(() => {
+						formatedKpi.roles.push({
 							role: 'tooltip',
 							type: 'string',
 							index
 						});
-					}
 
-					this.kpis.push(kpiFormatado);
+						index = index + 1;
+					});
+
+					// for (
+					// 	let index = 1;
+					// 	index <
+					// 	kpi.kpiDetail[0].valorStringArray.split(';').length;
+					// 	index = index + 2
+					// ) {
+					// 	formatedKpi.roles.push({
+					// 		role: 'tooltip',
+					// 		type: 'string',
+					// 		index
+					// 	});
+					// }
+
+					formatedKpi.labelArray.splice(0, 0, 'Month');
+
+					console.log(formatedKpi);
+					this.kpis.push(formatedKpi);
 				});
 			},
 			err => {

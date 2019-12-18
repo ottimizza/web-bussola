@@ -30,7 +30,7 @@ export class KpiService {
 		});
 	}
 
-	getLucroAnual(cnpj: string) {
+	getYearlyProfit(cnpj: string) {
 		return this.http.get(
 			`${environment.appApi}/kpi/gain/${cnpj.replace(/\D/g, '')}`,
 			{

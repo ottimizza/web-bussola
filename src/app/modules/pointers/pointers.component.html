@@ -4,24 +4,24 @@
 
 <div *ngIf="kpis.length >= 0" class="row page-content">
 	<div
-		*ngIf="!!lucro"
-		class="col-12 col-md-6 chart-container lucro-container"
+		*ngIf="!!profit"
+		class="col-12 col-md-6 chart-container profit-container"
 	>
 		<app-card
 			[kpiAlias]="'07'"
 			[externalId]="selectedCompany.externalId"
 			[cnpj]="selectedCompany.cnpj"
-			[title]="lucro.title"
+			[title]="profit.title"
 		>
 			<div
 				body
-				class="row h-100 mx-auto lucro-anual align-items-center p-0"
+				class="row h-100 mx-auto yearly-profit align-items-center p-0"
 			>
 				<span
 					class="card-text"
-					[ngClass]="lucro.value > 0 ? 'green' : 'red'"
+					[ngClass]="profit.value > 0 ? 'green' : 'red'"
 				>
-					{{ lucro.value | currency: 'BRL':'symbol-narrow':'0.0-0' }}
+					{{ profit.value | currency: 'BRL':'symbol-narrow':'0.0-0' }}
 				</span>
 			</div>
 

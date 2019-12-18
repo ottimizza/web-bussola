@@ -97,7 +97,6 @@ export class AnnotationsComponent implements OnInit {
 		this.uploadService
 			.uploadSingleFile(event.files[0])
 			.subscribe((res: any) => {
-				console.log(event);
 				this.postAnnotation(
 					`${environment.storageUrl}/storage/${res.record.id}/download`
 				);

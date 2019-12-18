@@ -8,9 +8,10 @@ import {
 	ViewChild
 } from '@angular/core';
 import { CompanyService } from '@shared/services/company.service';
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { Subject, Observable } from 'rxjs';
+import { debounceTime, map } from 'rxjs/operators';
 import { VariableInfo } from '@shared/models/variables';
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
 	selector: 'app-select-company',
@@ -24,6 +25,10 @@ export class SelectCompanyComponent implements OnInit {
 	pageIndex = 0;
 	hasMore = true;
 	isLoading = true;
+
+	isHandset$: Observable<boolean> = this.breakpointObserver
+		.observe(Breakpoints.Handset)
+		.pipe(map(result => result.matches));
 
 	private _filter: string;
 
@@ -51,7 +56,10 @@ export class SelectCompanyComponent implements OnInit {
 
 	filterView: any;
 
-	constructor(private companyService: CompanyService) {}
+	constructor(
+		private companyService: CompanyService,
+		private breakpointObserver: BreakpointObserver
+	) {}
 
 	ngOnInit() {
 		this.filterSubject.pipe(debounceTime(300)).subscribe(() => {
@@ -86,8 +94,6 @@ export class SelectCompanyComponent implements OnInit {
 	findCompanies(firstRequest: boolean = false) {
 		this.companyService.getCompanies(this.pageIndex, this.filter).subscribe(
 			(response: { records: Company[] }) => {
-				console.log(this.pageIndex);
-
 				if (!this.pageIndex) this.companies = response.records;
 				else this.companies = this.companies.concat(response.records);
 
@@ -107,7 +113,6 @@ export class SelectCompanyComponent implements OnInit {
 	}
 
 	onCompanyChanged(event: any) {
-		console.log(event);
 		this.company = event;
 	}
 
