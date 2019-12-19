@@ -74,8 +74,8 @@ export class MenuLayoutComponent implements OnInit {
 		this.organizationLogoUrl = User.fromLocalStorage().organization.avatar;
 		this.userPermissionLevel = User.fromLocalStorage().type;
 		this.profileUrl =
-			environment.oauthBaseUrl +
-			'/usuarios/' +
+			environment.accountsUrl +
+			'/dashboard/users/' +
 			User.fromLocalStorage().id;
 		this.menuItems = ROUTES.filter(menuItem => menuItem);
 	}

@@ -33,7 +33,7 @@ export class ComparativesComponent implements OnInit {
 		this.isLoading = true;
 		this.kpis = [];
 
-		this.kpiService.getKpis(this.selectedCompany.cnpj).subscribe(
+		this.kpiService.getKpis(this.selectedCompany.cnpj, 2).subscribe(
 			(response: any) => {
 				response.data.findKpi.forEach((kpi: Kpi) => {
 					const formatedKpi: FormatedKpi = {

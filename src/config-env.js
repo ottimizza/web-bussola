@@ -13,7 +13,8 @@ const envConfigFile = `export const environment = {
   appApi: '${getEnvironmentVariable('APP_API')}',
   storageUrl: '${getEnvironmentVariable('STORAGE_URL')}',
   oauthClientId: '${getEnvironmentVariable('CLIENT_ID')}',
-  applicationId: '${getEnvironmentVariable('APPLICATION_ID')}'
+	applicationId: '${getEnvironmentVariable('APPLICATION_ID')}',
+	accountsUrl: '${getEnvironmentVariable('ACCOUNTS_URL')}'
 };
 `;
 

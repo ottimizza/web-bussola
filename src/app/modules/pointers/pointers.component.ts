@@ -1,8 +1,6 @@
-import { map } from 'rxjs/operators';
 import { User } from '@shared/models/User';
-import { AuthenticationService } from '@app/authentication/authentication.service';
 import { MatDialog } from '@angular/material';
-import { Component, PipeTransform } from '@angular/core';
+import { Component } from '@angular/core';
 import { Company } from '@shared/models/company';
 import { Profit } from '@shared/models/profit';
 import { FormatedKpi, Kpi } from '@shared/models/kpi';
@@ -69,26 +67,6 @@ export class PointersComponent {
 							this.kpiService.formatAxis(detail.columnX)
 						].concat(valArray);
 
-						// valArray.forEach(value => {
-						// 	arr.push(value);
-						// 	arr.push(
-						// 		this.cp.transform(
-						// 			value,
-						// 			'BRL',
-						// 			'symbol-narrow',
-						// 			'0.0-0'
-						// 		)
-						// 	);
-						// 	// arr.push(
-						// 	// 	`<div style="background-color: blue;"> <span> ${this.cp.transform(
-						// 	// 		value,
-						// 	// 		'BRL',
-						// 	// 		'symbol-narrow',
-						// 	// 		'0.0-0'
-						// 	// 	)} </span> </div>`
-						// 	// );
-						// });
-
 						formatedKpi.data.push(arr);
 					});
 
@@ -102,19 +80,6 @@ export class PointersComponent {
 
 						index = index + 1;
 					});
-
-					// for (
-					// 	let index = 1;
-					// 	index <
-					// 	kpi.kpiDetail[0].valorStringArray.split(';').length;
-					// 	index = index + 2
-					// ) {
-					// 	formatedKpi.roles.push({
-					// 		role: 'tooltip',
-					// 		type: 'string',
-					// 		index
-					// 	});
-					// }
 
 					formatedKpi.labelArray.splice(0, 0, 'Month');
 
@@ -135,9 +100,6 @@ export class PointersComponent {
 	}
 
 	openModal(kpiAlias: string) {
-		// console.log(this.externalId);
-		// console.log(this.cnpj);
-
 		this.dialog.open(AnnotationsComponent, {
 			width: '33rem',
 			data: { externalId: this.selectedCompany.externalId, kpiAlias }
