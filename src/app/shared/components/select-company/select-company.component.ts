@@ -12,6 +12,7 @@ import { Subject, Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { VariableInfo } from '@shared/models/variables';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { MatExpansionPanel } from '@angular/material';
 
 @Component({
 	selector: 'app-select-company',
@@ -49,12 +50,16 @@ export class SelectCompanyComponent implements OnInit {
 		return this._filter;
 	}
 
-	@ViewChild('dropdown', { static: false }) dropdownView: ElementRef;
+	@ViewChild('dropdown', { static: false }) dropdownView: ElementRef<
+		MatExpansionPanel
+	>;
 	@Output() selectedCompany = new EventEmitter<Company>();
 
 	private filterSubject = new Subject();
 
 	filterView: any;
+
+	panelOpenState = false;
 
 	constructor(
 		private companyService: CompanyService,
@@ -113,6 +118,7 @@ export class SelectCompanyComponent implements OnInit {
 	}
 
 	onCompanyChanged(event: any) {
+		this.panelOpenState = !this.panelOpenState;
 		this.company = event;
 	}
 

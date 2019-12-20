@@ -1,12 +1,13 @@
 import { map } from 'rxjs/operators';
-import { Kpi } from './../../shared/models/kpi';
+import { Kpi } from '@shared/models/kpi';
 import { KpiService } from '@shared/services/kpi.service';
 import { Component, OnInit } from '@angular/core';
 import { Company } from '@shared/models/company';
 import { FormatedKpi } from '@shared/models/kpi';
 import { KpiDetail } from '@shared/models/kpi-detail';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { CurrencyPipe } from '@angular/common';
+import { Observable } from 'rxjs';
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
 	selector: 'app-comparatives',
@@ -21,10 +22,14 @@ export class ComparativesComponent implements OnInit {
 	isPortrait = window.innerHeight > window.innerWidth;
 	isMobile = this.deviceService.isMobile();
 
+	isHandset$: Observable<boolean> = this.breakpointObserver
+		.observe(Breakpoints.Handset)
+		.pipe(map(result => result.matches));
+
 	constructor(
 		private kpiService: KpiService,
 		private deviceService: DeviceDetectorService,
-		private cp: CurrencyPipe
+		private breakpointObserver: BreakpointObserver
 	) {}
 
 	ngOnInit(): void {}

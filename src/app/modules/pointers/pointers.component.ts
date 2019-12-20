@@ -22,11 +22,7 @@ export class PointersComponent {
 	isLoading = true;
 	externalId = User.fromLocalStorage().organization.externalId;
 
-	constructor(
-		private kpiService: KpiService,
-		private dialog: MatDialog,
-		private cp: CurrencyPipe
-	) {}
+	constructor(private kpiService: KpiService, private dialog: MatDialog) {}
 
 	requestKpis() {
 		this.isLoading = true;
@@ -83,7 +79,6 @@ export class PointersComponent {
 
 					formatedKpi.labelArray.splice(0, 0, 'Month');
 
-					console.log(formatedKpi);
 					this.kpis.push(formatedKpi);
 				});
 			},

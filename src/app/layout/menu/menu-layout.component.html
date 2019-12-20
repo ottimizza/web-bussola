@@ -64,6 +64,7 @@
 		[attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
 		[mode]="(isHandset$ | async) ? 'over' : 'side'"
 		[opened]="!(isHandset$ | async)"
+		[disableClose]="!(isHandset$ | async)"
 	>
 		<mat-nav-list>
 			<div *ngFor="let menuItem of menuItems; let i = index">

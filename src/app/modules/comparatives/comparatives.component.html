@@ -4,21 +4,44 @@
 			(selectedCompany)="onCompanyChanged($event)"
 		></app-select-company>
 	</div>
-	<div *ngFor="let kpi of kpis">
-		<div
-			class="chart-card mb-4"
-			[ngClass]="{ 'mobile-height': isPortrait }"
-		>
-			<app-card
-				[title]="kpi.title"
-				[kpiAlias]="kpi.kpiAlias"
-				[externalId]="selectedCompany.externalId"
-				[cnpj]="selectedCompany.cnpj"
+	<!--
+	<div *ngIf="isHandset$ | async">
+		<div *ngFor="let kpi of kpis">
+			<div
+				class="chart-card mb-4"
+				[ngClass]="{ 'mobile-height': isPortrait }"
 			>
-				<div body class="h-100 pt-4">
-					<app-chart [kpi]="kpi" [noAnnotations]="true"></app-chart>
-				</div>
-			</app-card>
+				<app-card
+					[title]="kpi.title"
+					[kpiAlias]="kpi.kpiAlias"
+					[externalId]="selectedCompany?.externalId"
+					[cnpj]="selectedCompany.cnpj"
+				>
+					<div body class="h-100 pt-4">
+						<app-chart
+							[kpi]="kpi"
+							[noAnnotations]="true"
+						></app-chart>
+					</div>
+				</app-card>
+			</div>
+		</div>
+	</div> -->
+
+	<div *ngIf="!(isHandset$ | async)" class="row page-content">
+		<div *ngFor="let kpi of kpis" class="col-12 col-md-4 chart-container">
+			<div>
+				<app-card
+					[kpiAlias]="kpi.kpiAlias"
+					[externalId]="selectedCompany?.externalId"
+					[cnpj]="selectedCompany.cnpj"
+					[title]="kpi.title"
+				>
+					<div class="h-100" body>
+						<app-chart [kpi]="kpi"></app-chart>
+					</div>
+				</app-card>
+			</div>
 		</div>
 	</div>
 </div>
