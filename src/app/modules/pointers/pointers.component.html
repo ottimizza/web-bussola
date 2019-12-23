@@ -21,7 +21,7 @@
 					class="card-text"
 					[ngClass]="profit.value > 0 ? 'green' : 'red'"
 				>
-					{{ profit.value | currency: 'BRL':'symbol-narrow':'0.0-0' }}
+					{{ profit.value | currency: 'BRL':'symbol':'0.0-0':'pt' }}
 				</span>
 			</div>
 
@@ -50,6 +50,7 @@
 				<div class="position-absolute w-100" style="bottom: 0" footer>
 					<div class="float-right pr-2 pb-1">
 						<button
+							style="font-size: 0.8rem;"
 							class="btn btn-link p-0"
 							(click)="openModal(kpi.id)"
 						>

@@ -5,6 +5,12 @@ import { filter } from 'rxjs/operators';
 import { SwUpdate } from '@angular/service-worker';
 import { environment } from '@env';
 
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+import localePtExtra from '@angular/common/locales/extra/pt';
+
+registerLocaleData(localePt, localePtExtra);
+
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
