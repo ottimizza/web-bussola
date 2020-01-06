@@ -7,7 +7,6 @@ import { FormatedKpi, Kpi } from '@shared/models/kpi';
 import { KpiService } from '@shared/services/kpi.service';
 import { KpiDetail } from '@shared/models/kpi-detail';
 import { AnnotationsComponent } from '@shared/components/annotations/annotations.component';
-import { CurrencyPipe } from '@angular/common';
 
 @Component({
 	selector: 'app-pointers',
