@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '@app/authentication/authentication.service';
-import { AuthSession } from '@shared/models/AuthSession';
+import { AuthSession } from '@app/models/AuthSession';
 
 @Component({
 	selector: 'app-auth-callback',

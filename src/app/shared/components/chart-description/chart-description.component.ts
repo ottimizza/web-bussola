@@ -1,4 +1,4 @@
-import { User } from '@shared/models/User';
+import { User } from '@app/models/User';
 import { ToastService } from '@shared/services/toast.service';
 import { Description } from '@shared/models/description';
 import { DescriptionService } from '@shared/services/description.service';

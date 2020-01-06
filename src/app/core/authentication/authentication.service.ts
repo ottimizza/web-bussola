@@ -4,9 +4,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { finalize } from 'rxjs/operators';
 
 import { StorageService } from '@shared/services/storage.service';
-import { AuthSession } from '@shared/models/AuthSession';
+import { AuthSession } from '@app/models/AuthSession';
 import { environment } from '@env';
-import { User } from '@shared/models/User';
+import { User } from '@app/models/User';
 
 @Injectable({
 	providedIn: 'root'
