@@ -11,7 +11,7 @@ import {
 import { Observable, EMPTY, throwError, of, Subject } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { AuthenticationService } from '@app/authentication/authentication.service';
-import { AuthSession } from '@shared/models/AuthSession';
+import { AuthSession } from '@app/models/AuthSession';
 
 @Injectable({
 	providedIn: 'root'

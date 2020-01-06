@@ -1,12 +1,11 @@
 import { AuthenticationService } from './../../core/authentication/authentication.service';
-import { User } from '@shared/models/User';
+import { User } from '@app/models/User';
 import { environment } from '@env';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { AppComponent } from 'app/app.component';
 
 export const ROUTES: RouteInfo[] = [
 	// {
@@ -54,9 +53,7 @@ export const ROUTES: RouteInfo[] = [
 export class MenuLayoutComponent implements OnInit {
 	menuItems: RouteInfo[];
 	profileUrl: string;
-	avatarUrl?: string;
-	organizationLogoUrl?: string;
-	userPermissionLevel: number;
+	user: User;
 
 	@ViewChild('drawer', { static: false }) drawer: ElementRef<MatSidenav>;
 
@@ -70,13 +67,9 @@ export class MenuLayoutComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
-		this.avatarUrl = User.fromLocalStorage().avatar;
-		this.organizationLogoUrl = User.fromLocalStorage().organization.avatar;
-		this.userPermissionLevel = User.fromLocalStorage().type;
+		this.user = User.fromLocalStorage();
 		this.profileUrl =
-			environment.accountsUrl +
-			'/dashboard/users/' +
-			User.fromLocalStorage().id;
+			environment.accountsUrl + '/dashboard/users/' + this.user.id;
 		this.menuItems = ROUTES.filter(menuItem => menuItem);
 	}
 

@@ -1,4 +1,4 @@
-import { User } from '@shared/models/User';
+import { User } from '@app/models/User';
 import { MatDialog } from '@angular/material';
 import { Component } from '@angular/core';
 import { Company } from '@shared/models/company';
