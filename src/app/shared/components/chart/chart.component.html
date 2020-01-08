@@ -1,7 +1,6 @@
 <div style="height: 100%;" [ngClass]="{ 'pt-4': kpi.chartType !== 'PieChart' }">
 	<google-chart
 		class="chart"
-		[dynamicResize]="true"
 		[type]="kpi.chartType"
 		[data]="kpi.data"
 		[roles]="kpi.roles"
