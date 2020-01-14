@@ -32,7 +32,7 @@ export class KpiService {
 
 	getKpis(cnpj: string, kind: number = 1) {
 		return this.httpClient.get(
-			`${environment.appApi}/kpi?cnpj=${cnpj}&kind=${kind}`,
+			`${environment.appApi}/kpi?page_size=50&cnpj=${cnpj}&kind=${kind}`,
 			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}
