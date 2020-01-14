@@ -5,3 +5,11 @@
 .editable-div {
 	outline: -webkit-focus-ring-color auto 1px;
 }
+
+.close {
+	padding: 0;
+	outline: none;
+	position: absolute;
+	right: 0.9rem;
+	top: 0.9rem;
+}

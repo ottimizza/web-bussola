@@ -1,4 +1,4 @@
-import { User } from '@shared/models/User';
+import { User } from '@app/models/User';
 import { AuthenticationService } from '@app/authentication/authentication.service';
 import { VariableInfo } from '@shared/models/variables';
 import { environment } from '@env';

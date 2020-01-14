@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AuthCallbackComponent } from './page/callback/callback.component';
 import { AuthRoutingModule } from './auth.routing';
@@ -7,14 +8,8 @@ import { AuthRoutingModule } from './auth.routing';
 // import { UserDetailsComponent } from './page/user-details/user-details.component';
 
 @NgModule({
-	declarations: [
-		AuthCallbackComponent
-		// UserDetailsComponent
-	],
-	imports: [
-		// SharedModule,
-		AuthRoutingModule
-	],
+	declarations: [AuthCallbackComponent],
+	imports: [CommonModule, AuthRoutingModule],
 	exports: [],
 	providers: [],
 	entryComponents: []

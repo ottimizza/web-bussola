@@ -40,7 +40,7 @@ export class ComparativesComponent implements OnInit {
 
 		this.kpiService.getKpis(this.selectedCompany.cnpj, 2).subscribe(
 			(response: any) => {
-				response.data.findKpi.forEach((kpi: Kpi) => {
+				response.content.forEach((kpi: Kpi) => {
 					const formatedKpi: FormatedKpi = {
 						id: kpi.id,
 						kpiAlias: kpi.kpiAlias,

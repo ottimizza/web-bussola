@@ -25,13 +25,12 @@
 				</span>
 			</div>
 
-			<div footer>
-				<div class="float-right pr-2 pb-1">
-					<button class="btn btn-link p-0" (click)="openModal('07')">
-						Anotações
-					</button>
-				</div>
-			</div>
+			<i
+				annotations
+				title="Anotações"
+				class="fal fa-comment-alt-edit hover-cursor"
+				(click)="openModal('07')"
+			></i>
 		</app-card>
 	</div>
 
@@ -47,17 +46,12 @@
 					<app-chart [kpi]="kpi"></app-chart>
 				</div>
 
-				<div class="position-absolute w-100" style="bottom: 0" footer>
-					<div class="float-right pr-2 pb-1">
-						<button
-							style="font-size: 0.8rem;"
-							class="btn btn-link p-0"
-							(click)="openModal(kpi.id)"
-						>
-							Anotações
-						</button>
-					</div>
-				</div>
+				<i
+					annotations
+					title="Anotações"
+					class="fal fa-comment-alt-edit hover-cursor"
+					(click)="openModal('07')"
+				></i>
 			</app-card>
 		</div>
 	</div>

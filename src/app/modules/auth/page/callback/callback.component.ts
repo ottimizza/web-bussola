@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '@app/authentication/authentication.service';
-import { AuthSession } from '@shared/models/AuthSession';
+import { AuthSession } from '@app/models/AuthSession';
+import { DomSanitizer } from '@angular/platform-browser';
+import { environment } from '@env';
 
 @Component({
 	selector: 'app-auth-callback',
@@ -9,13 +11,24 @@ import { AuthSession } from '@shared/models/AuthSession';
 	styleUrls: ['./callback.component.scss']
 })
 export class AuthCallbackComponent implements OnInit {
+	// cria um iframe para o oauth server poder excluir os cookies relacionados
+	url = this.sanitizer.bypassSecurityTrustResourceUrl(
+		`${environment.oauthBaseUrl}/logout`
+	);
+
 	public callbackCode: string;
+	public callbackFinished: boolean;
 
 	constructor(
+		public sanitizer: DomSanitizer,
 		public router: Router,
 		public route: ActivatedRoute,
 		public authenticationService: AuthenticationService
 	) {}
+
+	public onLoad() {
+		const that = this;
+	}
 
 	public ngOnInit() {
 		const that = this;
@@ -27,8 +40,10 @@ export class AuthCallbackComponent implements OnInit {
 					.subscribe((response: any) => {
 						if (response.access_token) {
 							AuthSession.fromOAuthResponse(response)
+
 								.store()
 								.then(async () => {
+									that.callbackFinished = true;
 									// const storeUserInfo = that.authenticationService.storeUserInfo();
 									// const storeTokenInfo = that.authenticationService.storeTokenInfo();
 

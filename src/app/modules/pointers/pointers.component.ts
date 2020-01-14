@@ -1,4 +1,4 @@
-import { User } from '@shared/models/User';
+import { User } from '@app/models/User';
 import { MatDialog } from '@angular/material';
 import { Component } from '@angular/core';
 import { Company } from '@shared/models/company';
@@ -7,7 +7,6 @@ import { FormatedKpi, Kpi } from '@shared/models/kpi';
 import { KpiService } from '@shared/services/kpi.service';
 import { KpiDetail } from '@shared/models/kpi-detail';
 import { AnnotationsComponent } from '@shared/components/annotations/annotations.component';
-import { CurrencyPipe } from '@angular/common';
 
 @Component({
 	selector: 'app-pointers',
@@ -40,7 +39,7 @@ export class PointersComponent {
 
 		this.kpiService.getKpis(this.selectedCompany.cnpj).subscribe(
 			(response: any) => {
-				response.data.findKpi.forEach((kpi: Kpi) => {
+				response.content.forEach((kpi: Kpi) => {
 					const formatedKpi: FormatedKpi = {
 						id: kpi.id,
 						kpiAlias: kpi.kpiAlias,
