@@ -39,7 +39,7 @@ export class PointersComponent {
 
 		this.kpiService.getKpis(this.selectedCompany.cnpj).subscribe(
 			(response: any) => {
-				response.data.findKpi.forEach((kpi: Kpi) => {
+				response.content.forEach((kpi: Kpi) => {
 					const formatedKpi: FormatedKpi = {
 						id: kpi.id,
 						kpiAlias: kpi.kpiAlias,
