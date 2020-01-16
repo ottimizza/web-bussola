@@ -36,8 +36,6 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		let v = '\n';
-		console.log(v);
 		// const userId = 'user001';
 		// this.messagingService.requestPermission(userId);
 		// this.messagingService.receiveMessage();
