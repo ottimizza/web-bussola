@@ -12,6 +12,25 @@ export class VariableService {
 		private authService: AuthenticationService
 	) {}
 
+	requestScriptType() {
+		return this.httpClient.get(
+			`${environment.appApi}/script_type?accounting=${123}`,
+			{
+				headers: this.authService.getAuthorizationHeaders()
+			}
+		);
+	}
+	// requestScriptType() {
+	// 	return this.httpClient.get(
+	// 		`${environment.appApi}/script_type?accounting=${
+	// 			User.fromLocalStorage().organization.id
+	// 		}`,
+	// 		{
+	// 			headers: this.authService.getAuthorizationHeaders()
+	// 		}
+	// 	);
+	// }
+
 	requestOrganizationVariables() {
 		return this.httpClient.get(
 			`${environment.appApi}/variables/byOrganization/${
@@ -42,7 +61,9 @@ export class VariableService {
 				id: variableInfo.id,
 				organizationId: variableInfo.organizationId || companyId,
 				variableId: variableInfo.variableId,
-				accountingCode: variableInfo.accountingCode
+				accountingCode: variableInfo.accountingCode,
+				originValue: variableInfo.originValue,
+				absoluteValue: variableInfo.absoluteValue
 			},
 			{ headers: this.authService.getAuthorizationHeaders() }
 		);

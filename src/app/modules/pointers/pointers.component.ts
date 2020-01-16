@@ -90,7 +90,7 @@ export class PointersComponent {
 
 	onCompanyChanged(selectedCompany: Company) {
 		this.selectedCompany = selectedCompany;
-		this.requestKpis();
+		if (!!selectedCompany) this.requestKpis();
 	}
 
 	openModal(kpiAlias: string) {

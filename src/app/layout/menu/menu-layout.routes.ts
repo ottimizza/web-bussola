@@ -36,4 +36,12 @@ export const MenuRoutes: Routes = [
 			),
 		canActivate: [AuthGuard]
 	}
+	// {
+	// 	path: 'settings',
+	// 	loadChildren: () =>
+	// 		import('@modules/settings/settings.module').then(
+	// 			m => m.SettingsModule
+	// 		),
+	// 	canActivate: [AuthGuard]
+	// }
 ];

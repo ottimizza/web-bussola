@@ -11,12 +11,20 @@
 					[matTooltipPosition]="'below'"
 				></i>
 			</th>
+			<th class="vertical-align-middle">
+				Tipo Valor
+			</th>
+			<th class="vertical-align-middle">
+				Origem Valor
+			</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr *ngFor="let variable of variables" class="table-row">
 			<td>
-				<span class="w-100 var-name-span"> {{ variable.name }}</span>
+				<span class="w-100 var-name-span"
+					>{{ variable.externalId }} - {{ variable.name }}</span
+				>
 			</td>
 			<td class="vertical-align-middle">
 				<div id="accounting-code" class="row ml-3 w-100 ">
@@ -40,8 +48,31 @@
 					</div>
 				</div>
 			</td>
+			<td>
+				<mat-select
+					[(value)]="variable.absoluteValue"
+					(selectionChange)="updateVariable(variable)"
+				>
+					<mat-option [value]="false">Original</mat-option>
+					<mat-option [value]="true">Absoluto</mat-option>
+				</mat-select>
+			</td>
+			<td>
+				<mat-select
+					[(value)]="variable.originValue"
+					(selectionChange)="updateVariable(variable)"
+				>
+					<mat-option [value]="1"
+						>Saldo Inicial - Saldo Final</mat-option
+					>
+					<mat-option [value]="2">Saldo Final</mat-option>
+					<mat-option [value]="3">Saldo Inicial</mat-option>
+					<mat-option [value]="4">Debito - Crédito</mat-option>
+					<mat-option [value]="5">Crédito - Debito</mat-option>
+					<mat-option [value]="6">Crédito</mat-option>
+					<mat-option [value]="7">Debito</mat-option>
+				</mat-select>
+			</td>
 		</tr>
 	</tbody>
 </table>
-
-<!-- <div *ngIf="variables.length === 0"></div> -->

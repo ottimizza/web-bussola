@@ -111,7 +111,10 @@
 				</div>
 				<ng-template #mobileMenuItem>
 					<div
-						*ngIf="user?.type <= menuItem.permissonLevelNeeded"
+						*ngIf="
+							user?.type <= menuItem.permissonLevelNeeded &&
+							!menuItem.disabledOnMobile
+						"
 						class="item outline-none w-100"
 						routerLinkActive="selected-item"
 						(click)="drawer.toggle()"

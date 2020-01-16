@@ -91,6 +91,6 @@ export class ComparativesComponent implements OnInit {
 
 	onCompanyChanged(selectedCompany: Company) {
 		this.selectedCompany = selectedCompany;
-		this.requestKpis();
+		if (!!selectedCompany) this.requestKpis();
 	}
 }
