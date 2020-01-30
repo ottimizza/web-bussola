@@ -28,20 +28,30 @@ export const ROUTES: RouteInfo[] = [
 		icon: 'fal fa-chart-line',
 		class: '',
 		permissonLevelNeeded: 2
+	},
+	{
+		path: '/options/organization',
+		title: 'Parâmetros da contabilidade',
+		icon: 'fal fa-th-list',
+		class: '',
+		permissonLevelNeeded: 1,
+		disabledOnMobile: true
+	},
+	{
+		path: '/options/company',
+		title: 'Parâmetros dos clientes',
+		icon: 'fal fa-th-list',
+		class: '',
+		permissonLevelNeeded: 1,
+		disabledOnMobile: true
 	}
 	// {
-	// 	path: '/options/organization',
-	// 	title: 'Parâmetros da contabilidade',
-	// 	icon: 'fal fa-th-list',
+	// 	path: '/settings',
+	// 	title: 'Configurações',
+	// 	icon: 'fal fa-user-cog',
 	// 	class: '',
-	// 	permissonLevelNeeded: 1
-	// },
-	// {
-	// 	path: '/options/company',
-	// 	title: 'Parâmetros dos clientes',
-	// 	icon: 'fal fa-th-list',
-	// 	class: '',
-	// 	permissonLevelNeeded: 1
+	// 	permissonLevelNeeded: 3,
+	// 	disabledOnMobile: true
 	// }
 ];
 
@@ -89,4 +99,5 @@ export interface RouteInfo {
 	icon: string;
 	class: string;
 	permissonLevelNeeded: number;
+	disabledOnMobile?: boolean;
 }
