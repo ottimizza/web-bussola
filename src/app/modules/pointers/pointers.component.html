@@ -35,7 +35,7 @@
 	</div>
 
 	<div *ngFor="let kpi of kpis" class="col-12 col-md-6 chart-container">
-		<div style="height: 40vh;">
+		<div [ngStyle]="{ 'height: 40vh': isHandset$ | async }">
 			<app-card
 				[kpiAlias]="kpi.kpiAlias"
 				[externalId]="externalId"
