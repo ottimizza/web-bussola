@@ -1,3 +1,4 @@
+import { User } from '@app/models/User';
 import { Description } from './../models/description';
 import { AuthenticationService } from '@app/authentication/authentication.service';
 import { environment } from '@env';
@@ -27,6 +28,24 @@ export class DescriptionService {
 			{
 				headers: this.authService.getAuthorizationHeaders()
 			}
+		);
+	}
+	getDescriptionList(cnpj: string, scriptId?: number) {
+		return this.httpClient.get(
+			`${environment.appApi}/description/descriptions?accountingId=${
+				User.fromLocalStorage().organization.id
+			}${
+				scriptId ? `$scriptId=${scriptId}` : ''
+			}&cnpj=${cnpj}&page_size=100`,
+			{ headers: this.authService.getAuthorizationHeaders() }
+		);
+	}
+
+	updateDescriptionList(descriptions: Description[]) {
+		return this.httpClient.put(
+			`${environment.appApi}/description/updateDescription`,
+			{ descriptions },
+			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}
 }

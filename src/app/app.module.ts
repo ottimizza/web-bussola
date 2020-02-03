@@ -1,3 +1,4 @@
+import { MaterialModule } from './material.module';
 import { CoreModule } from './core/core.module';
 import {
 	MatButtonModule,
@@ -5,9 +6,13 @@ import {
 	MatListModule,
 	MatSidenavModule,
 	MatToolbarModule,
-	MatSnackBarModule
+	MatSnackBarModule,
+	MatDialogModule
 } from '@angular/material';
-import { MenuLayoutComponent } from './layout/menu/menu-layout.component';
+import {
+	MenuLayoutComponent,
+	ShareDialogComponent
+} from './layout/menu/menu-layout.component';
 import { AuthLayoutComponent } from './layout/auth/auth-layout.component';
 import { SharedModule } from '@shared/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -20,7 +25,6 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '@env';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
-import { AngularFireModule } from '@angular/fire';
 import { AsyncPipe } from '@angular/common';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { FormsModule } from '@angular/forms';
@@ -36,7 +40,12 @@ import * as $ from 'jquery';
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
 @NgModule({
-	declarations: [AppComponent, MenuLayoutComponent, AuthLayoutComponent],
+	declarations: [
+		AppComponent,
+		MenuLayoutComponent,
+		ShareDialogComponent,
+		AuthLayoutComponent
+	],
 	imports: [
 		AppRoutingModule,
 		CoreModule,
@@ -48,11 +57,7 @@ import * as $ from 'jquery';
 		RouterModule,
 		DropdownModule,
 		LayoutModule,
-		MatButtonModule,
-		MatIconModule,
-		MatListModule,
-		MatSidenavModule,
-		MatToolbarModule,
+		MaterialModule,
 		HttpClientModule,
 		MatSnackBarModule,
 		NgxMaskModule.forRoot(),
@@ -64,6 +69,7 @@ import * as $ from 'jquery';
 		})
 	],
 	providers: [AsyncPipe, ErrorInterceptorProvider],
-	bootstrap: [AppComponent]
+	bootstrap: [AppComponent],
+	entryComponents: [ShareDialogComponent]
 })
 export class AppModule {}

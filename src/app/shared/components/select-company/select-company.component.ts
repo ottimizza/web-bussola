@@ -5,7 +5,8 @@ import {
 	Output,
 	EventEmitter,
 	ElementRef,
-	ViewChild
+	ViewChild,
+	HostListener
 } from '@angular/core';
 import { CompanyService } from '@shared/services/company.service';
 import { Subject, Observable } from 'rxjs';
@@ -35,6 +36,9 @@ export class SelectCompanyComponent implements OnInit {
 
 	set company(company: Company) {
 		SelectCompanyComponent.company = company;
+		if (!!company) {
+			window.sessionStorage.setItem('cnpj', company.cnpj);
+		}
 		this.selectedCompany.emit(this.company);
 	}
 
@@ -60,6 +64,11 @@ export class SelectCompanyComponent implements OnInit {
 	filterView: any;
 
 	panelOpenState = false;
+
+	@HostListener('window:resize', ['$event'])
+	onResize(event) {
+		this.selectedCompany.emit(this.company);
+	}
 
 	constructor(
 		private companyService: CompanyService,
