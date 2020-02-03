@@ -96,15 +96,14 @@
 							<div class="d-flex">
 								<span
 									class="icon-span h-100 d-flex align-items-center"
-									><i class="{{ menuItem.icon }}"></i
-								></span>
+								>
+									<i class="{{ menuItem.icon }}"></i>
+								</span>
 							</div>
 							<div class="float-right pl-4">
-								<span
-									class="title unselectable"
-									mat-list-item
-									>{{ menuItem.title }}</span
-								>
+								<span class="title unselectable" mat-list-item>
+									{{ menuItem.title }}
+								</span>
 							</div>
 						</div>
 					</div>
@@ -125,19 +124,39 @@
 							<div class="d-flex">
 								<span
 									class="icon-span h-100 d-flex align-items-center"
-									><i class="{{ menuItem.icon }}"></i
-								></span>
+								>
+									<i class="{{ menuItem.icon }}"></i>
+								</span>
 							</div>
 							<div class="float-right pl-4">
-								<span
-									class="title unselectable"
-									mat-list-item
-									>{{ menuItem.title }}</span
-								>
+								<span class="title unselectable" mat-list-item>
+									{{ menuItem.title }}
+								</span>
 							</div>
 						</div>
 					</div>
 				</ng-template>
+			</div>
+			<div
+				class="w-100 mb-2"
+				style="border-top: 1px solid rgba(0, 0, 0, 0.384);"
+			></div>
+			<div
+				class="item outline-none w-100 btn-compartilhar"
+				(click)="openDialog()"
+			>
+				<div class="d-flex mb-2 ml-3 mr-1 p-2">
+					<div class="d-flex">
+						<span class="icon-span h-100 d-flex align-items-center"
+							><i class="fal fa-share-alt"></i
+						></span>
+					</div>
+					<div class="float-right pl-4">
+						<span class="title unselectable" mat-list-item>
+							Compartilhar
+						</span>
+					</div>
+				</div>
 			</div>
 		</mat-nav-list>
 	</mat-sidenav>

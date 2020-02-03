@@ -1,8 +1,10 @@
-import { AuthenticationService } from './../../core/authentication/authentication.service';
+import { GenericResponse } from '@app/models/GenericResponse';
+import { KpiService } from '@shared/services/kpi.service';
+import { AuthenticationService } from '@app/authentication/authentication.service';
 import { User } from '@app/models/User';
 import { environment } from '@env';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav, MatDialog, MatDialogRef } from '@angular/material';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
@@ -30,7 +32,7 @@ export const ROUTES: RouteInfo[] = [
 		permissonLevelNeeded: 2
 	},
 	{
-		path: '/options/organization',
+		path: '/options/accounting',
 		title: 'Parâmetros da contabilidade',
 		icon: 'fal fa-th-list',
 		class: '',
@@ -73,7 +75,8 @@ export class MenuLayoutComponent implements OnInit {
 
 	constructor(
 		private breakpointObserver: BreakpointObserver,
-		private authenticationService: AuthenticationService
+		private authenticationService: AuthenticationService,
+		public dialog: MatDialog
 	) {}
 
 	ngOnInit() {
@@ -81,6 +84,10 @@ export class MenuLayoutComponent implements OnInit {
 		this.profileUrl =
 			environment.accountsUrl + '/dashboard/users/' + this.user.id;
 		this.menuItems = ROUTES.filter(menuItem => menuItem);
+	}
+
+	openDialog(): void {
+		const dialogRef = this.dialog.open(ShareDialogComponent, {});
 	}
 
 	logout() {
@@ -100,4 +107,37 @@ export interface RouteInfo {
 	class: string;
 	permissonLevelNeeded: number;
 	disabledOnMobile?: boolean;
+}
+
+@Component({
+	selector: 'share-dialog',
+	templateUrl: 'share-dialog.component.html'
+})
+export class ShareDialogComponent implements OnInit {
+	constructor(
+		public dialogRef: MatDialogRef<ShareDialogComponent>,
+		private kpiService: KpiService
+	) {}
+
+	url: string;
+
+	ngOnInit() {
+		this.kpiService
+			.requestShareUrl()
+			.subscribe((response: GenericResponse<{ id: string }>) => {
+				this.url = response.record.id;
+			});
+	}
+
+	onNoClick(): void {
+		window.open(this.url, '_blank');
+		this.dialogRef.close();
+	}
+
+	copyInputMessage(inputElement) {
+		inputElement.select();
+		document.execCommand('copy');
+		inputElement.setSelectionRange(0, 0);
+		this.dialogRef.close();
+	}
 }

@@ -1,3 +1,4 @@
+import { User } from './../../core/models/User';
 import { AuthenticationService } from '@app//authentication/authentication.service';
 import { environment } from '@env';
 import { HttpClient } from '@angular/common/http';
@@ -30,6 +31,20 @@ export class KpiService {
 		return this.httpClient.post(`${environment.appApi}/graphql`, body, {
 			headers: this.authService.getAuthorizationHeaders()
 		});
+	}
+
+	requestShareUrl() {
+		return this.httpClient.post(
+			`${environment.appApi}/charts/by_cnpj`,
+			{
+				cnpj: [window.sessionStorage.getItem('cnpj')],
+				urlLogo: [
+					User.fromLocalStorage().organization.avatar ||
+						'https://www.ottimizza.com.br/zapcontabil/logos/logo_futuro.jpg'
+				]
+			},
+			{ headers: this.authService.getAuthorizationHeaders() }
+		);
 	}
 
 	formatAxis(axis: string) {
