@@ -1,6 +1,10 @@
 <div>
 	<label for="visao">Visão: </label>
-	<mat-select #visao [(value)]="selectedType">
+	<mat-select
+		#visao
+		[(value)]="selectedType"
+		(selectionChange)="requestVariables()"
+	>
 		<mat-option *ngFor="let type of types" [value]="type">{{
 			type.description
 		}}</mat-option>

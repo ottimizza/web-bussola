@@ -1,3 +1,5 @@
+import { DescriptionService } from '@shared/services/description.service';
+import { Description } from '@shared/models/description';
 import { Component, OnInit } from '@angular/core';
 import { VariableService } from '@shared/services/variable.service';
 import { CompanyService } from '@shared/services/company.service';
@@ -23,10 +25,13 @@ export class CompanySettingsComponent implements OnInit {
 	variables: VariableInfo[] = [];
 	shareCompanyData = false;
 
+	descriptions: Description[] = [];
+
 	constructor(
 		private variableService: VariableService,
 		private companyService: CompanyService,
-		private toastService: ToastService
+		private toastService: ToastService,
+		private descriptionService: DescriptionService
 	) {}
 
 	ngOnInit() {}
@@ -34,7 +39,7 @@ export class CompanySettingsComponent implements OnInit {
 	requestVariables() {
 		this.variableService
 			.requestCompanyVariables(this.selectedCompany.id)
-			.subscribe((res: VariableInfo[]) => {
+			.subscribe((res: any) => {
 				this.variables = this.variables.concat(res);
 			});
 	}
@@ -52,32 +57,44 @@ export class CompanySettingsComponent implements OnInit {
 			.findCompanyByCnpj(this.selectedCompany.cnpj)
 			.subscribe(companies => {
 				const company = companies[0];
-				this.shareCompanyData = !!company.sector;
 				this.selectedSector = company.sector;
 			});
 	}
 
+	requestDescriptionList() {
+		this.descriptionService
+			.getDescriptionList('09.008.007/0001-99')
+			.subscribe((descriptions: any) => {
+				this.descriptions = descriptions.content;
+			});
+	}
+
 	onCompanyChanged(selectedCompany: Company) {
-		this.selectedCompany = selectedCompany;
-		this.variables = [];
-		this.findSector();
-		this.requestVariables();
-		this.requestMissingVariables();
+		if (!!selectedCompany) {
+			this.selectedCompany = selectedCompany;
+			this.variables = [];
+			this.findSector();
+			this.requestDescriptionList();
+			this.requestVariables();
+			this.requestMissingVariables();
+		}
 	}
 
 	onVariableEdited(variableInfo: VariableInfo) {
 		this.variables[this.variables.indexOf(variableInfo)] = variableInfo;
 
-		this.variableService
-			.postVariable(variableInfo, this.selectedCompany.id)
-			.subscribe(
-				res => this.toastService.show('Parâmetro alterado com sucesso'),
-				() =>
-					this.toastService.show(
-						'Erro ao alterar parâmetro',
-						'danger'
-					)
-			);
+		this.variableService.postVariable(variableInfo).subscribe(
+			res => this.toastService.show('Parâmetro alterado com sucesso'),
+			() => this.toastService.show('Erro ao alterar parâmetro', 'danger')
+		);
+	}
+
+	onDescriptionChanged(descriptions: Description[]) {
+		this.descriptionService
+			.updateDescriptionList(descriptions)
+			.subscribe(() => {
+				console.log(descriptions);
+			});
 	}
 
 	updateSetor() {

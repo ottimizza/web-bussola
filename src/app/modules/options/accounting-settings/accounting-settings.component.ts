@@ -1,18 +1,18 @@
 import { ScriptType } from '@shared/services/script-types.service';
 import { Component, OnInit, OnChanges } from '@angular/core';
-import { VariableInfo } from '@shared/models/variables';
+import { VariableInfo, AccountingVariableInfo } from '@shared/models/variables';
 import { VariableService } from '@shared/services/variable.service';
 import { ToastService } from '@shared/services/toast.service';
 
 @Component({
-	selector: 'app-organization-settings',
-	templateUrl: 'organization-settings.component.html',
-	styleUrls: ['organization-settings.component.scss']
+	selector: 'app-accounting-settings',
+	templateUrl: 'accounting-settings.component.html',
+	styleUrls: ['accounting-settings.component.scss']
 })
-export class OrganizationSettingsComponent implements OnInit, OnChanges {
+export class AccountingSettingsComponent implements OnInit, OnChanges {
 	types: ScriptType[];
 	selectedType: ScriptType;
-	variables: VariableInfo[] = [];
+	variables: AccountingVariableInfo[] = [];
 
 	constructor(
 		private variableService: VariableService,
@@ -20,33 +20,30 @@ export class OrganizationSettingsComponent implements OnInit, OnChanges {
 	) {}
 
 	ngOnInit() {
-		this.requestVariables();
 		this.variableService
 			.requestScriptType()
 			.subscribe((types: ScriptType[]) => {
 				this.selectedType = types[0];
 				this.types = types;
+				this.requestVariables();
 			});
 	}
 
-	ngOnChanges() {
-		console.log(this.selectedType);
-	}
+	ngOnChanges() {}
 
 	requestVariables() {
 		this.variableService
-			.requestOrganizationVariables()
-			.subscribe((res: any[]) => {
-				console.log(res);
-				this.variables = res;
+			.requestAccountingVariables(this.selectedType.id)
+			.subscribe((res: any) => {
+				this.variables = res.content;
 			});
 	}
 
-	onVariableEdited(variableInfo: VariableInfo) {
+	onVariableEdited(variableInfo: AccountingVariableInfo) {
 		// const varIndex = this.variables.indexOf(variableInfo);
 		this.variables[this.variables.indexOf(variableInfo)] = variableInfo;
 
-		this.variableService.postOrganizationVariable(variableInfo).subscribe(
+		this.variableService.postAccountingVariable(variableInfo).subscribe(
 			res => this.toastService.show('Parâmetro alterado com sucesso'),
 			() => this.toastService.show('Erro ao alterar parâmetro', 'danger')
 		);
