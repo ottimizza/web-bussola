@@ -3,17 +3,17 @@
 ></app-select-company>
 
 <div>
+	<h5 class="mb-4 underline">Configurações do Cliente</h5>
 	<div class="m-3">
-		<h5 class="mb-4 underline">Configurações do Cliente</h5>
 		<div>
-			<div class="ml-0 mt-2 mb-2">
+			<!-- <div class="ml-0 mt-2 mb-2">
 				<p-checkbox
 					binary="true"
 					[(ngModel)]="shareCompanyData"
-					[label]="'Compartilhar dados da empresa'"
+					[label]="'Comparar empresas'"
 					(onChange)="updateSetor()"
 				></p-checkbox>
-			</div>
+			</div> -->
 
 			<div class="">
 				<span>Setor</span>
@@ -21,16 +21,19 @@
 					placeholder="Setor"
 					[(ngModel)]="selectedSector"
 					[options]="sectors"
-					[disabled]="!shareCompanyData"
 					(onChange)="updateSetor()"
 				></p-dropdown>
 			</div>
 		</div>
 	</div>
-	<!--
+	<!-- *ngIf="descriptions.length > 0" -->
 	<div class="m-3">
-		<chart-order-config> </chart-order-config>
-	</div> -->
+		<chart-order-config
+			[descriptions]="descriptions"
+			(onDescriptionChanged)="onDescriptionChanged($event)"
+		>
+		</chart-order-config>
+	</div>
 
 	<div *ngIf="variables.length >= 0" class="m-3">
 		<h5 class="mb-3">Parâmetros</h5>

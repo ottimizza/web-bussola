@@ -1,3 +1,5 @@
+@import '../../../../assets/styles/variables.scss';
+
 .example-container {
 	width: 400px;
 	max-width: 100%;
@@ -50,4 +52,69 @@
 
 .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
 	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+table {
+	background-color: #fafafa;
+}
+
+tbody {
+	height: 20rem;
+	overflow: auto;
+}
+
+.input-description-title {
+	width: 20rem;
+}
+
+.simple-input {
+	border: none;
+	outline: 0;
+	background-color: #fafafa;
+	border-bottom: 1px solid black;
+	margin: 0 !important;
+}
+
+.simple-input-title:focus {
+	border-bottom: 1px solid $base-color;
+	color: $base-color;
+}
+
+.simple-input:hover {
+	border-bottom: 1px solid $base-color;
+}
+
+td * {
+	margin-left: 1rem;
+	margin-right: 1rem;
+}
+
+.cursor-move:hover {
+	cursor: move;
+}
+
+mat-select {
+	width: 10rem !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	border-radius: 5px;
+	background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
 }

@@ -1,3 +1,4 @@
+import { AccountingVariableInfo } from './../../../shared/models/variables';
 import { BalanceModalComponent } from './modal-balance/modal-balance.component';
 import { debounceTime } from 'rxjs/operators';
 import {
@@ -21,12 +22,16 @@ const regexStr = /(\d)|(\.)|(\+)|(\-)/;
 	styleUrls: ['./var-list.component.scss']
 })
 export class VarListComponent implements OnInit {
-	@Input() variables: VariableInfo[] = [];
+	@Input() variables: VariableInfo[] | AccountingVariableInfo[] = [];
 	@Input() cnpj: any;
-	@Output() onVariableEdited = new EventEmitter<VariableInfo>();
+	@Output() onVariableEdited = new EventEmitter<
+		VariableInfo | AccountingVariableInfo
+	>();
 	isMobile = this.deviceService.isMobile();
 
-	private variableSubject = new Subject<VariableInfo>();
+	private variableSubject = new Subject<
+		VariableInfo | AccountingVariableInfo
+	>();
 
 	@HostListener('keypress', ['$event']) onKeyPress(event: any) {
 		return new RegExp(regexStr).test(event.key);
@@ -40,25 +45,29 @@ export class VarListComponent implements OnInit {
 	ngOnInit(): void {
 		this.variableSubject
 			.pipe(debounceTime(300))
-			.subscribe((term: VariableInfo) => this.updateVariable(term));
+			.subscribe((term: VariableInfo | AccountingVariableInfo) =>
+				this.updateVariable(term)
+			);
 	}
 
-	onVarEdited(variableInfo: VariableInfo) {
+	onVarEdited(variableInfo: VariableInfo | AccountingVariableInfo) {
 		this.variableSubject.next(variableInfo);
 	}
 
-	updateVariable(variableInfo: VariableInfo) {
+	updateVariable(variableInfo: VariableInfo | AccountingVariableInfo) {
 		this.onVariableEdited.emit(variableInfo);
 	}
 
-	openModal(variableInfo: VariableInfo) {
+	openModal(variableInfo: VariableInfo | AccountingVariableInfo) {
 		const that = this;
 		this.matDialog.open(BalanceModalComponent, {
 			width: '50rem',
 			data: {
 				variableInfo,
 				cnpj: this.cnpj,
-				editVariable: (varInfo: VariableInfo) => {
+				editVariable: (
+					varInfo: VariableInfo | AccountingVariableInfo
+				) => {
 					that.onVarEdited(varInfo);
 				}
 			}

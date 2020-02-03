@@ -1,4 +1,4 @@
-import { OrganizationSettingsComponent } from './organization-settings/organization-settings.component';
+import { AccountingSettingsComponent } from './accounting-settings/accounting-settings.component';
 import { CompanySettingsComponent } from './company-settings/company-settings.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -10,9 +10,9 @@ const routes: Routes = [
 		component: CompanySettingsComponent
 	},
 	{
-		path: 'organization',
+		path: 'accounting',
 		pathMatch: 'full',
-		component: OrganizationSettingsComponent
+		component: AccountingSettingsComponent
 	}
 ];
 
