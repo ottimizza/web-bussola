@@ -1,11 +1,11 @@
 export const environment = {
 	production: false,
-	oauthBaseUrl: 'https://development-oauth.ottimizza.com.br',
-	appApi: 'https://development-api-bussolapwa.ottimizza.com.br',
+	oauthBaseUrl: 'https://staging-oauth.ottimizza.com.br',
+	appApi: 'https://staging-api-bussolapwa.ottimizza.com.br',
 	storageUrl: 'https://s4.ottimizzacontabil.com:55325',
 	oauthClientId: 'bussola-contabil-client',
-	applicationId: 'development-bussola-contabil',
-	accountsUrl: 'https://development-accounts.ottimizza.com.br',
+	applicationId: 'staging-bussola-contabil',
+	accountsUrl: 'https://staging-accounts.ottimizza.com.br',
 	firebase: {
 		apiKey: 'your apikey',
 		authDomain: 'your authDomain',

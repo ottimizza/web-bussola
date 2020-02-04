@@ -1,11 +1,16 @@
 export interface VariableInfo {
 	id: number;
+	companyId: number;
+	variableCode: string;
+	name: string;
 	variableId: number;
-	organizationId: number;
 	scriptId: number;
-	accountingCode: string;
-	originValue: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+	originValue: number;
 	absoluteValue: boolean;
+	accountingId: number;
+	accountingCode: string;
+	kpiAlias: string;
+	description: string;
 }
 
 export interface AccountingVariableInfo {
@@ -16,6 +21,6 @@ export interface AccountingVariableInfo {
 	name: string;
 	description: string;
 	accountingCode: string;
-	originValue: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+	originValue: number;
 	absoluteValue: boolean;
 }

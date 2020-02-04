@@ -1,3 +1,4 @@
+import { DescriptionDialogComponent } from './description-dialog/description-dialog.component';
 import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DescriptionService } from '@shared/services/description.service';
@@ -11,7 +12,7 @@ import {
 	EventEmitter
 } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { MatTable } from '@angular/material';
+import { MatTable, MatDialog } from '@angular/material';
 import { OverlayPanel } from 'primeng/overlaypanel';
 
 @Component({
@@ -37,7 +38,10 @@ export class ChartOrderConfigComponent implements OnInit {
 		'description'
 	];
 
-	constructor() {}
+	constructor(
+		private matDialog: MatDialog,
+		private descriptionService: DescriptionService
+	) {}
 
 	ngOnInit() {
 		this.descriptionsSubject.pipe(debounceTime(300)).subscribe(() => {
@@ -49,7 +53,6 @@ export class ChartOrderConfigComponent implements OnInit {
 		for (let i = 0; i < this.descriptions.length; i++) {
 			this.descriptions[i].graphOrder = i;
 		}
-		console.log(this.descriptions);
 		this.onDescriptionChanged.emit(this.descriptions);
 	}
 
@@ -73,5 +76,22 @@ export class ChartOrderConfigComponent implements OnInit {
 	) {
 		this.selectedDescription = description;
 		overlayPanel.toggle(event);
+	}
+
+	updateDescription(description: Description) {
+		this.descriptionService.patchDescription(description).subscribe();
+	}
+
+	openModal(description: Description) {
+		const that = this;
+		this.matDialog.open(DescriptionDialogComponent, {
+			width: '30rem',
+			data: {
+				description,
+				saveDescription: (d: Description) => {
+					that.updateDescription(d);
+				}
+			}
+		});
 	}
 }
