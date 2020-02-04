@@ -1,0 +1,20 @@
+<div mat-dialog-content>
+	<p>Editar descrição:</p>
+	<mat-form-field class="w-100" style="height: fit-content;">
+		<textarea
+			matInput
+			cdkTextareaAutosize
+			style="overflow: hidden; height: unset;"
+			placeholder="Descrição do indicador"
+			[(ngModel)]="description.description"
+		></textarea>
+	</mat-form-field>
+</div>
+<div mat-dialog-actions class="d-block">
+	<button mat-button class="float-right" cdkFocusInitial (click)="onSave()">
+		Ok
+	</button>
+	<!-- <button mat-button class="float-right" (click)="onNoClick()">
+		Cancelar
+	</button> -->
+</div>

@@ -42,8 +42,8 @@ export class DescriptionService {
 	}
 
 	updateDescriptionList(descriptions: Description[]) {
-		return this.httpClient.put(
-			`${environment.appApi}/description/updateDescription`,
+		return this.httpClient.post(
+			`${environment.appApi}/description/update`,
 			{ descriptions },
 			{ headers: this.authService.getAuthorizationHeaders() }
 		);

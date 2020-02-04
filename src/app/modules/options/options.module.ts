@@ -1,3 +1,5 @@
+import { MaterialModule } from './../../material.module';
+import { DescriptionDialogComponent } from './chart-order-config/description-dialog/description-dialog.component';
 import { ChartOrderConfigComponent } from './chart-order-config/chart-order-config.component';
 import { BalanceModalComponent } from './var-list/modal-balance/modal-balance.component';
 import { AccountingSettingsComponent } from './accounting-settings/accounting-settings.component';
@@ -13,14 +15,7 @@ import { OptionsComponent } from './options.component';
 import { TableModule } from 'primeng/table';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {
-	MatDialogModule,
-	MatTableModule,
-	MatIconModule
-} from '@angular/material';
 import { SharedModule } from '@shared/shared.module';
-import { MatSelectModule } from '@angular/material/select';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { SelectCompanyModule } from '@shared/components/select-company/select-company.module';
 
@@ -31,16 +26,13 @@ import { SelectCompanyModule } from '@shared/components/select-company/select-co
 		CompanySettingsComponent,
 		AccountingSettingsComponent,
 		BalanceModalComponent,
+		DescriptionDialogComponent,
 		ChartOrderConfigComponent
 	],
 	imports: [
 		CommonModule,
 		FormsModule,
-		MatDialogModule,
-		MatSelectModule,
-		MatTableModule,
-		MatIconModule,
-		MatPaginatorModule,
+		MaterialModule,
 		OverlayPanelModule,
 		DropdownModule,
 		DragDropModule,
@@ -53,6 +45,6 @@ import { SelectCompanyModule } from '@shared/components/select-company/select-co
 	],
 	exports: [VarListComponent, ChartOrderConfigComponent],
 	providers: [],
-	entryComponents: [BalanceModalComponent]
+	entryComponents: [BalanceModalComponent, DescriptionDialogComponent]
 })
 export class OptionsModule {}

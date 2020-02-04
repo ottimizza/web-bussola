@@ -1,3 +1,5 @@
+import { User } from './../../../core/models/User';
+import { Company } from './../../../shared/models/company';
 import { AccountingVariableInfo } from './../../../shared/models/variables';
 import { BalanceModalComponent } from './modal-balance/modal-balance.component';
 import { debounceTime } from 'rxjs/operators';
@@ -23,7 +25,7 @@ const regexStr = /(\d)|(\.)|(\+)|(\-)/;
 })
 export class VarListComponent implements OnInit {
 	@Input() variables: VariableInfo[] | AccountingVariableInfo[] = [];
-	@Input() cnpj: any;
+	@Input() selectedCompany?: Company;
 	@Output() onVariableEdited = new EventEmitter<
 		VariableInfo | AccountingVariableInfo
 	>();
@@ -54,8 +56,13 @@ export class VarListComponent implements OnInit {
 		this.variableSubject.next(variableInfo);
 	}
 
-	updateVariable(variableInfo: VariableInfo | AccountingVariableInfo) {
-		this.onVariableEdited.emit(variableInfo);
+	updateVariable(variableInfo: any) {
+		try {
+			variableInfo.companyId = this.selectedCompany.id;
+		} finally {
+			variableInfo.accountingId = User.fromLocalStorage().id;
+			this.onVariableEdited.emit(variableInfo);
+		}
 	}
 
 	openModal(variableInfo: VariableInfo | AccountingVariableInfo) {
@@ -64,7 +71,7 @@ export class VarListComponent implements OnInit {
 			width: '50rem',
 			data: {
 				variableInfo,
-				cnpj: this.cnpj,
+				cnpj: this.selectedCompany.cnpj,
 				editVariable: (
 					varInfo: VariableInfo | AccountingVariableInfo
 				) => {

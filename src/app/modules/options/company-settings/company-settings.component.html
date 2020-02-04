@@ -40,7 +40,7 @@
 		<div class="m-2">
 			<app-var-list
 				[variables]="variables"
-				[cnpj]="selectedCompany?.cnpj"
+				[selectedCompany]="selectedCompany"
 				(onVariableEdited)="onVariableEdited($event)"
 			>
 			</app-var-list>

@@ -51,16 +51,38 @@
 	<ng-container matColumnDef="type">
 		<th mat-header-cell *matHeaderCellDef>Tipo do Gráfico</th>
 		<td mat-cell *matCellDef="let description">
-			<mat-select
+			<div
+				*ngIf="
+					description.chartType === 'ColumnChart' ||
+					description.chartType === 'LineChart'
+				"
 				class="m-0"
-				[(value)]="description.chartType"
-				(selectionChange)="updateDescriptionList()"
 			>
-				<mat-option [value]="'ColumnChart'">Coluna</mat-option>
-				<mat-option [value]="'LineChart'">Linha</mat-option>
-				<mat-option [value]="'PieChart'">Pizza</mat-option>
-				<mat-option [value]="'BarChart'">Barra</mat-option>
-			</mat-select>
+				<mat-select
+					class="m-0"
+					[(value)]="description.chartType"
+					(selectionChange)="updateDescriptionList()"
+				>
+					<mat-option [value]="'ColumnChart'">Coluna</mat-option>
+					<mat-option [value]="'LineChart'">Linha</mat-option>
+				</mat-select>
+			</div>
+			<div
+				*ngIf="
+					description.chartType === 'PieChart' ||
+					description.chartType === 'DoughnutChart'
+				"
+				class="m-0"
+			>
+				<mat-select
+					class="m-0"
+					[(value)]="description.chartType"
+					(selectionChange)="updateDescriptionList()"
+				>
+					<mat-option [value]="'PieChart'">Pizza</mat-option>
+					<mat-option [value]="'DoughnutChart'">Rosca</mat-option>
+				</mat-select>
+			</div>
 		</td>
 	</ng-container>
 
@@ -73,7 +95,10 @@
 						'Este indicador não possui descrição personalizada a a a a a a a a a a a a a a a a a a a a a a a a a a a a'
 				}}
 			</p>
-			<div class="float-right hover-cursor hover-base-color">
+			<div
+				class="float-right hover-cursor hover-base-color"
+				(click)="openModal(description)"
+			>
 				<i class="fal fa-money-check-edit"></i>
 			</div>
 		</td>
