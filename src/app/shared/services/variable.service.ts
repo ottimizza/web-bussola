@@ -14,7 +14,9 @@ export class VariableService {
 
 	requestScriptType() {
 		return this.httpClient.get(
-			`${environment.appApi}/script_type?accounting=${123}`,
+			`${environment.appApi}/script_type?accounting=${
+				User.fromLocalStorage().organization.id
+			}`,
 			{
 				headers: this.authService.getAuthorizationHeaders()
 			}

@@ -1,14 +1,24 @@
-<div>
-	<label for="visao">Visão: </label>
-	<mat-select
-		#visao
-		[(value)]="selectedType"
-		(selectionChange)="requestVariables()"
+<h6>Visão</h6>
+<div class="ml-3 mb-3">
+	<mat-form-field class="hover-children">
+		<mat-select
+			class=""
+			[(value)]="selectedScript"
+			(selectionChange)="requestVariables()"
+		>
+			<mat-option class="" *ngFor="let type of types" [value]="type">{{
+				type.description
+			}}</mat-option>
+		</mat-select>
+	</mat-form-field>
+</div>
+
+<div *ngIf="descriptions.length > 0" class="mb-4">
+	<chart-order-config
+		[descriptions]="descriptions"
+		(onDescriptionChanged)="onDescriptionChanged($event)"
 	>
-		<mat-option *ngFor="let type of types" [value]="type">{{
-			type.description
-		}}</mat-option>
-	</mat-select>
+	</chart-order-config>
 </div>
 
 <app-var-list

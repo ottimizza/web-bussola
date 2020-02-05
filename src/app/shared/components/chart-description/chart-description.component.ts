@@ -21,8 +21,6 @@ export class ChartDescriptionComponent implements OnInit {
 
 	userType = User.fromLocalStorage().type;
 
-	contentEditable = false;
-
 	constructor(
 		private descriptionService: DescriptionService,
 		private toastService: ToastService,
@@ -41,16 +39,5 @@ export class ChartDescriptionComponent implements OnInit {
 			.subscribe(res => {
 				this.description = res[0];
 			});
-	}
-
-	saveDescription() {
-		this.descriptionService.patchDescription(this.description).subscribe(
-			res => {
-				this.contentEditable = false;
-			},
-			err => {
-				this.toastService.show('Erro ao salvar descrição', 'danger');
-			}
-		);
 	}
 }
