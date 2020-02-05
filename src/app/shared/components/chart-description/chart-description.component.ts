@@ -16,14 +16,10 @@ export class ChartDescriptionComponent implements OnInit {
 	cnpj: string;
 	kpiAlias: string;
 
-	description?: Description;
-	preEditedDescription?: string;
-
-	userType = User.fromLocalStorage().type;
+	description: Description;
 
 	constructor(
 		private descriptionService: DescriptionService,
-		private toastService: ToastService,
 		public dialogRef: MatDialogRef<ChartDescriptionComponent>,
 		public linkifyService: NgxLinkifyjsService,
 		@Inject(MAT_DIALOG_DATA) public data: any
