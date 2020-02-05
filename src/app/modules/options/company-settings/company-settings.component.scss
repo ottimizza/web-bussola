@@ -1,0 +1,11 @@
+@import '../../../../assets/styles/variables.scss';
+
+mat-form-field:hover {
+	mat-select * {
+		color: $base-color;
+	}
+
+	* .mat-form-field-underline {
+		background-color: $base-color !important;
+	}
+}

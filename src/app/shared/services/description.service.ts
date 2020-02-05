@@ -15,9 +15,14 @@ export class DescriptionService {
 	) {}
 
 	getDescription(organizationId: string, cnpj: string, kpiAlias: string) {
+		let orgId = User.fromLocalStorage().organization.id;
 		return this.httpClient.get(`${environment.appApi}/description`, {
 			headers: this.authService.getAuthorizationHeaders(),
-			params: { organizationId, cnpj, kpiAlias }
+			params: {
+				organizationId: orgId.toString(),
+				cnpj,
+				kpiAlias
+			}
 		});
 	}
 
@@ -34,9 +39,9 @@ export class DescriptionService {
 		return this.httpClient.get(
 			`${environment.appApi}/description/descriptions?accountingId=${
 				User.fromLocalStorage().organization.id
-			}${
-				scriptId ? `$scriptId=${scriptId}` : ''
-			}&cnpj=${cnpj}&page_size=100`,
+			}${scriptId ? `&scriptId=${scriptId}` : ''}${
+				cnpj ? `&cnpj=${cnpj}` : ''
+			}&page_size=100`,
 			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}

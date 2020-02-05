@@ -1,11 +1,11 @@
 import { DescriptionService } from '@shared/services/description.service';
-import { Description } from '@shared/models/description';
 import { Component, OnInit } from '@angular/core';
 import { VariableService } from '@shared/services/variable.service';
 import { CompanyService } from '@shared/services/company.service';
-import { ToastService } from '@shared/services/toast.service';
-import { Company } from '@shared/models/company';
 import { VariableInfo } from '@shared/models/variables';
+import { ToastService } from '@shared/services/toast.service';
+import { Description } from '@shared/models/description';
+import { Company } from '@shared/models/company';
 
 @Component({
 	selector: 'app-company-settings',
@@ -56,14 +56,13 @@ export class CompanySettingsComponent implements OnInit {
 		this.companyService
 			.findCompanyByCnpj(this.selectedCompany.cnpj)
 			.subscribe(companies => {
-				const company = companies[0];
-				this.selectedSector = company.sector;
+				this.selectedSector = companies[0].sector;
 			});
 	}
 
 	requestDescriptionList() {
 		this.descriptionService
-			.getDescriptionList('09.008.007/0001-99')
+			.getDescriptionList(this.selectedCompany.cnpj)
 			.subscribe((descriptions: any) => {
 				this.descriptions = descriptions.content;
 			});
@@ -84,26 +83,32 @@ export class CompanySettingsComponent implements OnInit {
 		this.variables[this.variables.indexOf(variableInfo)] = variableInfo;
 
 		this.variableService.postVariable(variableInfo).subscribe(
-			res => this.toastService.show('Parâmetro alterado com sucesso'),
+			res =>
+				this.toastService.show(
+					'Parâmetro alterado com sucesso',
+					'success'
+				),
 			() => this.toastService.show('Erro ao alterar parâmetro', 'danger')
 		);
 	}
 
 	onDescriptionChanged(descriptions: Description[]) {
-		this.descriptionService
-			.updateDescriptionList(descriptions)
-			.subscribe(() => {
-				console.log(descriptions);
-			});
+		this.descriptionService.updateDescriptionList(descriptions).subscribe(
+			() => {
+				this.toastService.show('Alterado com sucesso', 'success');
+			},
+			err => {
+				console.log(err);
+				this.toastService.show('Erro ao fazer alterações', 'danger');
+			}
+		);
 	}
 
 	updateSetor() {
 		this.companyService
 			.updateCompany(
 				this.selectedCompany.cnpj,
-				this.shareCompanyData && this.selectedSector
-					? this.selectedSector
-					: 0
+				this.selectedSector ? this.selectedSector : 0
 			)
 			.subscribe(
 				() => {

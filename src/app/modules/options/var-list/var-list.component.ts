@@ -29,7 +29,6 @@ export class VarListComponent implements OnInit {
 	@Output() onVariableEdited = new EventEmitter<
 		VariableInfo | AccountingVariableInfo
 	>();
-	isMobile = this.deviceService.isMobile();
 
 	private variableSubject = new Subject<
 		VariableInfo | AccountingVariableInfo
@@ -39,10 +38,7 @@ export class VarListComponent implements OnInit {
 		return new RegExp(regexStr).test(event.key);
 	}
 
-	constructor(
-		private matDialog: MatDialog,
-		private deviceService: DeviceDetectorService
-	) {}
+	constructor(private matDialog: MatDialog) {}
 
 	ngOnInit(): void {
 		this.variableSubject

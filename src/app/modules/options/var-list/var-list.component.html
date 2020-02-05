@@ -1,78 +1,100 @@
-<table *ngIf="variables.length > 0" class="table">
-	<thead>
-		<tr>
-			<th class="vertical-align-middle">Parâmetro</th>
-			<th>
-				<span>Classificações Relacionadas </span>
-				<i
-					*ngIf="!isMobile"
-					class="fad fa-question-circle question-mark"
-					matTooltip="Informe as classificações relacionadas ao parâmetro separando-as por '+' ou '-'. Exemplo: '4.1+4.2-5.3'"
-					[matTooltipPosition]="'below'"
-				></i>
-			</th>
-			<th class="vertical-align-middle">
-				Tipo Valor
-			</th>
-			<th class="vertical-align-middle">
-				Origem Valor
-			</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr *ngFor="let variable of variables" class="table-row">
-			<td>
-				<span class="w-100 var-name-span"
-					>{{ variable.externalId }} - {{ variable.name }}</span
-				>
-			</td>
-			<td class="vertical-align-middle">
-				<div id="accounting-code" class="row ml-3 w-100 ">
-					<input
-						class="input-accounting-code"
-						type="text"
-						(input)="onVarEdited(variable)"
-						[(ngModel)]="variable.accountingCode"
-					/>
-					<div *ngIf="!isMobile && selectedCompany">
-						<button
-							class="btn outline-none btn-open-balance focus-box-shadow-none"
-							type="button"
-							(click)="openModal(variable)"
-							data-toggle="tooltip"
-							data-placement="right"
-							title="Visualizar Balancete"
-						>
-							<i class="fal fa-file-search i-find-balance"></i>
-						</button>
-					</div>
-				</div>
-			</td>
-			<td>
-				<mat-select
-					[(value)]="variable.absoluteValue"
-					(selectionChange)="updateVariable(variable)"
-				>
-					<mat-option [value]="false">Original</mat-option>
-					<mat-option [value]="true">Absoluto</mat-option>
-				</mat-select>
-			</td>
-			<td>
-				<mat-select
-					[(value)]="variable.originValue"
-					(selectionChange)="updateVariable(variable)"
-				>
-					<mat-option [value]="1"
-						>Saldo Inicial - Saldo Final</mat-option
+<h5>Parâmetros</h5>
+<div class="pr-4">
+	<table *ngIf="variables.length > 0" class="table ml-3">
+		<thead>
+			<tr>
+				<th class="vertical-align-middle border-0">Parâmetro</th>
+				<th class="border-0">
+					<span>Classificações Relacionadas </span>
+					<i
+						class="fad fa-question-circle question-mark"
+						matTooltip="Informe as classificações relacionadas ao parâmetro separando-as por '+' ou '-'. Exemplo: '4.1+4.2-5.3'"
+						[matTooltipPosition]="'below'"
+					></i>
+				</th>
+				<th class="vertical-align-middle border-0">
+					Tipo Valor
+				</th>
+				<th class="vertical-align-middle border-0">
+					Origem Valor
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let variable of variables" class="table-row">
+				<td>
+					<span class="w-100 var-name-span"
+						>{{ variable.externalId }} - {{ variable.name }}</span
 					>
-					<mat-option [value]="2">Saldo Final</mat-option>
-					<mat-option [value]="3">Saldo Inicial</mat-option>
-					<mat-option [value]="4">Debito - Crédito</mat-option>
-					<mat-option [value]="5">Crédito - Debito</mat-option>
-					<mat-option [value]="6">Crédito</mat-option>
-					<mat-option [value]="7">Debito</mat-option>
-				</mat-select>
-			</td>
-		</tr>
-	</tbody>
-</table>
+				</td>
+				<td class="vertical-align-middle">
+					<div id="accounting-code" class="row ml-3 w-100 ">
+						<input
+							class="input-accounting-code hover-color"
+							type="text"
+							(input)="onVarEdited(variable)"
+							[(ngModel)]="variable.accountingCode"
+						/>
+						<div *ngIf="selectedCompany">
+							<button
+								class="btn outline-none btn-open-balance focus-box-shadow-none pl-2 pr-2 p-0"
+								type="button"
+								(click)="openModal(variable)"
+								data-toggle="tooltip"
+								data-placement="right"
+								title="Visualizar Balancete"
+							>
+								<i
+									class="fal fa-file-search i-find-balance"
+								></i>
+							</button>
+						</div>
+					</div>
+				</td>
+				<td>
+					<mat-select
+						class="hover-children"
+						[(value)]="variable.absoluteValue"
+						(selectionChange)="updateVariable(variable)"
+					>
+						<mat-option class="hover-important" [value]="false"
+							>Original</mat-option
+						>
+						<mat-option class="hover-important" [value]="true"
+							>Absoluto</mat-option
+						>
+					</mat-select>
+				</td>
+				<td>
+					<mat-select
+						class="hover-children"
+						[(value)]="variable.originValue"
+						(selectionChange)="updateVariable(variable)"
+					>
+						<mat-option class="hover-important" [value]="1"
+							>Saldo Inicial - Saldo Final</mat-option
+						>
+						<mat-option class="hover-important" [value]="2"
+							>Saldo Final</mat-option
+						>
+						<mat-option class="hover-important" [value]="3"
+							>Saldo Inicial</mat-option
+						>
+						<mat-option class="hover-important" [value]="4"
+							>Debito - Crédito</mat-option
+						>
+						<mat-option class="hover-important" [value]="5"
+							>Crédito - Debito</mat-option
+						>
+						<mat-option class="hover-important" [value]="6"
+							>Crédito</mat-option
+						>
+						<mat-option class="hover-important" [value]="7"
+							>Debito</mat-option
+						>
+					</mat-select>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

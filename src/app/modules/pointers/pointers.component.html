@@ -25,12 +25,13 @@
 				</span>
 			</div>
 
-			<i
-				annotations
-				title="Anotações"
-				class="fal fa-comment-alt-edit hover-cursor"
-				(click)="openModal('07')"
-			></i>
+			<div annotations class="hover float-left">
+				<i
+					title="Anotações"
+					class="fal fa-comment-alt-edit"
+					(click)="openModal('07')"
+				></i>
+			</div>
 		</app-card>
 	</div>
 
@@ -46,16 +47,18 @@
 					<app-chart [kpi]="kpi"></app-chart>
 				</div>
 
-				<i
-					annotations
-					title="Anotações"
-					class="fal fa-comment-alt-edit hover-cursor"
-					(click)="openModal('07')"
-				></i>
+				<div annotations class="hover float-left">
+					<i
+						title="Anotações"
+						class="fal fa-comment-alt-edit"
+						(click)="openModal(kpi.kpiAlias)"
+					></i>
+				</div>
 			</app-card>
 		</div>
 	</div>
 </div>
+
 <div
 	*ngIf="kpis.length === 0 && !isLoading"
 	class="row no-kpi-container page-content text-center"
