@@ -11,7 +11,6 @@ import {
 import { CompanyService } from '@shared/services/company.service';
 import { Subject, Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
-import { VariableInfo } from '@shared/models/variables';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { MatExpansionPanel } from '@angular/material';
 
@@ -36,7 +35,7 @@ export class SelectCompanyComponent implements OnInit {
 
 	set company(company: Company) {
 		SelectCompanyComponent.company = company;
-		if (!!company) {
+		if (company) {
 			window.sessionStorage.setItem('cnpj', company.cnpj);
 		}
 		this.selectedCompany.emit(this.company);

@@ -14,12 +14,11 @@ export class DescriptionService {
 		private authService: AuthenticationService
 	) {}
 
-	getDescription(organizationId: string, cnpj: string, kpiAlias: string) {
-		let orgId = User.fromLocalStorage().organization.id;
+	getDescription(cnpj: string, kpiAlias: string) {
 		return this.httpClient.get(`${environment.appApi}/description`, {
 			headers: this.authService.getAuthorizationHeaders(),
 			params: {
-				organizationId: orgId.toString(),
+				organizationId: User.fromLocalStorage().organization.id.toString(),
 				cnpj,
 				kpiAlias
 			}
@@ -36,12 +35,13 @@ export class DescriptionService {
 		);
 	}
 	getDescriptionList(cnpj: string, scriptId?: number) {
+		const possibleScriptId = scriptId ? `&scriptId=${scriptId}` : '';
+		const possibleCnpj = cnpj ? `&cnpj=${cnpj}` : '';
+
 		return this.httpClient.get(
 			`${environment.appApi}/description/descriptions?accountingId=${
 				User.fromLocalStorage().organization.id
-			}${scriptId ? `&scriptId=${scriptId}` : ''}${
-				cnpj ? `&cnpj=${cnpj}` : ''
-			}&page_size=100`,
+			}${possibleScriptId}${possibleCnpj}&page_size=100`,
 			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}

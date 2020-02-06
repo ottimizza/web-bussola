@@ -24,7 +24,7 @@
 			<tr *ngFor="let variable of variables" class="table-row">
 				<td>
 					<span class="w-100 var-name-span"
-						>{{ variable.externalId }} - {{ variable.name }}</span
+						>{{ variable.variableCode }} - {{ variable.name }}</span
 					>
 				</td>
 				<td class="vertical-align-middle">
@@ -33,6 +33,11 @@
 							class="input-accounting-code hover-color"
 							type="text"
 							(input)="onVarEdited(variable)"
+							[ngStyle]="{
+								'background-color': variable.id
+									? 'unset'
+									: 'beige'
+							}"
 							[(ngModel)]="variable.accountingCode"
 						/>
 						<div *ngIf="selectedCompany">

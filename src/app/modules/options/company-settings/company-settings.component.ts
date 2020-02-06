@@ -56,7 +56,7 @@ export class CompanySettingsComponent implements OnInit {
 		this.companyService
 			.findCompanyByCnpj(this.selectedCompany.cnpj)
 			.subscribe(companies => {
-				this.selectedSector = companies[0].sector;
+				this.selectedSector = companies[0].sector || null;
 			});
 	}
 

@@ -53,12 +53,11 @@ export class VarListComponent implements OnInit {
 	}
 
 	updateVariable(variableInfo: any) {
-		try {
+		if (this.selectedCompany) {
 			variableInfo.companyId = this.selectedCompany.id;
-		} finally {
-			variableInfo.accountingId = User.fromLocalStorage().id;
-			this.onVariableEdited.emit(variableInfo);
 		}
+		variableInfo.accountingId = User.fromLocalStorage().id;
+		this.onVariableEdited.emit(variableInfo);
 	}
 
 	openModal(variableInfo: VariableInfo | AccountingVariableInfo) {
