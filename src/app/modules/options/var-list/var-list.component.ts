@@ -79,7 +79,7 @@ export class VarListComponent implements OnInit {
 		if (this.selectedCompany) {
 			variableInfo.companyId = this.selectedCompany.id;
 		}
-		variableInfo.accountingId = User.fromLocalStorage().id;
+		variableInfo.accountingId = User.fromLocalStorage().organization.id;
 		this.onVariableEdited.emit(variableInfo);
 	}
 
