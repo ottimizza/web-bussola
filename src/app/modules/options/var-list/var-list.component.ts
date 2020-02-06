@@ -24,11 +24,34 @@ const regexStr = /(\d)|(\.)|(\+)|(\-)/;
 	styleUrls: ['./var-list.component.scss']
 })
 export class VarListComponent implements OnInit {
-	@Input() variables: VariableInfo[] | AccountingVariableInfo[] = [];
 	@Input() selectedCompany?: Company;
 	@Output() onVariableEdited = new EventEmitter<
 		VariableInfo | AccountingVariableInfo
 	>();
+
+	private _variables: VariableInfo[] | AccountingVariableInfo[] = [];
+
+	get variables(): VariableInfo[] | AccountingVariableInfo[] {
+		return this._variables;
+	}
+
+	@Input()
+	set variables(variables: VariableInfo[] | AccountingVariableInfo[]) {
+		this._variables = variables.sort(
+			(
+				a: VariableInfo | AccountingVariableInfo,
+				b: VariableInfo | AccountingVariableInfo
+			) => {
+				if (a.variableCode > b.variableCode) {
+					return 1;
+				}
+				if (a.variableCode < b.variableCode) {
+					return -1;
+				}
+				return 0;
+			}
+		);
+	}
 
 	private variableSubject = new Subject<
 		VariableInfo | AccountingVariableInfo

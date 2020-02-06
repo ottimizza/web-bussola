@@ -11,7 +11,6 @@ import { MatDialog } from '@angular/material';
 })
 export class CardComponent {
 	@Input() title: string;
-	@Input() externalId: string;
 	@Input() cnpj: string;
 	@Input() kpiAlias: string;
 
@@ -26,7 +25,6 @@ export class CardComponent {
 		this.dialog.open(ChartDescriptionComponent, {
 			width: '33rem',
 			data: {
-				externalId: this.externalId,
 				cnpj: this.cnpj,
 				kpiAlias: this.kpiAlias
 			}

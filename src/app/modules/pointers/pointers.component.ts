@@ -22,7 +22,6 @@ export class PointersComponent {
 	profit: Profit;
 	kpis: FormatedKpi[] = [];
 	isLoading = true;
-	externalId = User.fromLocalStorage().organization.externalId;
 
 	isHandset$: Observable<boolean> = this.breakpointObserver
 		.observe(Breakpoints.Handset)
