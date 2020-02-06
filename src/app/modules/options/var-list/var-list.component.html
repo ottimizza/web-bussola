@@ -34,9 +34,10 @@
 							type="text"
 							(input)="onVarEdited(variable)"
 							[ngStyle]="{
-								'background-color': variable.id
-									? 'unset'
-									: 'beige'
+								'background-color':
+									variable.id || !variable.accountingCode
+										? 'unset'
+										: 'beige'
 							}"
 							[(ngModel)]="variable.accountingCode"
 						/>

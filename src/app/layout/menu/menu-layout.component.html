@@ -34,10 +34,10 @@
 
 	<div class="dropdown outline-none" type="button" aria-label="Botão Logout">
 		<button
-			class="button btn-logout outline-none"
-			[ngClass]="{ 'font-large': !user?.avatar }"
 			type="button"
+			class="button btn-logout outline-none"
 			data-toggle="dropdown"
+			[ngClass]="{ 'font-large': !user?.avatar }"
 		>
 			<img
 				*ngIf="!!user?.avatar"
