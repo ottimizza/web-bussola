@@ -12,45 +12,26 @@ import { NgxLinkifyjsService } from 'ngx-linkifyjs';
 	styleUrls: ['./chart-description.component.scss']
 })
 export class ChartDescriptionComponent implements OnInit {
-	externalId: string;
 	cnpj: string;
 	kpiAlias: string;
 
-	description?: Description;
-	preEditedDescription?: string;
-
-	userType = User.fromLocalStorage().type;
-
-	contentEditable = false;
+	description: Description;
 
 	constructor(
 		private descriptionService: DescriptionService,
-		private toastService: ToastService,
 		public dialogRef: MatDialogRef<ChartDescriptionComponent>,
 		public linkifyService: NgxLinkifyjsService,
 		@Inject(MAT_DIALOG_DATA) public data: any
 	) {
-		this.externalId = data.externalId;
 		this.cnpj = data.cnpj;
 		this.kpiAlias = data.kpiAlias;
 	}
 
 	ngOnInit(): void {
 		this.descriptionService
-			.getDescription(this.externalId, this.cnpj, this.kpiAlias)
+			.getDescription(this.cnpj, this.kpiAlias)
 			.subscribe(res => {
 				this.description = res[0];
 			});
-	}
-
-	saveDescription() {
-		this.descriptionService.patchDescription(this.description).subscribe(
-			res => {
-				this.contentEditable = false;
-			},
-			err => {
-				this.toastService.show('Erro ao salvar descrição', 'danger');
-			}
-		);
 	}
 }

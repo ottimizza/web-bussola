@@ -7,11 +7,13 @@
 		</div>
 		<div class="float-right pr-1 d-block">
 			<ng-content select="[annotations]"></ng-content>
-			<i
-				title="Descrição do indicador"
-				class="fal fa-question-circle hover-cursor ml-1"
-				(click)="openModal()"
-			></i>
+			<div class="hover float-right ml-1">
+				<i
+					title="Descrição do indicador"
+					class="fal fa-question-circle"
+					(click)="openModal()"
+				></i>
+			</div>
 		</div>
 	</div>
 	<div class="h-100">

@@ -1,4 +1,3 @@
-import { ContenteditableModule } from '@ng-stack/contenteditable';
 import { ChartDescriptionComponent } from './chart-description.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,12 +10,7 @@ import {
 
 @NgModule({
 	declarations: [ChartDescriptionComponent],
-	imports: [
-		CommonModule,
-		FormsModule,
-		MatDialogModule,
-		ContenteditableModule
-	],
+	imports: [CommonModule, FormsModule, MatDialogModule],
 	exports: [ChartDescriptionComponent],
 	providers: [
 		{

@@ -5,6 +5,7 @@ export const environment = {
 	storageUrl: 'https://s4.ottimizzacontabil.com:55325',
 	oauthClientId: 'ab81522e9491661af9b9',
 	applicationId: 'bussola-contabil',
+	accountsUrl: 'https://accounts.ottimizza.com.br',
 	firebase: {
 		apiKey: 'your apikey',
 		authDomain: 'your authDomain',

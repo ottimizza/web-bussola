@@ -1,4 +1,4 @@
-import { ChartDescriptionModule } from './../chart-description/chart-description.module';
+import { ChartDescriptionModule } from '../chart-description/chart-description.module';
 import { FormsModule } from '@angular/forms';
 import { CardComponent } from './card.component';
 import { NgModule } from '@angular/core';

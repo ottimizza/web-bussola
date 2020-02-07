@@ -1,3 +1,6 @@
+import { User } from './../../../core/models/User';
+import { Company } from './../../../shared/models/company';
+import { AccountingVariableInfo } from './../../../shared/models/variables';
 import { BalanceModalComponent } from './modal-balance/modal-balance.component';
 import { debounceTime } from 'rxjs/operators';
 import {
@@ -21,44 +24,75 @@ const regexStr = /(\d)|(\.)|(\+)|(\-)/;
 	styleUrls: ['./var-list.component.scss']
 })
 export class VarListComponent implements OnInit {
-	@Input() variables: VariableInfo[] = [];
-	@Input() cnpj: any;
-	@Output() onVariableEdited = new EventEmitter<VariableInfo>();
-	isMobile = this.deviceService.isMobile();
+	@Input() selectedCompany?: Company;
+	@Output() onVariableEdited = new EventEmitter<
+		VariableInfo | AccountingVariableInfo
+	>();
 
-	private variableSubject = new Subject<VariableInfo>();
+	private _variables: VariableInfo[] | AccountingVariableInfo[] = [];
+
+	get variables(): VariableInfo[] | AccountingVariableInfo[] {
+		return this._variables;
+	}
+
+	@Input()
+	set variables(variables: VariableInfo[] | AccountingVariableInfo[]) {
+		this._variables = variables.sort(
+			(
+				a: VariableInfo | AccountingVariableInfo,
+				b: VariableInfo | AccountingVariableInfo
+			) => {
+				if (a.variableCode > b.variableCode) {
+					return 1;
+				}
+				if (a.variableCode < b.variableCode) {
+					return -1;
+				}
+				return 0;
+			}
+		);
+	}
+
+	private variableSubject = new Subject<
+		VariableInfo | AccountingVariableInfo
+	>();
 
 	@HostListener('keypress', ['$event']) onKeyPress(event: any) {
 		return new RegExp(regexStr).test(event.key);
 	}
 
-	constructor(
-		private matDialog: MatDialog,
-		private deviceService: DeviceDetectorService
-	) {}
+	constructor(private matDialog: MatDialog) {}
 
 	ngOnInit(): void {
 		this.variableSubject
 			.pipe(debounceTime(300))
-			.subscribe((term: VariableInfo) => this.updateVariable(term));
+			.subscribe((term: VariableInfo | AccountingVariableInfo) =>
+				this.updateVariable(term)
+			);
 	}
 
-	onVarEdited(variableInfo: VariableInfo) {
+	onVarEdited(variableInfo: VariableInfo | AccountingVariableInfo) {
 		this.variableSubject.next(variableInfo);
 	}
 
-	updateVariable(variableInfo: VariableInfo) {
+	updateVariable(variableInfo: any) {
+		if (this.selectedCompany) {
+			variableInfo.companyId = this.selectedCompany.id;
+		}
+		variableInfo.accountingId = User.fromLocalStorage().organization.id;
 		this.onVariableEdited.emit(variableInfo);
 	}
 
-	openModal(variableInfo: VariableInfo) {
+	openModal(variableInfo: VariableInfo | AccountingVariableInfo) {
 		const that = this;
 		this.matDialog.open(BalanceModalComponent, {
 			width: '50rem',
 			data: {
 				variableInfo,
-				cnpj: this.cnpj,
-				editVariable: (varInfo: VariableInfo) => {
+				cnpj: this.selectedCompany.cnpj,
+				editVariable: (
+					varInfo: VariableInfo | AccountingVariableInfo
+				) => {
 					that.onVarEdited(varInfo);
 				}
 			}

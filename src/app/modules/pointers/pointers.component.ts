@@ -7,6 +7,9 @@ import { FormatedKpi, Kpi } from '@shared/models/kpi';
 import { KpiService } from '@shared/services/kpi.service';
 import { KpiDetail } from '@shared/models/kpi-detail';
 import { AnnotationsComponent } from '@shared/components/annotations/annotations.component';
+import { Observable } from 'rxjs';
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-pointers',
@@ -19,9 +22,16 @@ export class PointersComponent {
 	profit: Profit;
 	kpis: FormatedKpi[] = [];
 	isLoading = true;
-	externalId = User.fromLocalStorage().organization.externalId;
 
-	constructor(private kpiService: KpiService, private dialog: MatDialog) {}
+	isHandset$: Observable<boolean> = this.breakpointObserver
+		.observe(Breakpoints.Handset)
+		.pipe(map(result => result.matches));
+
+	constructor(
+		private breakpointObserver: BreakpointObserver,
+		private kpiService: KpiService,
+		private dialog: MatDialog
+	) {}
 
 	requestKpis() {
 		this.isLoading = true;
@@ -55,6 +65,8 @@ export class PointersComponent {
 						const valArray = detail.valorStringArray
 							.split(';')
 							.map((item: string) => {
+								if (item === 'null') return null;
+								if (item === '0.0') return 0;
 								return parseFloat(item) || item;
 							});
 
@@ -90,7 +102,7 @@ export class PointersComponent {
 
 	onCompanyChanged(selectedCompany: Company) {
 		this.selectedCompany = selectedCompany;
-		this.requestKpis();
+		if (!!selectedCompany) this.requestKpis();
 	}
 
 	openModal(kpiAlias: string) {
