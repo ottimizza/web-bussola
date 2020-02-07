@@ -33,7 +33,7 @@ export const ROUTES: RouteInfo[] = [
 	},
 	{
 		path: '/options/accounting',
-		title: 'Parâmetros da contabilidade',
+		title: 'Configurações da contabilidade',
 		icon: 'fal fa-th-list',
 		class: '',
 		permissonLevelNeeded: 1,
@@ -41,7 +41,7 @@ export const ROUTES: RouteInfo[] = [
 	},
 	{
 		path: '/options/company',
-		title: 'Parâmetros dos clientes',
+		title: 'Configurações por empresa',
 		icon: 'fal fa-th-list',
 		class: '',
 		permissonLevelNeeded: 1,
