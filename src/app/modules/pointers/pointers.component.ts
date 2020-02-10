@@ -54,43 +54,35 @@ export class PointersComponent {
 						id: kpi.id,
 						kpiAlias: kpi.kpiAlias,
 						title: kpi.title,
-						chartType: kpi.chartType,
+						chartType: kpi.chartType.replace('Doughnut', 'Pie'),
 						labelArray: kpi.labelArray,
 						chartOptions: JSON.parse(kpi.chartOptions),
 						roles: [],
 						data: []
 					};
 
-					kpi.kpiDetail.forEach((detail: KpiDetail) => {
-						const valArray = detail.valorStringArray
-							.split(';')
-							.map((item: string) => {
-								if (item === 'null') return null;
-								if (item === '0.0') return 0;
-								return parseFloat(item) || item;
+					this.kpiService
+						.getKpiDetails(kpi.id)
+						.subscribe((details: any) => {
+							details.content.forEach((detail: KpiDetail) => {
+								formatedKpi.data.push(
+									this.kpiService.formatKpiDetail(detail)
+								);
 							});
 
-						const arr = [
-							this.kpiService.formatAxis(detail.columnX)
-						].concat(valArray);
+							formatedKpi.labelArray.forEach(
+								(currentValue, index) => {
+									formatedKpi.roles.push({
+										role: 'tooltip',
+										type: 'string',
+										index: index + 1
+									});
+								}
+							);
+							formatedKpi.labelArray.splice(0, 0, 'Month');
 
-						formatedKpi.data.push(arr);
-					});
-
-					let index = 1;
-					formatedKpi.labelArray.forEach(() => {
-						formatedKpi.roles.push({
-							role: 'tooltip',
-							type: 'string',
-							index
+							this.kpis.push(formatedKpi);
 						});
-
-						index = index + 1;
-					});
-
-					formatedKpi.labelArray.splice(0, 0, 'Month');
-
-					this.kpis.push(formatedKpi);
 				});
 			},
 			err => {

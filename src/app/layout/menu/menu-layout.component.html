@@ -24,7 +24,7 @@
 		class="button btn-menu outline-none position-absolute"
 		style="margin-left: 260px"
 		type="button"
-		(click)="drawer.toggle()"
+		(click)="drawer.toggle(); onMenuChange()"
 		*ngIf="!(isHandset$ | async)"
 		aria-label="Botão Menu"
 	>
