@@ -1,3 +1,4 @@
+import { KpiDetail } from './../models/kpi-detail';
 import { User } from './../../core/models/User';
 import { AuthenticationService } from '@app//authentication/authentication.service';
 import { environment } from '@env';
@@ -18,6 +19,13 @@ export class KpiService {
 			`${environment.appApi}/kpi?page_size=50&cnpj=${cnpj}&kind=${kind}`,
 			{ headers: this.authService.getAuthorizationHeaders() }
 		);
+	}
+
+	getKpiDetails(kpiId) {
+		return this.httpClient.get(`${environment.appApi}/kpi/detail`, {
+			headers: this.authService.getAuthorizationHeaders(),
+			params: { kpiId }
+		});
 	}
 
 	getYearlyProfit(cnpj: string) {
@@ -56,5 +64,19 @@ export class KpiService {
 			};
 		}
 		return axis;
+	}
+
+	formatKpiDetail(detail: KpiDetail) {
+		const valArray = detail.valorStringArray
+			.split(';')
+			.map((item: string) => {
+				if (item === 'null') return null;
+				if (item === '0.0') return 0;
+				return parseFloat(item) || item;
+			});
+
+		const arr = [this.formatAxis(detail.columnX)].concat(valArray);
+
+		return arr;
 	}
 }
