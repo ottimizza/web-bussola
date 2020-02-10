@@ -20,6 +20,16 @@
 			[ngClass]="{ 'mx-auto': isHandset$ | async }"
 		/>
 	</div>
+	<button
+		class="button btn-menu outline-none position-absolute"
+		style="margin-left: 260px"
+		type="button"
+		(click)="drawer.toggle()"
+		*ngIf="!(isHandset$ | async)"
+		aria-label="Botão Menu"
+	>
+		<i class="fal fa-bars"></i>
+	</button>
 	<div
 		*ngIf="!!user?.organization.avatar"
 		class="nop-logo float-left d-flex align-items-center justify-content-center"
@@ -76,6 +86,7 @@
 	<mat-sidenav
 		#drawer
 		class="sidenav position-absolute"
+		[ngStyle]="{ width: false ? '70px' : '250px' }"
 		fixedInViewport="true"
 		[attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
 		[mode]="(isHandset$ | async) ? 'over' : 'side'"
