@@ -64,10 +64,10 @@ export class SelectCompanyComponent implements OnInit {
 
 	panelOpenState = false;
 
-	@HostListener('window:resize', ['$event'])
-	onResize(event) {
-		this.selectedCompany.emit(this.company);
-	}
+	// @HostListener('window:resize', ['$event'])
+	// onResize(event) {
+	// 	this.selectedCompany.emit(this.company);
+	// }
 
 	constructor(
 		private companyService: CompanyService,

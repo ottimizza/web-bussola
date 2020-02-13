@@ -1,12 +1,11 @@
-import { map } from 'rxjs/operators';
+import { map, debounceTime } from 'rxjs/operators';
 import { Kpi } from '@shared/models/kpi';
 import { KpiService } from '@shared/services/kpi.service';
 import { Component, OnInit } from '@angular/core';
 import { Company } from '@shared/models/company';
 import { FormatedKpi } from '@shared/models/kpi';
 import { KpiDetail } from '@shared/models/kpi-detail';
-import { DeviceDetectorService } from 'ngx-device-detector';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
@@ -20,7 +19,8 @@ export class ComparativesComponent implements OnInit {
 
 	isLoading = true;
 	isPortrait = window.innerHeight > window.innerWidth;
-	isMobile = this.deviceService.isMobile();
+
+	resizeSubject = new Subject();
 
 	isHandset$: Observable<boolean> = this.breakpointObserver
 		.observe(Breakpoints.Handset)
@@ -28,11 +28,18 @@ export class ComparativesComponent implements OnInit {
 
 	constructor(
 		private kpiService: KpiService,
-		private deviceService: DeviceDetectorService,
 		private breakpointObserver: BreakpointObserver
 	) {}
 
-	ngOnInit(): void {}
+	ngOnInit() {
+		this.resizeSubject.pipe(debounceTime(30)).subscribe(() => {
+			const kpis = this.kpis;
+			this.kpis = [];
+			setTimeout(() => {
+				this.kpis = kpis;
+			}, 1);
+		});
+	}
 
 	requestKpis() {
 		this.isLoading = true;
