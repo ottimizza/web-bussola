@@ -13,8 +13,16 @@ export class CompanyService {
 
 	getCompanies(pageIndex: number, filter: string = '') {
 		return this.http.get(
-			`${environment.oauthBaseUrl}/api/v1/organizations?pageSize=10&pageIndex=${pageIndex}&name=${filter}`,
-			{ headers: this.authService.getAuthorizationHeaders() }
+			`${environment.oauthBaseUrl}/api/v1/organizations`,
+			{
+				headers: this.authService.getAuthorizationHeaders(),
+				params: {
+					pageSize: '10',
+					pageIndex: pageIndex.toString(),
+					name: filter,
+					active: 'true'
+				}
+			}
 		);
 	}
 

@@ -1,3 +1,4 @@
+import { SelectCompanyComponent } from './../../shared/components/select-company/select-company.component';
 import { GenericResponse } from '@app/models/GenericResponse';
 import { KpiService } from '@shared/services/kpi.service';
 import { AuthenticationService } from '@app/authentication/authentication.service';
@@ -33,7 +34,7 @@ export const ROUTES: RouteInfo[] = [
 	},
 	{
 		path: '/options/accounting',
-		title: 'Parâmetros da contabilidade',
+		title: 'Configurações da contabilidade',
 		icon: 'fal fa-th-list',
 		class: '',
 		permissonLevelNeeded: 1,
@@ -41,7 +42,7 @@ export const ROUTES: RouteInfo[] = [
 	},
 	{
 		path: '/options/company',
-		title: 'Parâmetros dos clientes',
+		title: 'Configurações por empresa',
 		icon: 'fal fa-th-list',
 		class: '',
 		permissonLevelNeeded: 1,
@@ -87,7 +88,7 @@ export class MenuLayoutComponent implements OnInit {
 	}
 
 	openDialog(): void {
-		const dialogRef = this.dialog.open(ShareDialogComponent, {});
+		this.dialog.open(ShareDialogComponent, {});
 	}
 
 	logout() {
@@ -97,6 +98,10 @@ export class MenuLayoutComponent implements OnInit {
 				this.authenticationService.authorize();
 			}
 		});
+	}
+
+	onMenuChange() {
+		// SelectCompanyComponent.;
 	}
 }
 

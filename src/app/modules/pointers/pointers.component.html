@@ -6,6 +6,8 @@
 	<div
 		*ngIf="!!profit"
 		class="col-12 col-md-6 chart-container profit-container"
+		style="height: 18rem;"
+		(resized)="onResize()"
 	>
 		<app-card
 			[kpiAlias]="'07'"
@@ -58,7 +60,7 @@
 </div>
 
 <div
-	*ngIf="kpis.length === 0 && !isLoading"
+	*ngIf="kpis.length === 0 && !profit && !isLoading"
 	class="row no-kpi-container page-content text-center"
 >
 	<h1 class="w-100 my-auto">
