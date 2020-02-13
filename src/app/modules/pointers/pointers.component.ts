@@ -1,27 +1,29 @@
 import { User } from '@app/models/User';
 import { MatDialog } from '@angular/material';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Company } from '@shared/models/company';
 import { Profit } from '@shared/models/profit';
 import { FormatedKpi, Kpi } from '@shared/models/kpi';
 import { KpiService } from '@shared/services/kpi.service';
 import { KpiDetail } from '@shared/models/kpi-detail';
 import { AnnotationsComponent } from '@shared/components/annotations/annotations.component';
-import { Observable } from 'rxjs';
+import { Observable, Subject, timer } from 'rxjs';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { map } from 'rxjs/operators';
+import { map, debounce, debounceTime, delay } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-pointers',
 	templateUrl: './pointers.component.html',
 	styleUrls: ['./pointers.component.scss']
 })
-export class PointersComponent {
+export class PointersComponent implements OnInit {
 	selectedCompany: Company;
 
 	profit: Profit;
 	kpis: FormatedKpi[] = [];
 	isLoading = true;
+
+	resizeSubject = new Subject();
 
 	isHandset$: Observable<boolean> = this.breakpointObserver
 		.observe(Breakpoints.Handset)
@@ -32,6 +34,16 @@ export class PointersComponent {
 		private kpiService: KpiService,
 		private dialog: MatDialog
 	) {}
+
+	ngOnInit() {
+		this.resizeSubject.pipe(debounceTime(30)).subscribe(() => {
+			const kpis = this.kpis;
+			this.kpis = [];
+			setTimeout(() => {
+				this.kpis = kpis;
+			}, 1);
+		});
+	}
 
 	requestKpis() {
 		this.isLoading = true;
@@ -90,6 +102,10 @@ export class PointersComponent {
 			},
 			() => (this.isLoading = false)
 		);
+	}
+
+	onResize() {
+		this.resizeSubject.next();
 	}
 
 	onCompanyChanged(selectedCompany: Company) {
