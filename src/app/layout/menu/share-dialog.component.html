@@ -1,0 +1,23 @@
+<div *ngIf="url">
+	<div mat-dialog-content>
+		<input class="w-100" type="text" value="{{ url }}" #urlInput readonly />
+	</div>
+	<div mat-dialog-actions>
+		<button mat-button (click)="copyInputMessage(urlInput)">
+			<i class="fal fa-copy mr-1"></i>
+			Copiar para área de transferência
+		</button>
+		<button mat-button (click)="onNoClick()">
+			<i class="fal fa-external-link mr-1"></i>
+			Abrir no navegador
+		</button>
+	</div>
+</div>
+
+<div *ngIf="!url" mat-dialog-content>
+	<div style="height: 13rem; width: 15rem;" class="row text-center pl-1">
+		<div class="mx-auto my-auto">
+			<div class="loader"></div>
+		</div>
+	</div>
+</div>

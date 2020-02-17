@@ -141,6 +141,7 @@ i {
 	height: 100%;
 	width: $sidenav-width;
 	border-right: $border;
+	padding: 0.5rem;
 }
 
 .mx-auto {
@@ -149,14 +150,10 @@ i {
 }
 
 .avatar {
-	height: 50px;
-	border-radius: 50px;
+	height: 51px;
+	border-radius: 51px;
+	border: 1px solid white;
 	vertical-align: unset;
-}
-
-// Centraliza o texto de todos os itens do dropdown
-.dropdown-menu a {
-	// text-align: center;
 }
 
 // Padding em cada icone de cada item do dropdown do usuário

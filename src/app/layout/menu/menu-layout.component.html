@@ -20,6 +20,16 @@
 			[ngClass]="{ 'mx-auto': isHandset$ | async }"
 		/>
 	</div>
+	<button
+		class="button btn-menu outline-none position-absolute"
+		style="margin-left: 260px"
+		type="button"
+		(click)="drawer.toggle(); onMenuChange()"
+		*ngIf="!(isHandset$ | async)"
+		aria-label="Botão Menu"
+	>
+		<i class="fal fa-bars"></i>
+	</button>
 	<div
 		*ngIf="!!user?.organization.avatar"
 		class="nop-logo float-left d-flex align-items-center justify-content-center"
@@ -34,14 +44,14 @@
 
 	<div class="dropdown outline-none" type="button" aria-label="Botão Logout">
 		<button
-			class="button btn-logout outline-none"
-			[ngClass]="{ 'font-large': !user?.avatar }"
 			type="button"
+			class="button btn-logout outline-none"
 			data-toggle="dropdown"
+			[ngClass]="{ 'font-large': !user?.avatar }"
 		>
 			<img
 				*ngIf="!!user?.avatar"
-				class="avatar"
+				class="avatar hover-border-color-important"
 				src="{{ user?.avatar }}"
 				alt="Avatar"
 			/>
@@ -76,6 +86,7 @@
 	<mat-sidenav
 		#drawer
 		class="sidenav position-absolute"
+		[ngStyle]="{ width: false ? '70px' : '250px' }"
 		fixedInViewport="true"
 		[attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
 		[mode]="(isHandset$ | async) ? 'over' : 'side'"
@@ -96,22 +107,24 @@
 							<div class="d-flex">
 								<span
 									class="icon-span h-100 d-flex align-items-center"
-									><i class="{{ menuItem.icon }}"></i
-								></span>
+								>
+									<i class="{{ menuItem.icon }}"></i>
+								</span>
 							</div>
 							<div class="float-right pl-4">
-								<span
-									class="title unselectable"
-									mat-list-item
-									>{{ menuItem.title }}</span
-								>
+								<span class="title unselectable" mat-list-item>
+									{{ menuItem.title }}
+								</span>
 							</div>
 						</div>
 					</div>
 				</div>
 				<ng-template #mobileMenuItem>
 					<div
-						*ngIf="user?.type <= menuItem.permissonLevelNeeded"
+						*ngIf="
+							user?.type <= menuItem.permissonLevelNeeded &&
+							!menuItem.disabledOnMobile
+						"
 						class="item outline-none w-100"
 						routerLinkActive="selected-item"
 						(click)="drawer.toggle()"
@@ -122,23 +135,43 @@
 							<div class="d-flex">
 								<span
 									class="icon-span h-100 d-flex align-items-center"
-									><i class="{{ menuItem.icon }}"></i
-								></span>
+								>
+									<i class="{{ menuItem.icon }}"></i>
+								</span>
 							</div>
 							<div class="float-right pl-4">
-								<span
-									class="title unselectable"
-									mat-list-item
-									>{{ menuItem.title }}</span
-								>
+								<span class="title unselectable" mat-list-item>
+									{{ menuItem.title }}
+								</span>
 							</div>
 						</div>
 					</div>
 				</ng-template>
 			</div>
+			<div
+				class="w-100 mb-2"
+				style="border-top: 1px solid rgba(0, 0, 0, 0.384);"
+			></div>
+			<div
+				class="item outline-none w-100 btn-compartilhar"
+				(click)="openDialog()"
+			>
+				<div class="d-flex mb-2 ml-3 mr-1 p-2">
+					<div class="d-flex">
+						<span class="icon-span h-100 d-flex align-items-center"
+							><i class="fal fa-share-alt"></i
+						></span>
+					</div>
+					<div class="float-right pl-4">
+						<span class="title unselectable" mat-list-item>
+							Compartilhar
+						</span>
+					</div>
+				</div>
+			</div>
 		</mat-nav-list>
 	</mat-sidenav>
-	<mat-sidenav-content>
+	<mat-sidenav-content style="overflow-y: scroll;">
 		<div class="p-3 page-content h-100">
 			<router-outlet class="h-100"></router-outlet>
 		</div>

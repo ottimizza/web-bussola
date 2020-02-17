@@ -6,10 +6,11 @@
 	<div
 		*ngIf="!!profit"
 		class="col-12 col-md-6 chart-container profit-container"
+		style="height: 18rem;"
+		(resized)="onResize()"
 	>
 		<app-card
 			[kpiAlias]="'07'"
-			[externalId]="selectedCompany.externalId"
 			[cnpj]="selectedCompany.cnpj"
 			[title]="profit.title"
 		>
@@ -25,20 +26,20 @@
 				</span>
 			</div>
 
-			<i
-				annotations
-				title="Anotações"
-				class="fal fa-comment-alt-edit hover-cursor"
-				(click)="openModal('07')"
-			></i>
+			<div annotations class="hover float-left">
+				<i
+					title="Anotações"
+					class="fal fa-comment-alt-edit"
+					(click)="openModal('07')"
+				></i>
+			</div>
 		</app-card>
 	</div>
 
 	<div *ngFor="let kpi of kpis" class="col-12 col-md-6 chart-container">
-		<div style="height: 40vh;">
+		<div style="height: 18rem;">
 			<app-card
 				[kpiAlias]="kpi.kpiAlias"
-				[externalId]="externalId"
 				[cnpj]="selectedCompany.cnpj"
 				[title]="kpi.title"
 			>
@@ -46,18 +47,20 @@
 					<app-chart [kpi]="kpi"></app-chart>
 				</div>
 
-				<i
-					annotations
-					title="Anotações"
-					class="fal fa-comment-alt-edit hover-cursor"
-					(click)="openModal('07')"
-				></i>
+				<div annotations class="hover float-left">
+					<i
+						title="Anotações"
+						class="fal fa-comment-alt-edit"
+						(click)="openModal(kpi.kpiAlias)"
+					></i>
+				</div>
 			</app-card>
 		</div>
 	</div>
 </div>
+
 <div
-	*ngIf="kpis.length === 0 && !isLoading"
+	*ngIf="kpis.length === 0 && !profit && !isLoading"
 	class="row no-kpi-container page-content text-center"
 >
 	<h1 class="w-100 my-auto">

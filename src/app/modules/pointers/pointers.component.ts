@@ -1,27 +1,49 @@
 import { User } from '@app/models/User';
 import { MatDialog } from '@angular/material';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Company } from '@shared/models/company';
 import { Profit } from '@shared/models/profit';
 import { FormatedKpi, Kpi } from '@shared/models/kpi';
 import { KpiService } from '@shared/services/kpi.service';
 import { KpiDetail } from '@shared/models/kpi-detail';
 import { AnnotationsComponent } from '@shared/components/annotations/annotations.component';
+import { Observable, Subject, timer } from 'rxjs';
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { map, debounce, debounceTime, delay } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-pointers',
 	templateUrl: './pointers.component.html',
 	styleUrls: ['./pointers.component.scss']
 })
-export class PointersComponent {
+export class PointersComponent implements OnInit {
 	selectedCompany: Company;
 
 	profit: Profit;
 	kpis: FormatedKpi[] = [];
 	isLoading = true;
-	externalId = User.fromLocalStorage().organization.externalId;
 
-	constructor(private kpiService: KpiService, private dialog: MatDialog) {}
+	resizeSubject = new Subject();
+
+	isHandset$: Observable<boolean> = this.breakpointObserver
+		.observe(Breakpoints.Handset)
+		.pipe(map(result => result.matches));
+
+	constructor(
+		private breakpointObserver: BreakpointObserver,
+		private kpiService: KpiService,
+		private dialog: MatDialog
+	) {}
+
+	ngOnInit() {
+		this.resizeSubject.pipe(debounceTime(30)).subscribe(() => {
+			const kpis = this.kpis;
+			this.kpis = [];
+			setTimeout(() => {
+				this.kpis = kpis;
+			}, 1);
+		});
+	}
 
 	requestKpis() {
 		this.isLoading = true;
@@ -44,41 +66,35 @@ export class PointersComponent {
 						id: kpi.id,
 						kpiAlias: kpi.kpiAlias,
 						title: kpi.title,
-						chartType: kpi.chartType,
+						chartType: kpi.chartType.replace('Doughnut', 'Pie'),
 						labelArray: kpi.labelArray,
 						chartOptions: JSON.parse(kpi.chartOptions),
 						roles: [],
 						data: []
 					};
 
-					kpi.kpiDetail.forEach((detail: KpiDetail) => {
-						const valArray = detail.valorStringArray
-							.split(';')
-							.map((item: string) => {
-								return parseFloat(item) || item;
+					this.kpiService
+						.getKpiDetails(kpi.id)
+						.subscribe((details: any) => {
+							details.content.forEach((detail: KpiDetail) => {
+								formatedKpi.data.push(
+									this.kpiService.formatKpiDetail(detail)
+								);
 							});
 
-						const arr = [
-							this.kpiService.formatAxis(detail.columnX)
-						].concat(valArray);
+							formatedKpi.labelArray.forEach(
+								(currentValue, index) => {
+									formatedKpi.roles.push({
+										role: 'tooltip',
+										type: 'string',
+										index: index + 1
+									});
+								}
+							);
+							formatedKpi.labelArray.splice(0, 0, 'Month');
 
-						formatedKpi.data.push(arr);
-					});
-
-					let index = 1;
-					formatedKpi.labelArray.forEach(() => {
-						formatedKpi.roles.push({
-							role: 'tooltip',
-							type: 'string',
-							index
+							this.kpis.push(formatedKpi);
 						});
-
-						index = index + 1;
-					});
-
-					formatedKpi.labelArray.splice(0, 0, 'Month');
-
-					this.kpis.push(formatedKpi);
 				});
 			},
 			err => {
@@ -88,9 +104,13 @@ export class PointersComponent {
 		);
 	}
 
+	onResize() {
+		this.resizeSubject.next();
+	}
+
 	onCompanyChanged(selectedCompany: Company) {
 		this.selectedCompany = selectedCompany;
-		this.requestKpis();
+		if (!!selectedCompany) this.requestKpis();
 	}
 
 	openModal(kpiAlias: string) {

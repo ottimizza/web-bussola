@@ -93,22 +93,64 @@ svg {
 	width: 100% !important;
 }
 
-// DIALOG
-.mat-dialog-container {
-	background: none !important;
-	box-shadow: none !important;
-	padding: 0 !important;
-}
-
 .cdk-overlay-pane {
 	max-width: 95vw !important;
 }
 
-// COLORS
-.hover-base-color:hover {
+// HOVER FEEDBACK
+.hover:hover {
+	color: $base-color;
+	cursor: pointer;
+}
+
+.hover-important:hover {
+	color: $base-color !important;
+	cursor: pointer !important;
+}
+
+.hover-children:hover {
+	* {
+		color: $base-color;
+		cursor: pointer;
+	}
+}
+
+.hover-children-important:hover {
+	* {
+		color: $base-color !important;
+		cursor: pointer !important;
+	}
+}
+
+.hover-color:hover {
 	color: $base-color;
 }
 
+.hover-border-color:hover {
+	border-color: $base-color;
+}
+
+.hover-border-color-important:hover {
+	border-color: $base-color !important;
+}
+
+.hover-border-color-children:hover {
+	* {
+		border-color: $base-color;
+	}
+}
+
+.hover-border-color-children-important:hover {
+	* {
+		border-color: $base-color !important;
+	}
+}
+
+.hover-color-unset:hover {
+	color: unset !important;
+}
+
+// COLORS
 .red {
 	color: red;
 }

@@ -1,8 +1,11 @@
-import { AuthenticationService } from './../../core/authentication/authentication.service';
+import { SelectCompanyComponent } from './../../shared/components/select-company/select-company.component';
+import { GenericResponse } from '@app/models/GenericResponse';
+import { KpiService } from '@shared/services/kpi.service';
+import { AuthenticationService } from '@app/authentication/authentication.service';
 import { User } from '@app/models/User';
 import { environment } from '@env';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav, MatDialog, MatDialogRef } from '@angular/material';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
@@ -28,20 +31,30 @@ export const ROUTES: RouteInfo[] = [
 		icon: 'fal fa-chart-line',
 		class: '',
 		permissonLevelNeeded: 2
+	},
+	{
+		path: '/options/accounting',
+		title: 'Configurações da contabilidade',
+		icon: 'fal fa-th-list',
+		class: '',
+		permissonLevelNeeded: 1,
+		disabledOnMobile: true
+	},
+	{
+		path: '/options/company',
+		title: 'Configurações por empresa',
+		icon: 'fal fa-th-list',
+		class: '',
+		permissonLevelNeeded: 1,
+		disabledOnMobile: true
 	}
 	// {
-	// 	path: '/options/organization',
-	// 	title: 'Parâmetros da contabilidade',
-	// 	icon: 'fal fa-th-list',
+	// 	path: '/settings',
+	// 	title: 'Configurações',
+	// 	icon: 'fal fa-user-cog',
 	// 	class: '',
-	// 	permissonLevelNeeded: 1
-	// },
-	// {
-	// 	path: '/options/company',
-	// 	title: 'Parâmetros dos clientes',
-	// 	icon: 'fal fa-th-list',
-	// 	class: '',
-	// 	permissonLevelNeeded: 1
+	// 	permissonLevelNeeded: 3,
+	// 	disabledOnMobile: true
 	// }
 ];
 
@@ -63,7 +76,8 @@ export class MenuLayoutComponent implements OnInit {
 
 	constructor(
 		private breakpointObserver: BreakpointObserver,
-		private authenticationService: AuthenticationService
+		private authenticationService: AuthenticationService,
+		public dialog: MatDialog
 	) {}
 
 	ngOnInit() {
@@ -71,6 +85,10 @@ export class MenuLayoutComponent implements OnInit {
 		this.profileUrl =
 			environment.accountsUrl + '/dashboard/users/' + this.user.id;
 		this.menuItems = ROUTES.filter(menuItem => menuItem);
+	}
+
+	openDialog(): void {
+		this.dialog.open(ShareDialogComponent, {});
 	}
 
 	logout() {
@@ -81,6 +99,10 @@ export class MenuLayoutComponent implements OnInit {
 			}
 		});
 	}
+
+	onMenuChange() {
+		// SelectCompanyComponent.;
+	}
 }
 
 export interface RouteInfo {
@@ -89,4 +111,38 @@ export interface RouteInfo {
 	icon: string;
 	class: string;
 	permissonLevelNeeded: number;
+	disabledOnMobile?: boolean;
+}
+
+@Component({
+	selector: 'share-dialog',
+	templateUrl: 'share-dialog.component.html'
+})
+export class ShareDialogComponent implements OnInit {
+	constructor(
+		public dialogRef: MatDialogRef<ShareDialogComponent>,
+		private kpiService: KpiService
+	) {}
+
+	url: string;
+
+	ngOnInit() {
+		this.kpiService
+			.requestShareUrl()
+			.subscribe((response: GenericResponse<{ id: string }>) => {
+				this.url = response.record.id;
+			});
+	}
+
+	onNoClick(): void {
+		window.open(this.url, '_blank');
+		this.dialogRef.close();
+	}
+
+	copyInputMessage(inputElement) {
+		inputElement.select();
+		document.execCommand('copy');
+		inputElement.setSelectionRange(0, 0);
+		this.dialogRef.close();
+	}
 }

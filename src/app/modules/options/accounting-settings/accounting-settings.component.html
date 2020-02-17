@@ -1,0 +1,28 @@
+<h6>Visão</h6>
+<div class="ml-3 mb-3">
+	<mat-form-field class="hover-children">
+		<mat-select
+			class=""
+			[(value)]="selectedScript"
+			(selectionChange)="requestVariables()"
+		>
+			<mat-option class="" *ngFor="let type of types" [value]="type">{{
+				type.description
+			}}</mat-option>
+		</mat-select>
+	</mat-form-field>
+</div>
+
+<div *ngIf="descriptions.length > 0" class="mb-4">
+	<chart-order-config
+		[descriptions]="descriptions"
+		(onDescriptionChanged)="onDescriptionChanged($event)"
+	>
+	</chart-order-config>
+</div>
+
+<app-var-list
+	[variables]="variables"
+	(onVariableEdited)="onVariableEdited($event)"
+>
+</app-var-list>

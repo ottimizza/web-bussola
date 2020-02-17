@@ -1,3 +1,4 @@
+import { User } from '@app/models/User';
 import { Description } from './../models/description';
 import { AuthenticationService } from '@app/authentication/authentication.service';
 import { environment } from '@env';
@@ -13,10 +14,14 @@ export class DescriptionService {
 		private authService: AuthenticationService
 	) {}
 
-	getDescription(organizationId: string, cnpj: string, kpiAlias: string) {
+	getDescription(cnpj: string, kpiAlias: string) {
 		return this.httpClient.get(`${environment.appApi}/description`, {
 			headers: this.authService.getAuthorizationHeaders(),
-			params: { organizationId, cnpj, kpiAlias }
+			params: {
+				organizationId: User.fromLocalStorage().organization.id.toString(),
+				cnpj,
+				kpiAlias
+			}
 		});
 	}
 
@@ -27,6 +32,25 @@ export class DescriptionService {
 			{
 				headers: this.authService.getAuthorizationHeaders()
 			}
+		);
+	}
+	getDescriptionList(cnpj: string, scriptId?: number) {
+		const possibleScriptId = scriptId ? `&scriptId=${scriptId}` : '';
+		const possibleCnpj = cnpj ? `&cnpj=${cnpj}` : '';
+
+		return this.httpClient.get(
+			`${environment.appApi}/description/descriptions?accountingId=${
+				User.fromLocalStorage().organization.id
+			}${possibleScriptId}${possibleCnpj}&page_size=100`,
+			{ headers: this.authService.getAuthorizationHeaders() }
+		);
+	}
+
+	updateDescriptionList(descriptions: Description[]) {
+		return this.httpClient.post(
+			`${environment.appApi}/description/update`,
+			{ descriptions },
+			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}
 }

@@ -1,3 +1,5 @@
+import { KpiDetail } from './../models/kpi-detail';
+import { User } from './../../core/models/User';
 import { AuthenticationService } from '@app//authentication/authentication.service';
 import { environment } from '@env';
 import { HttpClient } from '@angular/common/http';
@@ -12,29 +14,18 @@ export class KpiService {
 		private authService: AuthenticationService
 	) {}
 
-	// getKpis(cnpj: string, kind: number = 1) {
-	// 	return this.requestGraphql({
-	// 		query:
-	// 			'query findKpi($cnpj: String, $id: BigInteger, $companyId: BigInteger,' +
-	// 			'$title: String, $kpiAlias: String, $subtitle: String, $description: String,' +
-	// 			'$graphType: Short, $columnX0Label: String, $label: String, $label2: String,' +
-	// 			'$label3: String, $label4: String, $kind: Short, $visible: Boolean) { findKpi(cnpj: $cnpj,' +
-	// 			'id: $id, companyId: $companyId, title: $title, kpiAlias: $kpiAlias, subtitle:' +
-	// 			'$subtitle, description: $description, graphType: $graphType, columnX0Label: $columnX0Label,' +
-	// 			'label: $label, label2: $label2, label3: $label3, label4: $label4, kind: $kind, visible: $visible)' +
-	// 			'{id, title, kpiAlias, chartType, labelArray, chartOptions, kpiDetail { id, columnX, valorStringArray} } }',
-	// 		variables: {
-	// 			cnpj,
-	// 			kind
-	// 		}
-	// 	});
-	// }
-
 	getKpis(cnpj: string, kind: number = 1) {
 		return this.httpClient.get(
 			`${environment.appApi}/kpi?page_size=50&cnpj=${cnpj}&kind=${kind}`,
 			{ headers: this.authService.getAuthorizationHeaders() }
 		);
+	}
+
+	getKpiDetails(kpiId) {
+		return this.httpClient.get(`${environment.appApi}/kpi/detail`, {
+			headers: this.authService.getAuthorizationHeaders(),
+			params: { kpiId }
+		});
 	}
 
 	getYearlyProfit(cnpj: string) {
@@ -50,6 +41,20 @@ export class KpiService {
 		});
 	}
 
+	requestShareUrl() {
+		return this.httpClient.post(
+			`${environment.appApi}/charts/by_cnpj`,
+			{
+				cnpj: [window.sessionStorage.getItem('cnpj')],
+				urlLogo: [
+					User.fromLocalStorage().organization.avatar ||
+						'https://www.ottimizza.com.br/zapcontabil/logos/logo_futuro.jpg'
+				]
+			},
+			{ headers: this.authService.getAuthorizationHeaders() }
+		);
+	}
+
 	formatAxis(axis: string) {
 		if (axis.match(dateRegex)) {
 			const [day, month, year] = axis.split('/');
@@ -59,5 +64,19 @@ export class KpiService {
 			};
 		}
 		return axis;
+	}
+
+	formatKpiDetail(detail: KpiDetail) {
+		const valArray = detail.valorStringArray
+			.split(';')
+			.map((item: string) => {
+				if (item === 'null') return null;
+				if (item === '0.0') return 0;
+				return parseFloat(item) || item;
+			});
+
+		const arr = [this.formatAxis(detail.columnX)].concat(valArray);
+
+		return arr;
 	}
 }

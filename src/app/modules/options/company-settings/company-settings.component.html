@@ -2,41 +2,43 @@
 	(selectedCompany)="onCompanyChanged($event)"
 ></app-select-company>
 
-<div>
-	<div class="m-3">
-		<h5 class="mb-4 underline">Configurações do Cliente</h5>
-		<div>
-			<div class="ml-0 mt-2 mb-2">
-				<p-checkbox
-					binary="true"
-					[(ngModel)]="shareCompanyData"
-					[label]="'Compartilhar dados da empresa'"
-					(onChange)="updateSetor()"
-				></p-checkbox>
-			</div>
-
-			<div class="">
-				<span>Setor</span>
-				<p-dropdown
-					placeholder="Setor"
-					[(ngModel)]="selectedSector"
-					[options]="sectors"
-					[disabled]="!shareCompanyData"
-					(onChange)="updateSetor()"
-				></p-dropdown>
-			</div>
+<h5 class="mb-2 underline">Configurações da Empresa</h5>
+<div class="m-3">
+	<div>
+		<div class="">
+			<mat-form-field>
+				<mat-label>Setor</mat-label>
+				<mat-select
+					class="hover-children hover-border-color-important"
+					[(value)]="selectedSector"
+					(selectionChange)="updateSetor()"
+				>
+					<mat-option
+						class="hover-important"
+						*ngFor="let sector of sectors"
+						[value]="sector.value"
+					>
+						{{ sector.label }}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
 		</div>
 	</div>
+</div>
 
-	<div *ngIf="variables.length >= 0" class="m-3">
-		<h5 class="mb-3">Parâmetros</h5>
-		<div class="m-2">
-			<app-var-list
-				[variables]="variables"
-				[cnpj]="selectedCompany?.cnpj"
-				(onVariableEdited)="onVariableEdited($event)"
-			>
-			</app-var-list>
-		</div>
-	</div>
+<div *ngIf="descriptions.length > 0" class="mb-4">
+	<chart-order-config
+		[descriptions]="descriptions"
+		(onDescriptionChanged)="onDescriptionChanged($event)"
+	>
+	</chart-order-config>
+</div>
+
+<div *ngIf="variables.length >= 0">
+	<app-var-list
+		[variables]="variables"
+		[selectedCompany]="selectedCompany"
+		(onVariableEdited)="onVariableEdited($event)"
+	>
+	</app-var-list>
 </div>
