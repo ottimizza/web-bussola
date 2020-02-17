@@ -21,24 +21,33 @@
 		</div>
 
 		<div class="modal-body pb-0 pt-2">
-			<div *ngIf="description?.description; else noDescription">
-				<div class="row">
-					<div class="m-4 pr-4 w-100">
-						<span class="card-text">{{
-							description.description
-						}}</span>
+			<ng-container *ngIf="loading; else notLoading">
+				<div class="loading-container row text-center mt-2">
+					<div class="mx-auto my-auto">
+						<div class="loader"></div>
 					</div>
 				</div>
-			</div>
+			</ng-container>
+			<ng-template #notLoading>
+				<div *ngIf="description?.description; else noDescription">
+					<div class="row">
+						<div class="m-4 pr-4 w-100">
+							<span class="card-text">{{
+								description.description
+							}}</span>
+						</div>
+					</div>
+				</div>
 
-			<ng-template #noDescription>
-				<div class="row">
-					<div class="m-4 pr-4 w-100">
-						<span class="card-text"
-							>Este indicador não possui descrição</span
-						>
+				<ng-template #noDescription>
+					<div class="row">
+						<div class="m-4 pr-4 w-100">
+							<span class="card-text"
+								>Este indicador não possui descrição</span
+							>
+						</div>
 					</div>
-				</div>
+				</ng-template>
 			</ng-template>
 		</div>
 	</div>
