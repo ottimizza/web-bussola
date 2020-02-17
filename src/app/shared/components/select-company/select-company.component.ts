@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { CompanyService } from '@shared/services/company.service';
 import { Subject, Observable } from 'rxjs';
-import { debounceTime, map } from 'rxjs/operators';
+import { debounceTime, map, distinctUntilChanged } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { MatExpansionPanel } from '@angular/material';
 
@@ -80,9 +80,7 @@ export class SelectCompanyComponent implements OnInit {
 				this.pageIndex = 0;
 				this.hasMore = true;
 				this.findCompanies();
-			} else {
-				this.filterSubject.next();
-			}
+			} else this.filterSubject.next();
 		});
 
 		this.company = this.company;
@@ -114,7 +112,7 @@ export class SelectCompanyComponent implements OnInit {
 					this.company = response.records[0];
 				}
 				if (response.records.length < 10) this.hasMore = false;
-				this.pageIndex++;
+				else this.pageIndex++;
 			},
 			err => {
 				console.log(err);
