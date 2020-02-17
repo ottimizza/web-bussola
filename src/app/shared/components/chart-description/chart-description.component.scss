@@ -13,3 +13,9 @@
 	right: 0.9rem;
 	top: 0.9rem;
 }
+
+.loading-container {
+	& {
+		overflow: hidden;
+	}
+}

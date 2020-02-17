@@ -16,6 +16,7 @@ export class ChartDescriptionComponent implements OnInit {
 	kpiAlias: string;
 
 	description: Description;
+	loading = true;
 
 	constructor(
 		private descriptionService: DescriptionService,
@@ -32,6 +33,7 @@ export class ChartDescriptionComponent implements OnInit {
 			.getDescription(this.cnpj, this.kpiAlias)
 			.subscribe(res => {
 				this.description = res[0];
+				this.loading = false;
 			});
 	}
 }
