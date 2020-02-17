@@ -47,7 +47,7 @@ export class ComparativesComponent implements OnInit {
 
 		this.kpiService.getKpis(this.selectedCompany.cnpj, 2).subscribe(
 			(response: any) => {
-				response.content.forEach((kpi: Kpi) => {
+				response.content.forEach((kpi: Kpi, index: number) => {
 					const formatedKpi: FormatedKpi = {
 						id: kpi.id,
 						kpiAlias: kpi.kpiAlias,
@@ -56,7 +56,8 @@ export class ComparativesComponent implements OnInit {
 						labelArray: kpi.labelArray,
 						chartOptions: JSON.parse(kpi.chartOptions),
 						roles: [],
-						data: []
+						data: [],
+						index
 					};
 
 					this.kpiService
@@ -69,17 +70,26 @@ export class ComparativesComponent implements OnInit {
 							});
 
 							formatedKpi.labelArray.forEach(
-								(currentValue, index) => {
+								(currentValue, i) => {
 									formatedKpi.roles.push({
 										role: 'tooltip',
 										type: 'string',
-										index: index + 1
+										index: i + 1
 									});
 								}
 							);
 							formatedKpi.labelArray.splice(0, 0, 'Month');
 
 							this.kpis.push(formatedKpi);
+							this.kpis.sort((a, b) => {
+								if (a.index > b.index) {
+									return 1;
+								}
+								if (a.index < b.index) {
+									return -1;
+								}
+								return 0;
+							});
 						});
 				});
 			},

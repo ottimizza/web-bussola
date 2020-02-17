@@ -19,4 +19,5 @@ export interface FormatedKpi {
 	chartOptions: any;
 	roles: any[];
 	data: any[];
+	index: number;
 }
