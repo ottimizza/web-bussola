@@ -22,6 +22,7 @@ import { OverlayPanel } from 'primeng/overlaypanel';
 })
 export class ChartOrderConfigComponent implements OnInit {
 	@Input() descriptions: Description[];
+	@Input() title = 'Indicadores';
 	@Output() onDescriptionChanged = new EventEmitter<Description[]>();
 
 	@ViewChild('table', { static: false }) table: MatTable<Description>;

@@ -1,3 +1,4 @@
+<!-- SELECT COMPANY -->
 <app-select-company
 	(selectedCompany)="onCompanyChanged($event)"
 ></app-select-company>
@@ -26,19 +27,25 @@
 	</div>
 </div>
 
-<div *ngIf="descriptions.length > 0" class="mb-4">
-	<chart-order-config
-		[descriptions]="descriptions"
-		(onDescriptionChanged)="onDescriptionChanged($event)"
-	>
-	</chart-order-config>
-</div>
+<!-- ORDENAÇÃO DOS INDICADORES -->
+<chart-order-config
+	[descriptions]="pointerDescriptions"
+	(onDescriptionChanged)="onDescriptionChanged($event)"
+>
+</chart-order-config>
 
-<div *ngIf="variables.length >= 0">
-	<app-var-list
-		[variables]="variables"
-		[selectedCompany]="selectedCompany"
-		(onVariableEdited)="onVariableEdited($event)"
-	>
-	</app-var-list>
-</div>
+<!-- ORDENAÇÃO DOS COMPARATIVOS -->
+<chart-order-config
+	[title]="'Comparativos'"
+	[descriptions]="comparativeDescriptions"
+	(onDescriptionChanged)="onDescriptionChanged($event)"
+>
+</chart-order-config>
+
+<!-- VARIABLES -->
+<app-var-list
+	[variables]="variables"
+	[selectedCompany]="selectedCompany"
+	(onVariableEdited)="onVariableEdited($event)"
+>
+</app-var-list>

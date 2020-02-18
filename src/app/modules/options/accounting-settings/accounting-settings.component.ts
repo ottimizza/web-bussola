@@ -11,11 +11,13 @@ import { Description } from '@shared/models/description';
 	templateUrl: 'accounting-settings.component.html',
 	styleUrls: ['accounting-settings.component.scss']
 })
-export class AccountingSettingsComponent implements OnInit, OnChanges {
+export class AccountingSettingsComponent implements OnInit {
 	types: ScriptType[];
 	selectedScript: ScriptType;
 	variables: AccountingVariableInfo[] = [];
-	descriptions: Description[] = [];
+
+	pointerDescriptions: Description[] = [];
+	comparativeDescriptions: Description[] = [];
 
 	constructor(
 		private variableService: VariableService,
@@ -33,9 +35,11 @@ export class AccountingSettingsComponent implements OnInit, OnChanges {
 			});
 	}
 
-	ngOnChanges() {}
-
 	onScriptChanged() {
+		this.variables = [];
+		this.pointerDescriptions = [];
+		this.comparativeDescriptions = [];
+
 		this.requestVariables();
 		this.requestDescriptionList();
 	}
@@ -52,7 +56,11 @@ export class AccountingSettingsComponent implements OnInit, OnChanges {
 		this.descriptionService
 			.getDescriptionList(null, this.selectedScript.id)
 			.subscribe((descriptions: any) => {
-				this.descriptions = descriptions.content;
+				descriptions.content.forEach((description: Description) => {
+					+description.kpiAlias < 60
+						? this.pointerDescriptions.push(description)
+						: this.comparativeDescriptions.push(description);
+				});
 			});
 	}
 
