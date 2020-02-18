@@ -25,7 +25,8 @@ export class CompanySettingsComponent implements OnInit {
 	variables: VariableInfo[] = [];
 	shareCompanyData = false;
 
-	descriptions: Description[] = [];
+	pointerDescriptions: Description[] = [];
+	comparativeDescriptions: Description[] = [];
 
 	constructor(
 		private variableService: VariableService,
@@ -64,14 +65,22 @@ export class CompanySettingsComponent implements OnInit {
 		this.descriptionService
 			.getDescriptionList(this.selectedCompany.cnpj)
 			.subscribe((descriptions: any) => {
-				this.descriptions = descriptions.content;
+				descriptions.content.forEach((description: Description) => {
+					+description.kpiAlias < 60
+						? this.pointerDescriptions.push(description)
+						: this.comparativeDescriptions.push(description);
+				});
 			});
 	}
 
 	onCompanyChanged(selectedCompany: Company) {
 		if (!!selectedCompany) {
 			this.selectedCompany = selectedCompany;
+
 			this.variables = [];
+			this.pointerDescriptions = [];
+			this.comparativeDescriptions = [];
+
 			this.findSector();
 			this.requestDescriptionList();
 			this.requestVariables();
