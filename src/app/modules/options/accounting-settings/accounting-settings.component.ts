@@ -36,6 +36,10 @@ export class AccountingSettingsComponent implements OnInit {
 	}
 
 	onScriptChanged() {
+		this.variables = [];
+		this.pointerDescriptions = [];
+		this.comparativeDescriptions = [];
+
 		this.requestVariables();
 		this.requestDescriptionList();
 	}
