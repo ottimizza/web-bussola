@@ -31,7 +31,7 @@
 						"styles": [
 							"src/styles.scss",
 							"node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-							"node_modules/bootstrap/scss/bootstrap.scss",
+							"node_modules/bootstrap/dist/css/bootstrap.min.css",
 							"node_modules/@fortawesome/fontawesome-pro/css/all.min.css",
 							"node_modules/primeicons/primeicons.css",
 							"node_modules/primeng/resources/themes/nova-light/theme.css",
@@ -41,6 +41,7 @@
 						"scripts": [
 							"node_modules/jquery/dist/jquery.min.js",
 							"node_modules/popper.js/dist/umd/popper.min.js",
+							"node_modules/bootstrap/dist/js/bootstrap.min.js",
 							"node_modules/desandro-classie/classie.js",
 							"node_modules/parallax-js/dist/parallax.min.js"
 						]
