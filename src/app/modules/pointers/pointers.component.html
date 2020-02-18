@@ -61,14 +61,14 @@
 
 <div
 	*ngIf="kpis.length === 0 && !profit && !isLoading"
-	class="row no-kpi-container page-content text-center"
+	class="row no-kpi-container text-center"
 >
 	<h1 class="w-100 my-auto">
 		Não há gráficos disponíveis para o CNPJ selecionado
 	</h1>
 </div>
 
-<div *ngIf="isLoading" class="row no-kpi-container page-content text-center">
+<div *ngIf="isLoading" class="row no-kpi-container text-center">
 	<div class="mx-auto my-auto">
 		<div class="loader"></div>
 	</div>
