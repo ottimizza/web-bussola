@@ -11,6 +11,10 @@
 	height: fit-content;
 }
 
+.page-content {
+	width: calc(100% + 15px);
+}
+
 .no-kpi-container {
 	padding: 15px;
 	height: 70vh;
