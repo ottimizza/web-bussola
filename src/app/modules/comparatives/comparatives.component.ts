@@ -90,13 +90,13 @@ export class ComparativesComponent implements OnInit {
 								}
 								return 0;
 							});
+							this.isLoading = false;
 						});
 				});
 			},
 			err => {
 				console.log(err);
-			},
-			() => (this.isLoading = false)
+			}
 		);
 	}
 
