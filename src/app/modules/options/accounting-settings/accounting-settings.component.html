@@ -13,14 +13,22 @@
 	</mat-form-field>
 </div>
 
-<div *ngIf="descriptions.length > 0" class="mb-4">
-	<chart-order-config
-		[descriptions]="descriptions"
-		(onDescriptionChanged)="onDescriptionChanged($event)"
-	>
-	</chart-order-config>
-</div>
+<!-- ORDENAÇÃO DOS INDICADORES -->
+<chart-order-config
+	[descriptions]="pointerDescriptions"
+	(onDescriptionChanged)="onDescriptionChanged($event)"
+>
+</chart-order-config>
 
+<!-- ORDENAÇÃO DOS COMPARATIVOS -->
+<chart-order-config
+	[title]="'Comparativos'"
+	[descriptions]="comparativeDescriptions"
+	(onDescriptionChanged)="onDescriptionChanged($event)"
+>
+</chart-order-config>
+
+<!-- VARIABLES -->
 <app-var-list
 	[variables]="variables"
 	(onVariableEdited)="onVariableEdited($event)"
