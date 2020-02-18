@@ -4,7 +4,7 @@
 		<mat-select
 			class=""
 			[(value)]="selectedScript"
-			(selectionChange)="requestVariables()"
+			(selectionChange)="onScriptChanged()"
 		>
 			<mat-option class="" *ngFor="let type of types" [value]="type">{{
 				type.description

@@ -76,7 +76,11 @@ export class CompanySettingsComponent implements OnInit {
 	onCompanyChanged(selectedCompany: Company) {
 		if (!!selectedCompany) {
 			this.selectedCompany = selectedCompany;
+
 			this.variables = [];
+			this.pointerDescriptions = [];
+			this.comparativeDescriptions = [];
+
 			this.findSector();
 			this.requestDescriptionList();
 			this.requestVariables();
