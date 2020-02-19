@@ -18,7 +18,7 @@ export class DescriptionService {
 		return this.httpClient.get(`${environment.appApi}/description`, {
 			headers: this.authService.getAuthorizationHeaders(),
 			params: {
-				organizationId: User.fromLocalStorage().organization.id.toString(),
+				accountingId: User.fromLocalStorage().organization.id.toString(),
 				cnpj,
 				kpiAlias
 			}
