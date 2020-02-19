@@ -48,7 +48,7 @@ export class KpiService {
 				cnpj: [window.sessionStorage.getItem('cnpj')],
 				urlLogo: [
 					User.fromLocalStorage().organization.avatar ||
-						'https://www.ottimizza.com.br/zapcontabil/logos/logo_futuro.jpg'
+						`${window.location.origin}/assets/img/logo-default.png`
 				]
 			},
 			{ headers: this.authService.getAuthorizationHeaders() }
