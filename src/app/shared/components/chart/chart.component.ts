@@ -27,6 +27,7 @@ export class ChartComponent implements OnInit {
 
 	constructor() {}
 
+<<<<<<< HEAD
 	ngOnInit() {
 		this.resizeSubject
 			.pipe(debounceTime(30))
@@ -35,5 +36,13 @@ export class ChartComponent implements OnInit {
 
 	onResize(chart: GoogleChart) {
 		this.resizeSubject.next(chart);
+=======
+	ngOnInit() {}
+
+	onResize(event) {
+		setTimeout(() => {
+			event.createChart();
+		}, 100);
+>>>>>>> 37554a47a075d37c79798dd410d8fba0b88576d6
 	}
 }

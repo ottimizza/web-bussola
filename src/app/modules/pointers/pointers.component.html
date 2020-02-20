@@ -34,7 +34,7 @@
 				<app-card
 					[kpiAlias]="'07'"
 					[cnpj]="selectedCompany.cnpj"
-					[title]="profit.title"
+					[title]="kpi.title"
 				>
 					<div
 						body
@@ -42,10 +42,10 @@
 					>
 						<span
 							class="card-text"
-							[ngClass]="profit.value > 0 ? 'green' : 'red'"
+							[ngClass]="kpi.data[0][1] > 0 ? 'green' : 'red'"
 						>
 							{{
-								profit.value
+								kpi.data[0][1]
 									| currency: 'BRL':'symbol':'0.0-0':'pt'
 							}}
 						</span>
@@ -65,7 +65,7 @@
 </div>
 
 <div
-	*ngIf="kpis.length === 0 && !profit && !isLoading"
+	*ngIf="kpis.length === 0 && !isLoading"
 	class="row no-kpi-container text-center"
 >
 	<h1 class="w-100 my-auto">
