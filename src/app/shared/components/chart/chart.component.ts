@@ -33,7 +33,7 @@ export class ChartComponent implements OnInit {
 			.subscribe((chart: GoogleChart) => chart.createChart());
 	}
 
-	onResize(chart: GoogleChart) {
-		this.resizeSubject.next(chart);
+	onResize(event) {
+		this.resizeSubject.next(event);
 	}
 }
