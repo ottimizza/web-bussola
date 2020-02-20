@@ -19,7 +19,6 @@ import { map, debounce, debounceTime, delay } from 'rxjs/operators';
 export class PointersComponent implements OnInit {
 	selectedCompany: Company;
 
-	profit: Profit;
 	kpis: FormatedKpi[] = [];
 	isLoading = true;
 
@@ -47,17 +46,7 @@ export class PointersComponent implements OnInit {
 
 	requestKpis() {
 		this.isLoading = true;
-		this.profit = undefined;
 		this.kpis = [];
-
-		this.kpiService.getYearlyProfit(this.selectedCompany.cnpj).subscribe(
-			(profit: Profit) => {
-				this.profit = profit;
-			},
-			err => {
-				console.log(err);
-			}
-		);
 
 		this.kpiService.getKpis(this.selectedCompany.cnpj).subscribe(
 			(response: any) => {
