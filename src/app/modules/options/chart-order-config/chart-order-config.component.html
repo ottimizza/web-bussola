@@ -59,8 +59,8 @@
 				<td mat-cell *matCellDef="let description">
 					<div
 						*ngIf="
-							description.chartType === 'ColumnChart' ||
-							description.chartType === 'LineChart'
+							description.chartType.indexOf('ColumnChart') >= 0 ||
+							description.chartType.indexOf('LineChart') >= 0
 						"
 						class="m-0"
 					>
@@ -76,15 +76,30 @@
 							>
 							<mat-option
 								class="hover-important"
+								[value]="'ColumnChartMultple'"
+								>Coluna Multipla</mat-option
+							>
+							<mat-option
+								class="hover-important"
+								[value]="'ColumnChartStacked'"
+								>Coluna Múltipla Empilhada</mat-option
+							>
+							<mat-option
+								class="hover-important"
 								[value]="'LineChart'"
 								>Linha</mat-option
+							>
+							<mat-option
+								class="hover-important"
+								[value]="'LineChartMultiple'"
+								>Linha Múltipla</mat-option
 							>
 						</mat-select>
 					</div>
 					<div
 						*ngIf="
-							description.chartType === 'PieChart' ||
-							description.chartType === 'DoughnutChart'
+							description.chartType.indexOf('PieChart') >= 0 ||
+							description.chartType.indexOf('DonutChart') >= 0
 						"
 						class="m-0"
 					>
@@ -100,7 +115,7 @@
 							>
 							<mat-option
 								class="hover-important"
-								[value]="'DoughnutChart'"
+								[value]="'DonutChart'"
 								>Rosca</mat-option
 							>
 						</mat-select>

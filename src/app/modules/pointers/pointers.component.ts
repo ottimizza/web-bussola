@@ -66,7 +66,10 @@ export class PointersComponent implements OnInit {
 						id: kpi.id,
 						kpiAlias: kpi.kpiAlias,
 						title: kpi.title,
-						chartType: kpi.chartType.replace('Doughnut', 'Pie'),
+						chartType: kpi.chartType
+							.replace('Donut', 'Pie')
+							.replace('Multiple', '')
+							.replace('Stacked', ''),
 						labelArray: kpi.labelArray,
 						chartOptions: JSON.parse(kpi.chartOptions),
 						roles: [],
@@ -110,7 +113,11 @@ export class PointersComponent implements OnInit {
 			},
 			err => {
 				console.log(err);
-			}
+			},
+			() =>
+				setTimeout(() => {
+					console.log(this.kpis);
+				}, 2000)
 		);
 	}
 

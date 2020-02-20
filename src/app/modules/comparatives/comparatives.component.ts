@@ -52,7 +52,10 @@ export class ComparativesComponent implements OnInit {
 						id: kpi.id,
 						kpiAlias: kpi.kpiAlias,
 						title: kpi.title,
-						chartType: kpi.chartType.replace('Doughnut', 'Pie'),
+						chartType: kpi.chartType
+							.replace('Donut', 'Pie')
+							.replace('Multple', '')
+							.replace('Stacked', ''),
 						labelArray: kpi.labelArray,
 						chartOptions: JSON.parse(kpi.chartOptions),
 						roles: [],
