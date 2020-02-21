@@ -1,5 +1,10 @@
-<div style="height: 100%;" [ngClass]="{ 'pt-4': kpi.chartType !== 'PieChart' }">
+<div
+	style="height: 100%;"
+	[ngClass]="{ 'pt-4': kpi.chartType !== 'PieChart' }"
+	(resized)="onResize(chart)"
+>
 	<google-chart
+		#chart
 		class="chart"
 		[type]="kpi.chartType"
 		[data]="kpi.data"

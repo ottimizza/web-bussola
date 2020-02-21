@@ -8,7 +8,6 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 import { PointersComponent } from './pointers.component';
 import { PointersRoutingModule } from './pointers-routing.module';
 import { MatDialogModule } from '@angular/material';
-import { AngularResizedEventModule } from 'angular-resize-event';
 import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
@@ -22,8 +21,7 @@ import { NgxMaskModule } from 'ngx-mask';
 		ChartModule,
 		SharedModule,
 		AnnotationsModule,
-		NgxMaskModule,
-		AngularResizedEventModule
+		NgxMaskModule
 	],
 	exports: [],
 	providers: [CurrencyPipe]

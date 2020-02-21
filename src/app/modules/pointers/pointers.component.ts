@@ -16,13 +16,11 @@ import { map, debounce, debounceTime, delay } from 'rxjs/operators';
 	templateUrl: './pointers.component.html',
 	styleUrls: ['./pointers.component.scss']
 })
-export class PointersComponent implements OnInit {
+export class PointersComponent {
 	selectedCompany: Company;
 
 	kpis: FormatedKpi[] = [];
 	isLoading = true;
-
-	resizeSubject = new Subject();
 
 	isHandset$: Observable<boolean> = this.breakpointObserver
 		.observe(Breakpoints.Handset)
@@ -33,16 +31,6 @@ export class PointersComponent implements OnInit {
 		private kpiService: KpiService,
 		private dialog: MatDialog
 	) {}
-
-	ngOnInit() {
-		this.resizeSubject.pipe(debounceTime(30)).subscribe(() => {
-			const kpis = this.kpis;
-			this.kpis = [];
-			setTimeout(() => {
-				this.kpis = kpis;
-			}, 1);
-		});
-	}
 
 	requestKpis() {
 		this.isLoading = true;
@@ -108,10 +96,6 @@ export class PointersComponent implements OnInit {
 					console.log(this.kpis);
 				}, 2000)
 		);
-	}
-
-	onResize() {
-		this.resizeSubject.next();
 	}
 
 	onCompanyChanged(selectedCompany: Company) {
