@@ -54,7 +54,7 @@ export class ComparativesComponent implements OnInit {
 						title: kpi.title,
 						chartType: kpi.chartType
 							.replace('Donut', 'Pie')
-							.replace('Multple', '')
+							.replace('Multiple', '')
 							.replace('Stacked', ''),
 						labelArray: kpi.labelArray,
 						chartOptions: JSON.parse(kpi.chartOptions),
