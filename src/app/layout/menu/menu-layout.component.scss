@@ -126,12 +126,10 @@ i {
 .header {
 	height: $header-heigh;
 	border-bottom: $border;
+	background-color: $background;
 }
 
 .logo-container {
-	padding-top: 15px;
-	padding-left: 30px;
-	padding-right: 30px;
 	height: 100%;
 	width: $sidenav-width;
 	border-right: $border;

@@ -8,21 +8,33 @@
 	>
 		<i class="fal fa-bars"></i>
 	</button>
+
+	<!-- LOGO NO CANTO ESQUERDO SUPERIOR -->
 	<div
-		*ngIf="!user?.organization.avatar"
-		class="logo-container float-left"
+		class="logo-container p-1 float-left"
 		[ngClass]="{ 'mx-auto': isHandset$ | async }"
 	>
-		<img
-			src="../../../assets/img/logo-default.png"
-			alt="Logo Ottimizza"
-			class="logo unselectable"
-			[ngClass]="{ 'mx-auto': isHandset$ | async }"
-		/>
+		<ng-container *ngIf="user?.organization.avatar; else logoDefault">
+			<img
+				src="{{ user?.organization.avatar }}"
+				alt="Logo Contabilidade"
+				class="logo unselectable mx-auto"
+			/>
+		</ng-container>
+		<ng-template #logoDefault>
+			<div class="p-2">
+				<img
+					src="../../../assets/img/logo-default.png"
+					alt="Logo Ottimizza"
+					class="logo unselectable"
+					[ngClass]="{ 'mx-auto': isHandset$ | async }"
+				/>
+			</div>
+		</ng-template>
 	</div>
+
 	<button
 		class="button btn-menu outline-none position-absolute"
-		style="margin-left: 260px"
 		type="button"
 		(click)="drawer.toggle(); onMenuChange()"
 		*ngIf="!(isHandset$ | async)"
@@ -30,17 +42,6 @@
 	>
 		<i class="fal fa-bars"></i>
 	</button>
-	<div
-		*ngIf="!!user?.organization.avatar"
-		class="nop-logo float-left d-flex align-items-center justify-content-center"
-		[ngClass]="{ 'mx-auto': isHandset$ | async }"
-	>
-		<img
-			src="{{ user?.organization.avatar }}"
-			alt="Logo Contabilidade"
-			class="logo unselectable mx-auto"
-		/>
-	</div>
 
 	<div class="dropdown outline-none" type="button" aria-label="Botão Logout">
 		<button
