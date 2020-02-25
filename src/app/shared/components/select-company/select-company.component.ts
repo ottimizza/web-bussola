@@ -53,7 +53,7 @@ export class SelectCompanyComponent implements OnInit {
 		return this._filter;
 	}
 
-	@ViewChild('dropdown', { static: false }) dropdownView: ElementRef<
+	@ViewChild('dropdown') dropdownView: ElementRef<
 		MatExpansionPanel
 	>;
 	@Output() selectedCompany = new EventEmitter<Company>();

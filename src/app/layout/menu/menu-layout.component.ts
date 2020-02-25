@@ -68,7 +68,7 @@ export class MenuLayoutComponent implements OnInit {
 	profileUrl: string;
 	user: User;
 
-	@ViewChild('drawer', { static: false }) drawer: ElementRef<MatSidenav>;
+	@ViewChild('drawer') drawer: ElementRef<MatSidenav>;
 
 	isHandset$: Observable<boolean> = this.breakpointObserver
 		.observe(Breakpoints.Handset)

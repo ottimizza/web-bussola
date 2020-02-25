@@ -25,7 +25,7 @@ export class ChartOrderConfigComponent implements OnInit {
 	@Input() title = 'Indicadores';
 	@Output() onDescriptionChanged = new EventEmitter<Description[]>();
 
-	@ViewChild('table', { static: false }) table: MatTable<Description>;
+	@ViewChild('table') table: MatTable<Description>;
 
 	private descriptionsSubject = new Subject();
 
