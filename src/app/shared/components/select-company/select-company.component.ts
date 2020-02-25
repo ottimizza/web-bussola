@@ -12,7 +12,7 @@ import { CompanyService } from '@shared/services/company.service';
 import { Subject, Observable } from 'rxjs';
 import { debounceTime, map, distinctUntilChanged } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { MatExpansionPanel } from '@angular/material';
+import { MatExpansionPanel } from '@angular/material/expansion';
 
 @Component({
 	selector: 'app-select-company',

@@ -12,7 +12,7 @@ import {
 	HostListener
 } from '@angular/core';
 import { Subject } from 'rxjs';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { VariableInfo } from '@shared/models/variables';
 import { DeviceDetectorService } from 'ngx-device-detector';
 

@@ -5,11 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AnnotationsComponent } from './annotations.component';
 import { ButtonModule } from 'primeng/button';
 import { FileUploadModule } from 'primeng/fileupload';
-import {
-	MatDialogModule,
-	MatDialogRef,
-	MAT_DIALOG_DATA
-} from '@angular/material';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @NgModule({
 	declarations: [AnnotationsComponent],

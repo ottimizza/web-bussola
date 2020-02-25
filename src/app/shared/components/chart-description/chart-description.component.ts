@@ -3,7 +3,7 @@ import { ToastService } from '@shared/services/toast.service';
 import { Description } from '@shared/models/description';
 import { DescriptionService } from '@shared/services/description.service';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
 	selector: 'chart-description',

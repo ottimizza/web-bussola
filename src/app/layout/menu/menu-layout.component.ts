@@ -5,7 +5,8 @@ import { AuthenticationService } from '@app/authentication/authentication.servic
 import { User } from '@app/models/User';
 import { environment } from '@env';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { MatSidenav, MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSidenav } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';

@@ -1,5 +1,5 @@
 import { User } from '@app/models/User';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { Company } from '@shared/models/company';
 import { Profit } from '@shared/models/profit';

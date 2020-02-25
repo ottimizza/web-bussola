@@ -1,6 +1,6 @@
 import { environment } from '@env';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FileUpload } from 'primeng/fileupload';
 import { AnnotationService } from '@shared/services/annotation.service';
 import { UploadService } from '@shared/services/upload.service';
