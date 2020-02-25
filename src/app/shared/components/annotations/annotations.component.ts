@@ -1,7 +1,6 @@
 import { environment } from '@env';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { NgxLinkifyjsService } from 'ngx-linkifyjs';
 import { FileUpload } from 'primeng/fileupload';
 import { AnnotationService } from '@shared/services/annotation.service';
 import { UploadService } from '@shared/services/upload.service';
@@ -23,7 +22,6 @@ export class AnnotationsComponent implements OnInit {
 
 	constructor(
 		public dialogRef: MatDialogRef<AnnotationsComponent>,
-		public linkifyService: NgxLinkifyjsService,
 		@Inject(MAT_DIALOG_DATA) public data: any,
 		private annotationService: AnnotationService,
 		private uploadService: UploadService,

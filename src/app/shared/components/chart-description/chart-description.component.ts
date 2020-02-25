@@ -4,7 +4,6 @@ import { Description } from '@shared/models/description';
 import { DescriptionService } from '@shared/services/description.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { NgxLinkifyjsService } from 'ngx-linkifyjs';
 
 @Component({
 	selector: 'chart-description',
@@ -21,7 +20,6 @@ export class ChartDescriptionComponent implements OnInit {
 	constructor(
 		private descriptionService: DescriptionService,
 		public dialogRef: MatDialogRef<ChartDescriptionComponent>,
-		public linkifyService: NgxLinkifyjsService,
 		@Inject(MAT_DIALOG_DATA) public data: any
 	) {
 		this.cnpj = data.cnpj;

@@ -2,7 +2,6 @@ import { debounceTime } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { NgxLinkifyjsService } from 'ngx-linkifyjs';
 import { VariableInfo } from '@shared/models/variables';
 import { BalanceService } from '@shared/services/balance.service';
 import { BalanceItem } from '@shared/models/balante-item';
@@ -26,7 +25,6 @@ export class BalanceModalComponent implements OnInit {
 
 	constructor(
 		public dialogRef: MatDialogRef<BalanceModalComponent>,
-		public linkifyService: NgxLinkifyjsService,
 		@Inject(MAT_DIALOG_DATA) public data: any,
 		private balanceService: BalanceService
 	) {}
