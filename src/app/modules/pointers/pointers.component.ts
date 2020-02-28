@@ -93,8 +93,8 @@ export class PointersComponent {
 			},
 			() =>
 				setTimeout(() => {
-					console.log(this.kpis);
-				}, 2000)
+					this.isLoading = false;
+				}, 7000)
 		);
 	}
 
