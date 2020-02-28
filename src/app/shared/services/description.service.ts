@@ -46,6 +46,12 @@ export class DescriptionService {
 		);
 	}
 
+	deleteDescription(id: number) {
+		const url = `${environment.appApi}/description/${id}`;
+		const headers = { headers: this.authService.getAuthorizationHeaders() };
+		return this.httpClient.delete(url, headers);
+	}
+
 	updateDescriptionList(descriptions: Description[]) {
 		return this.httpClient.post(
 			`${environment.appApi}/description/update`,
