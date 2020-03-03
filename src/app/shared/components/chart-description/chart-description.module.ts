@@ -2,11 +2,7 @@ import { ChartDescriptionComponent } from './chart-description.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-	MatDialogModule,
-	MatDialogRef,
-	MAT_DIALOG_DATA
-} from '@angular/material';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @NgModule({
 	declarations: [ChartDescriptionComponent],

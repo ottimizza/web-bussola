@@ -7,7 +7,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { PointersComponent } from './pointers.component';
 import { PointersRoutingModule } from './pointers-routing.module';
-import { MatDialogModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
 import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({

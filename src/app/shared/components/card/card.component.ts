@@ -2,7 +2,7 @@ import { Company } from '@shared/models/company';
 import { ChartDescriptionComponent } from '../chart-description/chart-description.component';
 import { Component, Input } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
 	selector: 'app-card',
@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material';
 })
 export class CardComponent {
 	@Input() title: string;
+	@Input() subtitle: string;
 	@Input() cnpj: string;
 	@Input() kpiAlias: string;
 

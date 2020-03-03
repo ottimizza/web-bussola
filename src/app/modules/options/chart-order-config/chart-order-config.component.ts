@@ -12,7 +12,8 @@ import {
 	EventEmitter
 } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { MatTable, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTable } from '@angular/material/table';
 import { OverlayPanel } from 'primeng/overlaypanel';
 
 @Component({
@@ -25,7 +26,7 @@ export class ChartOrderConfigComponent implements OnInit {
 	@Input() title = 'Indicadores';
 	@Output() onDescriptionChanged = new EventEmitter<Description[]>();
 
-	@ViewChild('table', { static: false }) table: MatTable<Description>;
+	@ViewChild('table') table: MatTable<Description>;
 
 	private descriptionsSubject = new Subject();
 

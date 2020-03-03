@@ -52,6 +52,7 @@ export class ComparativesComponent implements OnInit {
 						id: kpi.id,
 						kpiAlias: kpi.kpiAlias,
 						title: kpi.title,
+						subtitle: '',
 						chartType: kpi.chartType
 							.replace('Donut', 'Pie')
 							.replace('Multiple', '')
@@ -99,7 +100,11 @@ export class ComparativesComponent implements OnInit {
 			},
 			err => {
 				console.log(err);
-			}
+			},
+			() =>
+				setTimeout(() => {
+					if (this.kpis.length === 0) this.isLoading = false;
+				}, 3000)
 		);
 	}
 
