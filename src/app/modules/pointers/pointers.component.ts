@@ -44,8 +44,9 @@ export class PointersComponent {
 						// Se o chart type contém 'Pie' ou 'Card' o subtitle será definido
 						// Caso contrário, será '' para não ser exibido no card do gráfico
 						subtitle:
-							kpi.chartType.indexOf('Donut' || 'Pie' || 'Card') >
-							-1
+							kpi.chartType.indexOf('Donut') > -1 ||
+							kpi.chartType.indexOf('Pie') > -1 ||
+							kpi.chartType.indexOf('Card') > -1
 								? kpi.subtitle
 								: '',
 						// DonutChart não existe no google charts, é apenas uma configuração no options do PieChart
