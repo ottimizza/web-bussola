@@ -4,6 +4,7 @@ export interface Kpi {
 	id?: number;
 	kpiAlias: string;
 	title: string;
+	subtitle: string;
 	chartType: string;
 	labelArray: string[];
 	chartOptions: string;
@@ -14,6 +15,7 @@ export interface FormatedKpi {
 	id?: number;
 	kpiAlias: string;
 	title: string;
+	subtitle: string;
 	chartType: string;
 	labelArray: string[];
 	chartOptions: any;
