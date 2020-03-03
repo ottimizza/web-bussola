@@ -2,7 +2,7 @@ import { MenuLayoutComponent } from './layout/menu/menu-layout.component';
 import { MenuRoutes } from './layout/menu/menu-layout.routes';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from './core/guard/auth.guard';
+import { AuthGuard } from '@app/guard/auth.guard';
 import { AuthLayoutComponent } from './layout/auth/auth-layout.component';
 
 const routes: Routes = [

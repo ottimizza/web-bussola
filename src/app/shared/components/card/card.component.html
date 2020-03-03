@@ -1,8 +1,10 @@
 <div class="w-100 h-100 card">
 	<div class="card-title">
-		<div class="float-left text-truncate d-block pl-2 pt-1">
+		<div
+			class="float-left row text-truncate d-block pl-2 pt-1 my-auto mx-0"
+		>
 			<span style="font-weight: 500;" [ngClass]="{ 'font-1': isMobile }">
-				{{ title }}
+				{{ title }} {{ subtitle }}
 			</span>
 		</div>
 		<div class="float-right pr-1 d-block">

@@ -1,14 +1,5 @@
 import { MaterialModule } from './material.module';
-import { CoreModule } from './core/core.module';
-import {
-	MatButtonModule,
-	MatIconModule,
-	MatListModule,
-	MatSidenavModule,
-	MatToolbarModule,
-	MatSnackBarModule,
-	MatDialogModule
-} from '@angular/material';
+import { CoreModule } from '@app/core.module';
 import {
 	MenuLayoutComponent,
 	ShareDialogComponent
@@ -19,7 +10,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GoogleChartsModule } from 'angular-google-charts';
-import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -33,7 +23,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { LayoutModule } from '@angular/cdk/layout';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { HttpClientModule } from '@angular/common/http';
-import { ErrorInterceptorProvider } from './core/interceptor/http.interceptor';
+import { ErrorInterceptorProvider } from '@app/interceptor/http.interceptor';
 
 import * as $ from 'jquery';
 
@@ -59,10 +49,8 @@ import * as $ from 'jquery';
 		LayoutModule,
 		MaterialModule,
 		HttpClientModule,
-		MatSnackBarModule,
 		NgxMaskModule.forRoot(),
 		GoogleChartsModule.forRoot(),
-		NgxLinkifyjsModule.forRoot(),
 		DeviceDetectorModule.forRoot(),
 		ServiceWorkerModule.register('ngsw-worker.js', {
 			enabled: environment.production
