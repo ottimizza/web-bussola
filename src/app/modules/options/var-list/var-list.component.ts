@@ -1,6 +1,6 @@
-import { User } from './../../../core/models/User';
-import { Company } from './../../../shared/models/company';
-import { AccountingVariableInfo } from './../../../shared/models/variables';
+import { User } from '@app/models/User';
+import { Company } from '@shared/models/company';
+import { AccountingVariableInfo } from '@shared/models/variables';
 import { BalanceModalComponent } from './modal-balance/modal-balance.component';
 import { debounceTime } from 'rxjs/operators';
 import {
@@ -14,7 +14,6 @@ import {
 import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { VariableInfo } from '@shared/models/variables';
-import { DeviceDetectorService } from 'ngx-device-detector';
 
 const regexStr = /(\d)|(\.)|(\+)|(\-)/;
 

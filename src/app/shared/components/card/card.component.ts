@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class CardComponent {
 	@Input() title: string;
+	@Input() subtitle: string;
 	@Input() cnpj: string;
 	@Input() kpiAlias: string;
 

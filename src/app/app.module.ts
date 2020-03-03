@@ -1,12 +1,5 @@
 import { MaterialModule } from './material.module';
-import { CoreModule } from './core/core.module';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { CoreModule } from '@app/core.module';
 import {
 	MenuLayoutComponent,
 	ShareDialogComponent
@@ -30,7 +23,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { LayoutModule } from '@angular/cdk/layout';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { HttpClientModule } from '@angular/common/http';
-import { ErrorInterceptorProvider } from './core/interceptor/http.interceptor';
+import { ErrorInterceptorProvider } from '@app/interceptor/http.interceptor';
 
 import * as $ from 'jquery';
 
@@ -56,7 +49,6 @@ import * as $ from 'jquery';
 		LayoutModule,
 		MaterialModule,
 		HttpClientModule,
-		MatSnackBarModule,
 		NgxMaskModule.forRoot(),
 		GoogleChartsModule.forRoot(),
 		DeviceDetectorModule.forRoot(),
