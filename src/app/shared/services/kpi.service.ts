@@ -43,7 +43,7 @@ export class KpiService {
 
 	requestShareUrl() {
 		return this.httpClient.post(
-			`${environment.appApi}/charts/by_cnpj`,
+			`${environment.appApi}/charts`,
 			{
 				cnpj: [window.sessionStorage.getItem('cnpj')],
 				urlLogo: [
