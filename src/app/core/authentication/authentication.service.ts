@@ -27,7 +27,7 @@ export class AuthenticationService {
 	) {}
 
 	public store(authSession: AuthSession): Promise<{}> {
-		return new Promise<boolean>((resolve, reject) => {
+		return new Promise<boolean>(resolve => {
 			localStorage.setItem(
 				AuthenticationService.STORAGE_KEY_USERINFO,
 				authSession.toString()

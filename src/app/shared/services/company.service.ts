@@ -20,7 +20,9 @@ export class CompanyService {
 					pageSize: '10',
 					pageIndex: pageIndex.toString(),
 					name: filter,
-					active: 'true'
+					active: 'true',
+					'sort.order': 'asc',
+					'sort.attribute': 'name'
 				}
 			}
 		);
