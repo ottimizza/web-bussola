@@ -34,6 +34,7 @@ export class DescriptionService {
 			}
 		);
 	}
+
 	getDescriptionList(cnpj: string, scriptId?: number) {
 		const possibleScriptId = scriptId ? `&scriptId=${scriptId}` : '';
 		const possibleCnpj = cnpj ? `&cnpj=${cnpj}` : '';
@@ -44,6 +45,12 @@ export class DescriptionService {
 			}${possibleScriptId}${possibleCnpj}&page_size=100`,
 			{ headers: this.authService.getAuthorizationHeaders() }
 		);
+	}
+
+	deleteDescription(id: number) {
+		const url = `${environment.appApi}/description/${id}`;
+		const headers = { headers: this.authService.getAuthorizationHeaders() };
+		return this.httpClient.delete(url, headers);
 	}
 
 	updateDescriptionList(descriptions: Description[]) {

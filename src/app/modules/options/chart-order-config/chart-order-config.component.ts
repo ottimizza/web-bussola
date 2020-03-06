@@ -15,6 +15,8 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { OverlayPanel } from 'primeng/overlaypanel';
+import { User } from '@app/models/User';
+import { ToastService } from '@shared/services/toast.service';
 
 @Component({
 	selector: 'chart-order-config',
@@ -32,6 +34,8 @@ export class ChartOrderConfigComponent implements OnInit {
 
 	selectedDescription: Description;
 
+	userType = User.fromLocalStorage().type;
+
 	displayedColumns: string[] = [
 		'position',
 		'visibility',
@@ -42,7 +46,8 @@ export class ChartOrderConfigComponent implements OnInit {
 
 	constructor(
 		private matDialog: MatDialog,
-		private descriptionService: DescriptionService
+		private descriptionService: DescriptionService,
+		private toastService: ToastService
 	) {}
 
 	ngOnInit() {
@@ -82,6 +87,20 @@ export class ChartOrderConfigComponent implements OnInit {
 
 	updateDescription(description: Description) {
 		this.descriptionService.patchDescription(description).subscribe();
+	}
+
+	delete(description: Description) {
+		const id = this.descriptions.indexOf(description);
+		this.descriptionService
+			.deleteDescription(description.id)
+			.subscribe((info: any) => {
+				const array: Description[] = JSON.parse(
+					JSON.stringify(this.descriptions)
+				);
+				array.splice(id, 1);
+				this.descriptions = array;
+				this.toastService.show(info.message, info.status);
+			});
 	}
 
 	openModal(description: Description) {
