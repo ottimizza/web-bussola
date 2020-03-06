@@ -9,7 +9,8 @@ import {
 	Input,
 	ViewChild,
 	Output,
-	EventEmitter
+	EventEmitter,
+	ChangeDetectorRef
 } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
