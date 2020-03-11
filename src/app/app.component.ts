@@ -19,10 +19,9 @@ registerLocaleData(localePt, localePtExtra);
 export class AppComponent implements OnInit, OnDestroy {
 	public static theme = 'bussola-default';
 
-	message: BehaviorSubject<any>;
 	subscription: Subscription;
 	deferredPrompt: any;
-	showButton = false;
+	showButton = true;
 
 	constructor(private router: Router, private swUpdate: SwUpdate) {}
 
@@ -36,11 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		// const userId = 'user001';
-		// this.messagingService.requestPermission(userId);
-		// this.messagingService.receiveMessage();
-		// this.message = this.messagingService.currentMessage;
-
+		// Redirect para https
 		if (environment.production) {
 			if (location.protocol === 'http:') {
 				location.href = location.href.replace('http', 'https');

@@ -34,6 +34,7 @@ export class DescriptionService {
 			}
 		);
 	}
+
 	getDescriptionList(cnpj: string, scriptId?: number) {
 		const possibleScriptId = scriptId ? `&scriptId=${scriptId}` : '';
 		const possibleCnpj = cnpj ? `&cnpj=${cnpj}` : '';
