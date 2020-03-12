@@ -21,6 +21,7 @@ export class CompanyService {
 					pageIndex: pageIndex.toString(),
 					name: filter,
 					active: 'true',
+					type: '2',
 					'sort.order': 'asc',
 					'sort.attribute': 'name'
 				}
