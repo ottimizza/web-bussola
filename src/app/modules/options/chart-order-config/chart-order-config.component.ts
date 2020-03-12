@@ -16,6 +16,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { OverlayPanel } from 'primeng/overlaypanel';
+import { User } from '@app/models/User';
 import { ToastService } from '@shared/services/toast.service';
 
 @Component({
@@ -34,6 +35,8 @@ export class ChartOrderConfigComponent implements OnInit {
 
 	selectedDescription: Description;
 
+	userType = User.fromLocalStorage().type;
+
 	displayedColumns: string[] = [
 		'position',
 		'visibility',
@@ -45,7 +48,7 @@ export class ChartOrderConfigComponent implements OnInit {
 	constructor(
 		private matDialog: MatDialog,
 		private descriptionService: DescriptionService,
-		private toastService: ToastService,
+		private toastService: ToastService
 	) {}
 
 	ngOnInit() {

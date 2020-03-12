@@ -1,3 +1,4 @@
+import { NotificationService } from '@app/services/notification.service';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, CanActivateChild } from '@angular/router';
 import { finalize } from 'rxjs/operators';
@@ -8,7 +9,8 @@ import { AuthSession } from '@app/models/AuthSession';
 export class AuthGuard implements CanActivate, CanActivateChild {
 	constructor(
 		public router: Router,
-		public authenticationService: AuthenticationService
+		public authenticationService: AuthenticationService,
+		public notificationService: NotificationService
 	) {}
 
 	canActivate(): Promise<boolean> {
@@ -19,7 +21,11 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 				.then((result: boolean) => {
 					if (result) {
 						Promise.all([
-							this.authenticationService.storeUserInfo(),
+							this.authenticationService
+								.storeUserInfo()
+								.then(() => {
+									// this.notificationService.requestSafariNotificationPermission();
+								}),
 							this.authenticationService.storeTokenInfo()
 						]).then(() => {
 							resolve(true);

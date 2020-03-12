@@ -98,6 +98,10 @@ svg {
 }
 
 // HOVER FEEDBACK
+.cursor-pointer {
+	cursor: pointer;
+}
+
 .hover:hover {
 	color: $base-color;
 	cursor: pointer;
