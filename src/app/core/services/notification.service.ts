@@ -11,7 +11,7 @@ interface SafariPushNotificationPermissionData {
 	deviceToken?: any;
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class NotificationService {
 	constructor() {}
 
