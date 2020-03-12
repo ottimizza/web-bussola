@@ -92,16 +92,12 @@ export class ChartOrderConfigComponent implements OnInit {
 
 	delete(description: Description) {
 		const id = this.descriptions.indexOf(description);
-		this.descriptionService
-			.deleteDescription(description.id)
-			.subscribe((info: any) => {
-				const array: Description[] = JSON.parse(
-					JSON.stringify(this.descriptions)
-				);
-				array.splice(id, 1);
-				this.descriptions = array;
-				this.toastService.show(info.message, info.status);
-			});
+		this.descriptionService.deleteDescription(description.id).subscribe((info: any) => {
+			const array: Description[] = JSON.parse(JSON.stringify(this.descriptions));
+			array.splice(id, 1);
+			this.descriptions = array;
+			this.toastService.show(info.message, info.status);
+		});
 	}
 
 	openModal(description: Description) {
