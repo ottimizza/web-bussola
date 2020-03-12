@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 							this.authenticationService
 								.storeUserInfo()
 								.then(() => {
-									this.notificationService.requestSafariNotificationPermission();
+									// this.notificationService.requestSafariNotificationPermission();
 								}),
 							this.authenticationService.storeTokenInfo()
 						]).then(() => {
