@@ -175,3 +175,8 @@ body {
 // text {
 // 	fill: white;
 // }
+
+// Button focus outline none
+button:focus {
+	outline: none !important;
+}
