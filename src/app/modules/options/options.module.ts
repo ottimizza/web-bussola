@@ -28,7 +28,7 @@ import { SelectCompanyModule } from '@shared/components/select-company/select-co
 		AccountingSettingsComponent,
 		BalanceModalComponent,
 		DescriptionDialogComponent,
-		ChartOrderConfigComponent
+		ChartOrderConfigComponent,
 	],
 	imports: [
 		CommonModule,
@@ -43,10 +43,10 @@ import { SelectCompanyModule } from '@shared/components/select-company/select-co
 		TableModule,
 		MatTooltipModule,
 		SharedModule,
-		ConfirmDialogModule
+		ConfirmDialogModule,
 	],
 	exports: [VarListComponent, ChartOrderConfigComponent],
 	providers: [],
-	entryComponents: [BalanceModalComponent, DescriptionDialogComponent]
+	entryComponents: [BalanceModalComponent, DescriptionDialogComponent],
 })
 export class OptionsModule {}

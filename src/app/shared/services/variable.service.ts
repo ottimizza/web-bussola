@@ -18,7 +18,7 @@ export class VariableService {
 				User.fromLocalStorage().organization.id
 			}`,
 			{
-				headers: this.authService.getAuthorizationHeaders()
+				headers: this.authService.getAuthorizationHeaders(),
 			}
 		);
 	}
@@ -27,7 +27,14 @@ export class VariableService {
 		return this.httpClient.get(
 			`${environment.appApi}/variables/byOrganization?accountingId=${
 				User.fromLocalStorage().organization.id
-			}&scriptId=${scriptId}`,
+			}&scriptId=${scriptId}&page_size=100`,
+			{ headers: this.authService.getAuthorizationHeaders() }
+		);
+	}
+
+	deleteVariable(varId: number) {
+		return this.httpClient.delete(
+			`${environment.appApi}/variables/${varId}`,
 			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}
@@ -42,6 +49,13 @@ export class VariableService {
 	requestMissingVariables(companyId: number) {
 		return this.httpClient.get(
 			`${environment.appApi}/variables/organization/missing?companyId=${companyId}`,
+			{ headers: this.authService.getAuthorizationHeaders() }
+		);
+	}
+
+	deleteCompanyVariable(varId: number) {
+		return this.httpClient.delete(
+			`${environment.appApi}/variables/organization/${varId}`,
 			{ headers: this.authService.getAuthorizationHeaders() }
 		);
 	}
