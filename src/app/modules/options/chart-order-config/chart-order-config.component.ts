@@ -11,7 +11,7 @@ import {
 	ViewChild,
 	Output,
 	EventEmitter,
-	ChangeDetectorRef
+	ChangeDetectorRef,
 } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
@@ -23,7 +23,7 @@ import { ToastService } from '@shared/services/toast.service';
 @Component({
 	selector: 'chart-order-config',
 	templateUrl: './chart-order-config.component.html',
-	styleUrls: ['./chart-order-config.component.scss']
+	styleUrls: ['./chart-order-config.component.scss'],
 })
 export class ChartOrderConfigComponent implements OnInit {
 	@Input() descriptions: Description[];
@@ -43,11 +43,11 @@ export class ChartOrderConfigComponent implements OnInit {
 		'visibility',
 		'title',
 		'type',
-		'description'
+		'description',
 	];
 
 	constructor(
-		private matDialog: MatDialog,
+		public matDialog: MatDialog,
 		private descriptionService: DescriptionService,
 		private toastService: ToastService
 	) {}
@@ -67,7 +67,7 @@ export class ChartOrderConfigComponent implements OnInit {
 
 	dropTable(event: CdkDragDrop<Description[]>) {
 		const prevIndex = this.descriptions.findIndex(
-			d => d === event.item.data
+			(d) => d === event.item.data
 		);
 		moveItemInArray(this.descriptions, prevIndex, event.currentIndex);
 		this.table.renderRows();
@@ -97,11 +97,11 @@ export class ChartOrderConfigComponent implements OnInit {
 		const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
 			data: {
 				title: 'Deseja realmente excluir este indicador?',
-				content: 'Esta ação não poderá ser desfeita.'
-			}
+				content: 'Esta ação não poderá ser desfeita.',
+			},
 		});
 
-		dialogRef.afterClosed().subscribe(result => {
+		dialogRef.afterClosed().subscribe((result) => {
 			if (result) {
 				this.descriptionService
 					.deleteDescription(description.id)
@@ -125,8 +125,8 @@ export class ChartOrderConfigComponent implements OnInit {
 				description,
 				saveDescription: (d: Description) => {
 					that.updateDescription(d);
-				}
-			}
+				},
+			},
 		});
 	}
 }

@@ -1,3 +1,5 @@
+import { VariableService } from '@shared/services/variable.service';
+import { VariableInfo } from '@shared/models/variables';
 import { User } from '@app/models/User';
 import { Company } from '@shared/models/company';
 import { AccountingVariableInfo } from '@shared/models/variables';
@@ -9,18 +11,18 @@ import {
 	Input,
 	Output,
 	EventEmitter,
-	HostListener
+	HostListener,
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { VariableInfo } from '@shared/models/variables';
+import { ToastService } from '@shared/services/toast.service';
 
 const regexStr = /(\d)|(\.)|(\+)|(\-)/;
 
 @Component({
 	selector: 'app-var-list',
 	templateUrl: './var-list.component.html',
-	styleUrls: ['./var-list.component.scss']
+	styleUrls: ['./var-list.component.scss'],
 })
 export class VarListComponent implements OnInit {
 	@Input() selectedCompany?: Company;
@@ -56,11 +58,17 @@ export class VarListComponent implements OnInit {
 		VariableInfo | AccountingVariableInfo
 	>();
 
+	userType = User.fromLocalStorage().type;
+
 	@HostListener('keypress', ['$event']) onKeyPress(event: any) {
 		return new RegExp(regexStr).test(event.key);
 	}
 
-	constructor(private matDialog: MatDialog) {}
+	constructor(
+		private matDialog: MatDialog,
+		private variableService: VariableService,
+		private toastService: ToastService
+	) {}
 
 	ngOnInit(): void {
 		this.variableSubject
@@ -82,6 +90,53 @@ export class VarListComponent implements OnInit {
 		this.onVariableEdited.emit(variableInfo);
 	}
 
+	delete(variableInfo) {
+		console.log(variableInfo);
+		if (variableInfo.id) {
+			if (variableInfo.variableId) {
+				this.variableService
+					.deleteCompanyVariable(variableInfo.id)
+					.subscribe(
+						() => {
+							this.toastService.show(
+								'Indicador excluído com sucesso',
+								'success'
+							);
+							this.variables.splice(
+								this.variables.indexOf(variableInfo),
+								1
+							);
+						},
+						(err) => {
+							this.toastService.show(
+								'Ocorreu um erro ao tentar excluir',
+								'danger'
+							);
+						}
+					);
+			} else {
+				this.variableService.deleteVariable(variableInfo.id).subscribe(
+					() => {
+						this.toastService.show(
+							'Indicador excluído com sucesso',
+							'success'
+						);
+						this.variables.splice(
+							this.variables.indexOf(variableInfo),
+							1
+						);
+					},
+					(err) => {
+						this.toastService.show(
+							'Ocorreu um erro ao tentar excluir',
+							'danger'
+						);
+					}
+				);
+			}
+		}
+	}
+
 	openModal(variableInfo: VariableInfo | AccountingVariableInfo) {
 		const that = this;
 		this.matDialog.open(BalanceModalComponent, {
@@ -93,8 +148,8 @@ export class VarListComponent implements OnInit {
 					varInfo: VariableInfo | AccountingVariableInfo
 				) => {
 					that.onVarEdited(varInfo);
-				}
-			}
+				},
+			},
 		});
 	}
 }
