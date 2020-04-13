@@ -138,7 +138,6 @@ export class VarListComponent implements OnInit {
 	}
 
 	openModal(variableInfo: VariableInfo | AccountingVariableInfo) {
-		const that = this;
 		this.matDialog.open(BalanceModalComponent, {
 			width: '50rem',
 			data: {
@@ -147,7 +146,7 @@ export class VarListComponent implements OnInit {
 				editVariable: (
 					varInfo: VariableInfo | AccountingVariableInfo
 				) => {
-					that.onVarEdited(varInfo);
+					this.onVarEdited(varInfo);
 				},
 			},
 		});

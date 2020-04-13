@@ -23,11 +23,32 @@
 			</thead>
 			<tbody>
 				<tr *ngFor="let variable of variables" class="table-row">
-					<td>
-						<span class="w-100 var-name-span"
-							>{{ variable.variableCode }} -
-							{{ variable.name }}</span
+					<td style="width: 30rem;">
+						<!-- REMOVER '&& false' -->
+						<div
+							*ngIf="userType === 0 && false; else spanTitle"
+							class="row w-100 m-0"
 						>
+							<span class="var-name-span">
+								{{ variable.variableCode }} -
+							</span>
+
+							<div class="pl-1 pr-0 col-11">
+								<input
+									class="simple-input hover-color w-100"
+									type="text"
+									[(ngModel)]="variable.name"
+									(input)="onVarEdited(variable)"
+								/>
+							</div>
+						</div>
+
+						<ng-template #spanTitle>
+							<span class="var-name-span">
+								{{ variable.variableCode }} -
+								{{ variable.name }}
+							</span>
+						</ng-template>
 					</td>
 					<td class="vertical-align-middle">
 						<div id="accounting-code" class="row ml-3 w-100">
@@ -104,7 +125,7 @@
 							</mat-select>
 
 							<div
-								*ngIf="userType === 0"
+								*ngIf="userType === 0 && variable.id; else info"
 								title="Excluir indicador"
 								class="float-right hover-cursor hover-color p-0 ml-0"
 								data-toggle="tooltip"
@@ -113,6 +134,20 @@
 							>
 								<i class="fal fa-trash-alt text-danger"></i>
 							</div>
+
+							<ng-template #info>
+								<div
+									*ngIf="userType === 0"
+									title="Excluir indicador"
+									class="float-right p-0 ml-0"
+								>
+									<i
+										class="fad fa-question-circle question-mark"
+										matTooltip="Item da contabilidade"
+										[matTooltipPosition]="'below'"
+									></i>
+								</div>
+							</ng-template>
 						</div>
 					</td>
 				</tr>
