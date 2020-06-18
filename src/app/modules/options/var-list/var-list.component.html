@@ -24,9 +24,8 @@
 			<tbody>
 				<tr *ngFor="let variable of variables" class="table-row">
 					<td style="width: 30rem;">
-						<!-- REMOVER '&& false' -->
 						<div
-							*ngIf="userType === 0 && false; else spanTitle"
+							*ngIf="userType === 0; else spanTitle"
 							class="row w-100 m-0"
 						>
 							<span class="var-name-span">
@@ -35,8 +34,9 @@
 
 							<div class="pl-1 pr-0 col-11">
 								<input
-									class="simple-input hover-color w-100"
 									type="text"
+									class="simple-input hover-color w-100"
+									[class]="INPUT_VALIDATION_EXCEPTION"
 									[(ngModel)]="variable.name"
 									(input)="onVarEdited(variable)"
 								/>
