@@ -142,18 +142,22 @@
 								'Este indicador não possui descrição personalizada'
 						}}
 					</p>
-					<div class="float-right hover-cursor hover-color p-0 ml-0" (click)="delete(description)">
-						<i class="fal fa-trash-alt text-danger"></i>
-					</div>
+
 					<div
 						*ngIf="userType === 0"
+						title="Excluir indicador"
 						class="float-right hover-cursor hover-color p-0 ml-0"
+						data-toggle="tooltip"
+						data-placement="right"
 						(click)="delete(description)"
 					>
 						<i class="fal fa-trash-alt text-danger"></i>
 					</div>
 					<div
+						title="Editar descrição"
 						class="float-right hover-cursor hover-color p-0 mr-0"
+						data-toggle="tooltip"
+						data-placement="right"
 						(click)="openModal(description)"
 					>
 						<i class="fal fa-money-check-edit"></i>

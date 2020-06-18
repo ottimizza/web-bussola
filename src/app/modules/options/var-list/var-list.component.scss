@@ -40,6 +40,27 @@
 	}
 }
 
+// .input-description-title {
+// 	width: 20rem;
+// }
+
+.simple-input {
+	border: none;
+	outline: 0;
+	background-color: #fafafa;
+	border-bottom: 1px solid black;
+	margin: 0 !important;
+}
+
+.simple-input-title:focus {
+	border-bottom: 1px solid $base-color;
+	color: $base-color;
+}
+
+.simple-input:hover {
+	border-bottom: 1px solid $base-color;
+}
+
 .vertical-align-middle {
 	vertical-align: middle !important;
 }

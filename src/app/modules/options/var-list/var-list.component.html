@@ -23,14 +23,35 @@
 			</thead>
 			<tbody>
 				<tr *ngFor="let variable of variables" class="table-row">
-					<td>
-						<span class="w-100 var-name-span"
-							>{{ variable.variableCode }} -
-							{{ variable.name }}</span
+					<td style="width: 30rem;">
+						<div
+							*ngIf="userType === 0; else spanTitle"
+							class="row w-100 m-0"
 						>
+							<span class="var-name-span">
+								{{ variable.variableCode }} -
+							</span>
+
+							<div class="pl-1 pr-0 col-11">
+								<input
+									type="text"
+									class="simple-input hover-color w-100"
+									[class]="INPUT_VALIDATION_EXCEPTION"
+									[(ngModel)]="variable.name"
+									(input)="onVarEdited(variable)"
+								/>
+							</div>
+						</div>
+
+						<ng-template #spanTitle>
+							<span class="var-name-span">
+								{{ variable.variableCode }} -
+								{{ variable.name }}
+							</span>
+						</ng-template>
 					</td>
 					<td class="vertical-align-middle">
-						<div id="accounting-code" class="row ml-3 w-100 ">
+						<div id="accounting-code" class="row ml-3 w-100">
 							<input
 								class="input-accounting-code hover-color"
 								type="text"
@@ -74,33 +95,59 @@
 						</mat-select>
 					</td>
 					<td>
-						<mat-select
-							class="hover-children"
-							[(value)]="variable.originValue"
-							(selectionChange)="updateVariable(variable)"
-						>
-							<mat-option class="hover-important" [value]="1"
-								>Saldo Inicial - Saldo Final</mat-option
+						<div class="row m-0" style="flex-wrap: unset;">
+							<mat-select
+								class="hover-children"
+								[(value)]="variable.originValue"
+								(selectionChange)="updateVariable(variable)"
 							>
-							<mat-option class="hover-important" [value]="2"
-								>Saldo Final</mat-option
+								<mat-option class="hover-important" [value]="1"
+									>Saldo Final - Saldo Inicial</mat-option
+								>
+								<mat-option class="hover-important" [value]="2"
+									>Saldo Final</mat-option
+								>
+								<mat-option class="hover-important" [value]="3"
+									>Saldo Inicial</mat-option
+								>
+								<mat-option class="hover-important" [value]="4"
+									>Debito - Crédito</mat-option
+								>
+								<mat-option class="hover-important" [value]="5"
+									>Crédito - Debito</mat-option
+								>
+								<mat-option class="hover-important" [value]="6"
+									>Crédito</mat-option
+								>
+								<mat-option class="hover-important" [value]="7"
+									>Debito</mat-option
+								>
+							</mat-select>
+
+							<div
+								*ngIf="userType === 0 && variable.id; else info"
+								title="Excluir indicador"
+								class="float-right hover-cursor hover-color p-0 ml-0"
+								data-toggle="tooltip"
+								data-placement="right"
+								(click)="delete(variable)"
 							>
-							<mat-option class="hover-important" [value]="3"
-								>Saldo Inicial</mat-option
-							>
-							<mat-option class="hover-important" [value]="4"
-								>Debito - Crédito</mat-option
-							>
-							<mat-option class="hover-important" [value]="5"
-								>Crédito - Debito</mat-option
-							>
-							<mat-option class="hover-important" [value]="6"
-								>Crédito</mat-option
-							>
-							<mat-option class="hover-important" [value]="7"
-								>Debito</mat-option
-							>
-						</mat-select>
+								<i class="fal fa-trash-alt text-danger"></i>
+							</div>
+
+							<ng-template #info>
+								<div
+									*ngIf="userType === 0"
+									class="float-right p-0 ml-0"
+								>
+									<i
+										class="fad fa-question-circle question-mark"
+										matTooltip="Item da contabilidade"
+										[matTooltipPosition]="'below'"
+									></i>
+								</div>
+							</ng-template>
+						</div>
 					</td>
 				</tr>
 			</tbody>

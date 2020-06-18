@@ -1,3 +1,4 @@
+import { ConfirmDialogModule } from '@shared/components/confirm-dialog/confirm-dialog.module';
 import { MaterialModule } from './../../material.module';
 import { DescriptionDialogComponent } from './chart-order-config/description-dialog/description-dialog.component';
 import { ChartOrderConfigComponent } from './chart-order-config/chart-order-config.component';
@@ -27,7 +28,7 @@ import { SelectCompanyModule } from '@shared/components/select-company/select-co
 		AccountingSettingsComponent,
 		BalanceModalComponent,
 		DescriptionDialogComponent,
-		ChartOrderConfigComponent
+		ChartOrderConfigComponent,
 	],
 	imports: [
 		CommonModule,
@@ -41,10 +42,11 @@ import { SelectCompanyModule } from '@shared/components/select-company/select-co
 		SelectCompanyModule,
 		TableModule,
 		MatTooltipModule,
-		SharedModule
+		SharedModule,
+		ConfirmDialogModule,
 	],
 	exports: [VarListComponent, ChartOrderConfigComponent],
 	providers: [],
-	entryComponents: [BalanceModalComponent, DescriptionDialogComponent]
+	entryComponents: [BalanceModalComponent, DescriptionDialogComponent],
 })
 export class OptionsModule {}

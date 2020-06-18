@@ -1,5 +1,5 @@
 export const environment = {
-	production: true,
+	production: false,
 	oauthBaseUrl: 'https://staging-oauth-server.herokuapp.com',
 	appApi: 'https://staging-api-bussolapwa.ottimizza.com.br',
 	storageUrl: 'https://s4.ottimizzacontabil.com:55325',
