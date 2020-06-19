@@ -32,6 +32,8 @@ export class VarListComponent implements OnInit {
 
 	private _variables: VariableInfo[] | AccountingVariableInfo[] = [];
 
+	public INPUT_VALIDATION_EXCEPTION = 'is-a-true-text';
+
 	get variables(): VariableInfo[] | AccountingVariableInfo[] {
 		return this._variables;
 	}
@@ -61,6 +63,12 @@ export class VarListComponent implements OnInit {
 	userType = User.fromLocalStorage().type;
 
 	@HostListener('keypress', ['$event']) onKeyPress(event: any) {
+		if (event instanceof KeyboardEvent) {
+			const input = event.target as HTMLInputElement;
+			if (input.classList.contains(this.INPUT_VALIDATION_EXCEPTION)) {
+				return event.key;
+			}
+		}
 		return new RegExp(regexStr).test(event.key);
 	}
 
