@@ -10,14 +10,15 @@ import { Company } from '@shared/models/company';
 @Component({
 	selector: 'app-company-settings',
 	templateUrl: 'company-settings.component.html',
-	styleUrls: ['company-settings.component.scss']
+	styleUrls: ['company-settings.component.scss'],
 })
 export class CompanySettingsComponent implements OnInit {
 	sectors = [
 		{ label: 'Construção Civil', value: 1 },
 		{ label: 'Comércio Varejista', value: 2 },
 		{ label: 'Tecnologia', value: 3 },
-		{ label: 'Alimentação', value: 4 }
+		{ label: 'Alimentação', value: 4 },
+		{ label: 'Serviços', value: 5 },
 	];
 
 	selectedCompany: Company;
@@ -56,7 +57,7 @@ export class CompanySettingsComponent implements OnInit {
 	findSector() {
 		this.companyService
 			.findCompanyByCnpj(this.selectedCompany.cnpj)
-			.subscribe(companies => {
+			.subscribe((companies) => {
 				this.selectedSector = companies[0].sector || null;
 			});
 	}
@@ -92,7 +93,7 @@ export class CompanySettingsComponent implements OnInit {
 		this.variables[this.variables.indexOf(variableInfo)] = variableInfo;
 
 		this.variableService.postVariable(variableInfo).subscribe(
-			res =>
+			(res) =>
 				this.toastService.show(
 					'Parâmetro alterado com sucesso',
 					'success'
@@ -106,7 +107,7 @@ export class CompanySettingsComponent implements OnInit {
 			() => {
 				this.toastService.show('Alterado com sucesso', 'success');
 			},
-			err => {
+			(err) => {
 				console.log(err);
 				this.toastService.show('Erro ao fazer alterações', 'danger');
 			}
@@ -123,7 +124,7 @@ export class CompanySettingsComponent implements OnInit {
 				() => {
 					this.toastService.show('Setor salvo..');
 				},
-				err => {
+				(err) => {
 					console.log(err);
 					this.toastService.show(
 						'Ocorreu um erro, tente novamente.',
