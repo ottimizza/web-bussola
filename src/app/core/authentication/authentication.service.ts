@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -9,7 +10,7 @@ import { environment } from '@env';
 import { User } from '@app/models/User';
 
 @Injectable({
-	providedIn: 'root'
+	providedIn: 'root',
 })
 export class AuthenticationService {
 	static REFRESH_URL = '/auth/refresh';
@@ -22,12 +23,13 @@ export class AuthenticationService {
 
 	constructor(
 		@Inject(DOCUMENT) private document: Document,
+		public storageService: StorageService,
 		private http: HttpClient,
-		public storageService: StorageService
+		private router: Router
 	) {}
 
 	public store(authSession: AuthSession): Promise<{}> {
-		return new Promise<boolean>(resolve => {
+		return new Promise<boolean>((resolve) => {
 			localStorage.setItem(
 				AuthenticationService.STORAGE_KEY_USERINFO,
 				authSession.toString()
@@ -85,12 +87,22 @@ export class AuthenticationService {
 						resolve();
 					})
 				)
-				.subscribe((response: any) => {
-					this.storageService.store(
-						AuthenticationService.STORAGE_KEY_TOKENINFO,
-						JSON.stringify(response)
-					);
-				});
+				.subscribe(
+					(response: any) => {
+						this.storageService.store(
+							AuthenticationService.STORAGE_KEY_TOKENINFO,
+							JSON.stringify(response)
+						);
+					},
+					(err) => {
+						if (err.status === 403) {
+							alert(
+								'Seu usuário não possue acesso a esta aplicação. Se você acha que isso está errado, fale com seu administrador.'
+							);
+							this.router.navigate(['auth', 'logout']);
+						}
+					}
+				);
 		}).then(() => {});
 	}
 
