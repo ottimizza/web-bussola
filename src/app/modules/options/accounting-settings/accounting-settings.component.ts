@@ -5,6 +5,7 @@ import { VariableInfo, AccountingVariableInfo } from '@shared/models/variables';
 import { VariableService } from '@shared/services/variable.service';
 import { ToastService } from '@shared/services/toast.service';
 import { Description } from '@shared/models/description';
+import { Kobiton } from 'protractor/built/driverProviders';
 
 @Component({
 	selector: 'app-accounting-settings',
@@ -62,6 +63,13 @@ export class AccountingSettingsComponent implements OnInit {
 						: this.comparativeDescriptions.push(description);
 				});
 			});
+	}
+
+	adjustKpi(kpi: any) {
+		if (kpi.graphOrder <60) {
+			kpi.graphOrder = kpi.graphOrder+60;
+		}
+		return kpi.graphOrder
 	}
 
 	onVariableEdited(variableInfo: AccountingVariableInfo) {

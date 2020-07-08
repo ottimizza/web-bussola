@@ -8,6 +8,7 @@ import { StorageService } from '@shared/services/storage.service';
 import { AuthSession } from '@app/models/AuthSession';
 import { environment } from '@env';
 import { User } from '@app/models/User';
+import { SKIP_INTERCEPTOR } from '@app/interceptor/skip.interceptor';
 
 @Injectable({
 	providedIn: 'root',
@@ -58,8 +59,11 @@ export class AuthenticationService {
 		});
 	}
 
-	public async storeUserInfo(): Promise<void> {
+	public async storeUserInfo(skipInterceptor = false): Promise<void> {
 		const headers = this.getAuthorizationHeaders();
+		if (skipInterceptor) {
+			headers.append(SKIP_INTERCEPTOR, '');
+		}
 		return new Promise<void>((resolve, reject) => {
 			return this.http
 				.get(`${environment.oauthBaseUrl}/oauth/userinfo`, { headers })
