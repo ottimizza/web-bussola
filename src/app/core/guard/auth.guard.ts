@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 		public router: Router,
 		public authenticationService: AuthenticationService,
 		public notificationService: NotificationService
-	) {}
+	) { }
 
 	canActivate(): Promise<boolean> {
 		const that = this;
@@ -26,7 +26,8 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 								.then(() => {
 									// this.notificationService.requestSafariNotificationPermission();
 								}),
-							this.authenticationService.storeTokenInfo()
+							this.authenticationService.storeTokenInfo(),
+							this.authenticationService.verifyProduct()
 						]).then(() => {
 							resolve(true);
 						});
@@ -50,6 +51,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 												.then(async () => {
 													this.authenticationService.storeUserInfo();
 													this.authenticationService.storeTokenInfo();
+													this.authenticationService.verifyProduct();
 												});
 										} else if (response.error) {
 											this.authenticationService.authorize();
