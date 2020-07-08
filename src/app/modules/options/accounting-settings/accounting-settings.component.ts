@@ -66,7 +66,7 @@ export class AccountingSettingsComponent implements OnInit {
 	}
 
 	adjustKpi(kpi: any) {
-		if (kpi.graphOrder <60) {
+		if (kpi.graphOrder < 60) {
 			kpi.graphOrder = kpi.graphOrder+60;
 		}
 		return kpi.graphOrder
