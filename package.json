@@ -7,7 +7,7 @@
 		"prod-build": "npm run config -- && ng build --prod --aot --vendor-chunk --common-chunk --delete-output-path --buildOptimizer && gulp compress",
 		"build": "gulp --gulpfile s/gulpfile.js",
 		"config": "node ./src/config-env.js",
-		"start": "npm run config -- && node server.js",
+		"start": "node server.js",
 		"test": "ng test",
 		"lint": "ng lint",
 		"e2e": "ng e2e",
@@ -72,6 +72,10 @@
 		"ts-node": "~7.0.0",
 		"tslint": "~5.15.0",
 		"typescript": "~3.7.5"
+	},
+	"engines": {
+		"node": "10.13.0",
+		"npm": "6.4.1"
 	},
 	"prettier": {
 		"bracketSpacing": true,
