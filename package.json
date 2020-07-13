@@ -3,15 +3,16 @@
 	"version": "1.0.0",
 	"scripts": {
 		"ng": "ng",
-		"serve": "ng serve",
-		"prod-build": "npm run config -- && ng build --prod --aot --vendor-chunk --common-chunk --delete-output-path --buildOptimizer && gulp compress",
-		"build": "gulp --gulpfile s/gulpfile.js",
-		"config": "node ./src/config-env.js",
-		"start": "npm run config -- && node server.js",
-		"test": "ng test",
-		"lint": "ng lint",
-		"e2e": "ng e2e",
-		"heroku-postbuild": "npm run prod-build"
+    "serve": "ng serve --host 0.0.0.0 --port 4200",
+    "dev-build": "npm run config -- && ng build",
+    "prod-build": "npm run config -- && ng build --prod --aot --vendor-chunk --common-chunk --delete-output-path --buildOptimizer && gulp compress",
+    "build": "ng build --prod --aot",
+    "config": "node ./config-env.js",
+    "start": "node server.js",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "heroku-postbuild": "npm run prod-build"
 	},
 	"private": true,
 	"dependencies": {
