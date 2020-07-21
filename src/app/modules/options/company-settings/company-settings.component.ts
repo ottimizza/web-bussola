@@ -6,6 +6,7 @@ import { VariableInfo } from '@shared/models/variables';
 import { ToastService } from '@shared/services/toast.service';
 import { Description } from '@shared/models/description';
 import { Company } from '@shared/models/company';
+import { TokenInfo } from '@app/models/TokenInfo';
 
 @Component({
 	selector: 'app-company-settings',
@@ -29,6 +30,8 @@ export class CompanySettingsComponent implements OnInit {
 	pointerDescriptions: Description[] = [];
 	comparativeDescriptions: Description[] = [];
 
+	canManage: boolean;
+
 	constructor(
 		private variableService: VariableService,
 		private companyService: CompanyService,
@@ -36,7 +39,9 @@ export class CompanySettingsComponent implements OnInit {
 		private descriptionService: DescriptionService
 	) {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.canManage = TokenInfo.fromLocalStorage().canManage();
+	}
 
 	requestVariables() {
 		this.variableService
@@ -90,6 +95,7 @@ export class CompanySettingsComponent implements OnInit {
 	}
 
 	onVariableEdited(variableInfo: VariableInfo) {
+		if (!this.canManage) { return; }
 		this.variables[this.variables.indexOf(variableInfo)] = variableInfo;
 
 		this.variableService.postVariable(variableInfo).subscribe(
@@ -103,6 +109,7 @@ export class CompanySettingsComponent implements OnInit {
 	}
 
 	onDescriptionChanged(descriptions: Description[]) {
+		if (!this.canManage) { return; }
 		this.descriptionService.updateDescriptionList(descriptions).subscribe(
 			() => {
 				this.toastService.show('Alterado com sucesso', 'success');
@@ -115,6 +122,7 @@ export class CompanySettingsComponent implements OnInit {
 	}
 
 	updateSetor() {
+		if (!this.canManage) { return; }
 		this.companyService
 			.updateCompany(
 				this.selectedCompany.cnpj,
