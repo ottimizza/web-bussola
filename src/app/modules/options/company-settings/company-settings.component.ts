@@ -7,6 +7,7 @@ import { ToastService } from '@shared/services/toast.service';
 import { Description } from '@shared/models/description';
 import { Company } from '@shared/models/company';
 import { TokenInfo } from '@app/models/TokenInfo';
+import { SectorService } from '@shared/services/sector.service';
 
 @Component({
 	selector: 'app-company-settings',
@@ -14,13 +15,7 @@ import { TokenInfo } from '@app/models/TokenInfo';
 	styleUrls: ['company-settings.component.scss'],
 })
 export class CompanySettingsComponent implements OnInit {
-	sectors = [
-		{ label: 'Construção Civil', value: 1 },
-		{ label: 'Comércio Varejista', value: 2 },
-		{ label: 'Tecnologia', value: 3 },
-		{ label: 'Alimentação', value: 4 },
-		{ label: 'Serviços', value: 5 },
-	];
+	sectors: { label: string, value: number }[] = [];
 
 	selectedCompany: Company;
 	selectedSector: number;
@@ -36,10 +31,14 @@ export class CompanySettingsComponent implements OnInit {
 		private variableService: VariableService,
 		private companyService: CompanyService,
 		private toastService: ToastService,
-		private descriptionService: DescriptionService
+		private descriptionService: DescriptionService,
+		private sectorService: SectorService
 	) {}
 
 	ngOnInit() {
+		this.sectorService.get().subscribe(results => {
+			this.sectors = results;
+		})
 		this.canManage = TokenInfo.fromLocalStorage().canManage();
 	}
 
@@ -122,7 +121,6 @@ export class CompanySettingsComponent implements OnInit {
 	}
 
 	updateSetor() {
-		if (!this.canManage) { return; }
 		this.companyService
 			.updateCompany(
 				this.selectedCompany.cnpj,

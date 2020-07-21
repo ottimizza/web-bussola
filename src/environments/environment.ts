@@ -1,7 +1,7 @@
 export const environment = {
 	production: false,
 	oauthBaseUrl: 'https://staging-oauth-server.herokuapp.com',
-	appApi: 'https://staging-api-bussolapwa.ottimizza.com.br',
+	appApi: 'https://development-api-bussolaweb.herokuapp.com',
 	storageUrl: 'https://s4.ottimizzacontabil.com:55325',
 	oauthClientId: 'bussola-contabil-client',
 	applicationId: 'staging-bussola-contabil',
