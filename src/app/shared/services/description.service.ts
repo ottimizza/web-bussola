@@ -54,6 +54,12 @@ export class DescriptionService {
 	}
 
 	updateDescriptionList(descriptions: Description[]) {
+		descriptions = descriptions.map(desc => {
+			if (+desc.kpiAlias >= 60 && desc.graphOrder < 60) {
+				desc.graphOrder += 60;
+			}
+			return desc;
+		})
 		return this.httpClient.post(
 			`${environment.appApi}/description/update`,
 			{ descriptions },
