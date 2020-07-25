@@ -6,6 +6,7 @@ import { VariableService } from '@shared/services/variable.service';
 import { ToastService } from '@shared/services/toast.service';
 import { Description } from '@shared/models/description';
 import { Kobiton } from 'protractor/built/driverProviders';
+import { TokenInfo } from '@app/models/TokenInfo';
 
 @Component({
 	selector: 'app-accounting-settings',
@@ -20,6 +21,8 @@ export class AccountingSettingsComponent implements OnInit {
 	pointerDescriptions: Description[] = [];
 	comparativeDescriptions: Description[] = [];
 
+	canManage: boolean;
+
 	constructor(
 		private variableService: VariableService,
 		private toastService: ToastService,
@@ -27,6 +30,7 @@ export class AccountingSettingsComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
+		this.canManage = TokenInfo.fromLocalStorage().canManage();
 		this.variableService
 			.requestScriptType()
 			.subscribe((types: ScriptType[]) => {
@@ -67,12 +71,13 @@ export class AccountingSettingsComponent implements OnInit {
 
 	adjustKpi(kpi: any) {
 		if (kpi.graphOrder < 60) {
-			kpi.graphOrder = kpi.graphOrder+60;
+			kpi.graphOrder = kpi.graphOrder + 60;
 		}
 		return kpi.graphOrder
 	}
 
 	onVariableEdited(variableInfo: AccountingVariableInfo) {
+		if (!this.canManage) { return; }
 		// const varIndex = this.variables.indexOf(variableInfo);
 		this.variables[this.variables.indexOf(variableInfo)] = variableInfo;
 
@@ -83,6 +88,7 @@ export class AccountingSettingsComponent implements OnInit {
 	}
 
 	onDescriptionChanged(descriptions: Description[]) {
+		if (!this.canManage) { return; }
 		this.descriptionService.updateDescriptionList(descriptions).subscribe(
 			() => {
 				this.toastService.show('Alterado com sucesso', 'success');

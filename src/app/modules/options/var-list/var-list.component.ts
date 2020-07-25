@@ -16,6 +16,7 @@ import {
 import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastService } from '@shared/services/toast.service';
+import { TokenInfo } from '@app/models/TokenInfo';
 
 const regexStr = /(\d)|(\.)|(\+)|(\-)/;
 
@@ -27,10 +28,12 @@ const regexStr = /(\d)|(\.)|(\+)|(\-)/;
 export class VarListComponent implements OnInit {
 	@Input() selectedCompany?: Company;
 	@Output() onVariableEdited = new EventEmitter<
-		VariableInfo | AccountingVariableInfo
+	VariableInfo | AccountingVariableInfo
 	>();
 
 	private _variables: VariableInfo[] | AccountingVariableInfo[] = [];
+
+	public canManage = TokenInfo.fromLocalStorage().canManage();
 
 	public INPUT_VALIDATION_EXCEPTION = 'is-a-true-text';
 
@@ -100,7 +103,7 @@ export class VarListComponent implements OnInit {
 
 	delete(variableInfo) {
 		console.log(variableInfo);
-		if (variableInfo.id) {
+		if (variableInfo.id && this.canManage) {
 			if (variableInfo.variableId) {
 				this.variableService
 					.deleteCompanyVariable(variableInfo.id)
@@ -146,6 +149,7 @@ export class VarListComponent implements OnInit {
 	}
 
 	openModal(variableInfo: VariableInfo | AccountingVariableInfo) {
+		if (!this.canManage) { return; }
 		this.matDialog.open(BalanceModalComponent, {
 			width: '50rem',
 			data: {
