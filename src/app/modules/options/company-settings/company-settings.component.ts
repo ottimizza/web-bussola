@@ -6,6 +6,8 @@ import { VariableInfo } from '@shared/models/variables';
 import { ToastService } from '@shared/services/toast.service';
 import { Description } from '@shared/models/description';
 import { Company } from '@shared/models/company';
+import { TokenInfo } from '@app/models/TokenInfo';
+import { SectorService } from '@shared/services/sector.service';
 
 @Component({
 	selector: 'app-company-settings',
@@ -13,13 +15,7 @@ import { Company } from '@shared/models/company';
 	styleUrls: ['company-settings.component.scss'],
 })
 export class CompanySettingsComponent implements OnInit {
-	sectors = [
-		{ label: 'Construção Civil', value: 1 },
-		{ label: 'Comércio Varejista', value: 2 },
-		{ label: 'Tecnologia', value: 3 },
-		{ label: 'Alimentação', value: 4 },
-		{ label: 'Serviços', value: 5 },
-	];
+	sectors: { label: string, value: number }[] = [];
 
 	selectedCompany: Company;
 	selectedSector: number;
@@ -29,14 +25,22 @@ export class CompanySettingsComponent implements OnInit {
 	pointerDescriptions: Description[] = [];
 	comparativeDescriptions: Description[] = [];
 
+	canManage: boolean;
+
 	constructor(
 		private variableService: VariableService,
 		private companyService: CompanyService,
 		private toastService: ToastService,
-		private descriptionService: DescriptionService
+		private descriptionService: DescriptionService,
+		private sectorService: SectorService
 	) {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.sectorService.get().subscribe(results => {
+			this.sectors = results;
+		})
+		this.canManage = TokenInfo.fromLocalStorage().canManage();
+	}
 
 	requestVariables() {
 		this.variableService
@@ -90,6 +94,7 @@ export class CompanySettingsComponent implements OnInit {
 	}
 
 	onVariableEdited(variableInfo: VariableInfo) {
+		if (!this.canManage) { return; }
 		this.variables[this.variables.indexOf(variableInfo)] = variableInfo;
 
 		this.variableService.postVariable(variableInfo).subscribe(
@@ -103,6 +108,7 @@ export class CompanySettingsComponent implements OnInit {
 	}
 
 	onDescriptionChanged(descriptions: Description[]) {
+		if (!this.canManage) { return; }
 		this.descriptionService.updateDescriptionList(descriptions).subscribe(
 			() => {
 				this.toastService.show('Alterado com sucesso', 'success');

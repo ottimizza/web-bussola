@@ -19,6 +19,7 @@ import { MatTable } from '@angular/material/table';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { User } from '@app/models/User';
 import { ToastService } from '@shared/services/toast.service';
+import { TokenInfo } from '@app/models/TokenInfo';
 
 @Component({
 	selector: 'chart-order-config',
@@ -34,17 +35,11 @@ export class ChartOrderConfigComponent implements OnInit {
 
 	private descriptionsSubject = new Subject();
 
+	canManage = TokenInfo.fromLocalStorage().canManage();
+
 	selectedDescription: Description;
 
 	userType = User.fromLocalStorage().type;
-
-	displayedColumns: string[] = [
-		'position',
-		'visibility',
-		'title',
-		'type',
-		'description',
-	];
 
 	constructor(
 		public matDialog: MatDialog,
@@ -56,6 +51,19 @@ export class ChartOrderConfigComponent implements OnInit {
 		this.descriptionsSubject.pipe(debounceTime(300)).subscribe(() => {
 			this.updateDescriptionList();
 		});
+	}
+
+	displayedColumns(): string[] {
+		const array = [
+			'visibility',
+			'title',
+			'type',
+			'description'
+		];
+		if (this.canManage) {
+			return ['position'].concat(array);
+		}
+		return array;
 	}
 
 	updateDescriptionList() {
@@ -88,10 +96,13 @@ export class ChartOrderConfigComponent implements OnInit {
 	}
 
 	updateDescription(description: Description) {
-		this.descriptionService.patchDescription(description).subscribe();
+		if (this.canManage) {
+			this.descriptionService.patchDescription(description).subscribe();
+		}
 	}
 
 	delete(description: Description) {
+		if (!this.canManage) { return; }
 		const id = this.descriptions.indexOf(description);
 
 		const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
