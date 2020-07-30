@@ -6,7 +6,6 @@
 		"serve": "ng serve --host 0.0.0.0 --port 4200",
 		"dev-build": "npm run config -- && ng build",
 		"prod-build": "npm run config -- && ng build --prod --aot --vendor-chunk --common-chunk --delete-output-path --buildOptimizer && gulp compress",
-
 		"build": "gulp --gulpfile s/gulpfile.js",
 		"config": "node ./src/config-env.js",
 		"start": "node server.js",
