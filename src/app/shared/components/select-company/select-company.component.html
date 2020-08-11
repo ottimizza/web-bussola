@@ -1,5 +1,5 @@
 <div class="pb-3">
-	<mat-expansion-panel [(expanded)]="panelOpenState">
+	<mat-expansion-panel [(expanded)]="panelOpenState" [disabled]="isFetching">
 		<mat-expansion-panel-header>
 			<mat-panel-title>
 				<div class="mt-2 mb-2">
@@ -25,6 +25,7 @@
 				name="Filtrar empresa"
 				(input)="updateFilter()"
 				[(ngModel)]="filter"
+				[disabled]="isFetching"
 			/>
 		</div>
 
