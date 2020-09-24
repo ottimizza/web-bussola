@@ -18,7 +18,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastService } from '@shared/services/toast.service';
 import { TokenInfo } from '@app/models/TokenInfo';
 
-const regexStr = /(\d)|(\.)|(\+)|(\-)/;
+const regexStr = /(\d)|(\.)|(\+)|(\-)|(\;)/;
 
 @Component({
 	selector: 'app-var-list',
