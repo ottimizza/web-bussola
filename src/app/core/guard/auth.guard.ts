@@ -5,7 +5,7 @@ import { finalize } from 'rxjs/operators';
 import { AuthenticationService } from '@app/authentication/authentication.service';
 import { AuthSession } from '@app/models/AuthSession';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate, CanActivateChild {
 	constructor(
 		public router: Router,
