@@ -63,8 +63,6 @@ export class VarListComponent implements OnInit {
 		VariableInfo | AccountingVariableInfo
 	>();
 
-	userType = User.fromLocalStorage().type;
-
 	@HostListener('keypress', ['$event']) onKeyPress(event: any) {
 		if (event instanceof KeyboardEvent) {
 			const input = event.target as HTMLInputElement;
