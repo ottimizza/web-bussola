@@ -22,8 +22,8 @@ export class CompanySettingsComponent implements OnInit {
 	variables: VariableInfo[] = [];
 	shareCompanyData = false;
 
-	pointerDescriptions: Description[] = [];
-	comparativeDescriptions: Description[] = [];
+	// pointerDescriptions: Description[] = [];
+	// comparativeDescriptions: Description[] = [];
 
 	canManage: boolean;
 
@@ -66,28 +66,28 @@ export class CompanySettingsComponent implements OnInit {
 			});
 	}
 
-	requestDescriptionList() {
-		this.descriptionService
-			.getDescriptionList(this.selectedCompany.cnpj)
-			.subscribe((descriptions: any) => {
-				descriptions.content.forEach((description: Description) => {
-					+description.kpiAlias < 60
-						? this.pointerDescriptions.push(description)
-						: this.comparativeDescriptions.push(description);
-				});
-			});
-	}
+	// requestDescriptionList() {
+	// 	this.descriptionService
+	// 		.getDescriptionList(this.selectedCompany.cnpj)
+	// 		.subscribe((descriptions: any) => {
+	// 			descriptions.content.forEach((description: Description) => {
+	// 				+description.kpiAlias < 60
+	// 					? this.pointerDescriptions.push(description)
+	// 					: this.comparativeDescriptions.push(description);
+	// 			});
+	// 		});
+	// }
 
 	onCompanyChanged(selectedCompany: Company) {
 		if (!!selectedCompany) {
 			this.selectedCompany = selectedCompany;
 
 			this.variables = [];
-			this.pointerDescriptions = [];
-			this.comparativeDescriptions = [];
+			// this.pointerDescriptions = [];
+			// this.comparativeDescriptions = [];
 
 			this.findSector();
-			this.requestDescriptionList();
+			// this.requestDescriptionList();
 			this.requestVariables();
 			this.requestMissingVariables();
 		}

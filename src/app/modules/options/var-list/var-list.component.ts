@@ -18,7 +18,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastService } from '@shared/services/toast.service';
 import { TokenInfo } from '@app/models/TokenInfo';
 
-const regexStr = /(\d)|(\.)|(\+)|(\-)/;
+const regexStr = /(\d)|(\.)|(\+)|(\-)|(\;)/;
 
 @Component({
 	selector: 'app-var-list',
@@ -62,8 +62,6 @@ export class VarListComponent implements OnInit {
 	private variableSubject = new Subject<
 		VariableInfo | AccountingVariableInfo
 	>();
-
-	userType = User.fromLocalStorage().type;
 
 	@HostListener('keypress', ['$event']) onKeyPress(event: any) {
 		if (event instanceof KeyboardEvent) {

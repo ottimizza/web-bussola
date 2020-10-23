@@ -1,5 +1,6 @@
 <app-select-company
 	(selectedCompany)="onCompanyChanged($event)"
+	[isFetching]="isLoading"
 ></app-select-company>
 
 <div *ngIf="kpis.length >= 0" class="w-100">

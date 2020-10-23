@@ -6,7 +6,8 @@ import {
 	EventEmitter,
 	ElementRef,
 	ViewChild,
-	HostListener
+	HostListener,
+	Input
 } from '@angular/core';
 import { CompanyService } from '@shared/services/company.service';
 import { Subject, Observable } from 'rxjs';
@@ -21,6 +22,8 @@ import { MatExpansionPanel } from '@angular/material/expansion';
 })
 export class SelectCompanyComponent implements OnInit {
 	static company: Company;
+
+	@Input() isFetching = false
 
 	companies: Company[] = [];
 	pageIndex = 0;

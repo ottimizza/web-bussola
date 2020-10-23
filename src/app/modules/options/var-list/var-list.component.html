@@ -25,7 +25,7 @@
 				<tr *ngFor="let variable of variables" class="table-row">
 					<td style="width: 30rem;">
 						<div
-							*ngIf="userType === 0; else spanTitle"
+							*ngIf="canManage; else spanTitle"
 							class="row w-100 m-0"
 						>
 							<span class="var-name-span">
@@ -130,7 +130,7 @@
 							</mat-select>
 
 							<div
-								*ngIf="userType === 0 && variable.id && canManage; else info"
+								*ngIf="variable.id && canManage; else info"
 								title="Excluir indicador"
 								class="float-right hover-cursor hover-color p-0 ml-0"
 								data-toggle="tooltip"
@@ -142,7 +142,7 @@
 
 							<ng-template #info>
 								<div
-									*ngIf="userType === 0"
+									*ngIf="canManage"
 									class="float-right p-0 ml-0"
 								>
 									<i
