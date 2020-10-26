@@ -159,3 +159,16 @@ i {
 	padding-right: 1rem;
 	color: rgba($base-color, 0.8);
 }
+
+.accounting-name {
+	position: fixed;
+	top: 1.5rem;
+	right: 100px;
+	span {
+		max-width: 280px;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		margin-right: 20px;
+	}
+}
