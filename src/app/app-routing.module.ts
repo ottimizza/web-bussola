@@ -18,7 +18,11 @@ const routes: Routes = [
 		component: AuthLayoutComponent,
 		loadChildren: () =>
 			import('@modules/auth/auth.module').then(m => m.AuthModule)
-	}
+	},
+	{
+		path: 'landpage',
+		loadChildren: () => import('@modules/land-page/land-page.routing').then(m => m.LandPageRouting)
+	},
 ];
 
 @NgModule({
