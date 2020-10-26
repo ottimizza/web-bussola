@@ -5,6 +5,7 @@ import { finalize } from 'rxjs/operators';
 import { StorageService } from '@app/services/storage.service';
 
 import { environment } from '@env';
+import { Router } from '@angular/router';
 import { SKIP_INTERCEPTOR } from '@app/interceptor/skip-interceptor';
 import { AuthSession } from '@app/models/AuthSession';
 
@@ -17,7 +18,6 @@ export const CALLBACK_URL = '/auth/callback';
 export class AuthenticationService {
 
 	static REFRESH_URL = '/auth/refresh';
-	static CALLBACK_URL = '/auth/callback';
 
 	static STORAGE_KEY_USERINFO = 'user-info';
 	static STORAGE_KEY_TOKENINFO = 'token-info';
@@ -25,7 +25,11 @@ export class AuthenticationService {
 
 	public redirectURI = `${window.location.origin}/auth/callback`;
 
-	constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient, public storageService: StorageService) { }
+	constructor(
+		@Inject(DOCUMENT) private document: Document,
+		private http: HttpClient,
+		public storageService: StorageService,
+		private router: Router) { }
 
 	public store(authSession: AuthSession): Promise<{}> {
 		return new Promise<boolean>((resolve, reject) => {
@@ -53,10 +57,7 @@ export class AuthenticationService {
 	}
 
 	public async storeUserInfo(skipInterceptor = false): Promise<void> {
-		const headers = this.getAuthorizationHeaders();
-		if (skipInterceptor) {
-			headers.append(SKIP_INTERCEPTOR, '');
-		}
+		const headers = this.getAuthorizationHeadersWithSkipInterceptor(skipInterceptor);
 		return new Promise<void>((resolve, reject) => {
 			return this.http.get(`${environment.oauthBaseUrl}/oauth/userinfo`, { headers })
 				.pipe(
@@ -70,10 +71,7 @@ export class AuthenticationService {
 	}
 
 	public async storeTokenInfo(skipInterceptor = false): Promise<void> {
-		const headers = this.getAuthorizationHeaders();
-		if (skipInterceptor) {
-			headers.append(SKIP_INTERCEPTOR, '');
-		}
+		const headers = this.getAuthorizationHeadersWithSkipInterceptor(skipInterceptor);
 		return new Promise<void>((resolve, reject) => {
 			return this.http.get(`${environment.oauthBaseUrl}/oauth/tokeninfo`, { headers })
 				.pipe(
@@ -82,15 +80,28 @@ export class AuthenticationService {
 					})
 				).subscribe((response: any) => {
 					this.storageService.store(AuthenticationService.STORAGE_KEY_TOKENINFO, JSON.stringify(response));
-				}, err => {
-					if (err.status === 403) {
-						alert('Seu usuário não tem acesso a esta aplicação. Se você acha que isto é um erro, entre em contato com seu administrador');
-						this.authorize();
-					}
 				});
 		}).then(() => { });
 	}
 
+	public async verifyProduct() {
+		const headers = this.getAuthorizationHeadersWithSkipInterceptor(true);
+		const url = `${environment.oauthBaseUrl}/api/v1/check_products/${environment.oauthClientId}`;
+		return new Promise((resolve, reject) => {
+			this.http
+				.get(url, { headers })
+				.pipe(finalize(() => resolve()))
+				.subscribe(null, err => {
+					console.error(err);
+					if (err.status === 403) {
+						alert(
+							'Seu usuário não tem acesso a este produto! Se você acha que isto é um erro, entre em contato com seu administrador.'
+						);
+						this.authorize();
+					}
+				});
+		});
+	}
 
 	public clearStorage() {
 		localStorage.removeItem(AuthenticationService.STORAGE_KEY_USERINFO);
@@ -100,6 +111,7 @@ export class AuthenticationService {
 
 
 	public authorize(responseType: string = 'code'): void {
+		const that = this;
 		const baseUrl = `${environment.oauthBaseUrl}/oauth/authorize`;
 		const clientId = `${environment.oauthClientId}`;
 		const url = `${baseUrl}?response_type=${responseType}&prompt=login&client_id=${clientId}&redirect_uri=${this.redirectURI}`;
@@ -107,7 +119,7 @@ export class AuthenticationService {
 	}
 
 	public exchange(code: string) {
-		const url = `${environment.oauthBaseUrl}/auth/callback?code=${code}&redirect_uri=${this.redirectURI}`;
+		const url = `${environment.appApi}/oauth/callback?code=${code}&redirect_uri=${this.redirectURI}`;
 		return this.http.post(url, {}, {});
 	}
 
@@ -116,7 +128,7 @@ export class AuthenticationService {
 			'X-Skip-Interceptor': ''
 		});
 		const clientId = `${environment.oauthClientId}`;
-		const url = `${environment.oauthBaseUrl}/auth/refresh?refresh_token=${refreshToken}&client_id=${clientId}`;
+		const url = `${environment.appApi}/auth/refresh?refresh_token=${refreshToken}&client_id=${clientId}`;
 		return this.http.post(url, {}, { headers });
 	}
 
@@ -133,6 +145,14 @@ export class AuthenticationService {
 
 	public getAuthorizationHeaders(): HttpHeaders {
 		return new HttpHeaders().set('Authorization', `Bearer ${this.getAccessToken().trim()}`);
+	}
+
+	public getAuthorizationHeadersWithSkipInterceptor(skipInterceptor: boolean): HttpHeaders {
+		const headers = this.getAuthorizationHeaders();
+		if (skipInterceptor) {
+			headers.append(SKIP_INTERCEPTOR, '');
+		}
+		return headers;
 	}
 
 	public getNoBearerAuthorizationHeaders(): HttpHeaders {
