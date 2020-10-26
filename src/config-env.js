@@ -14,7 +14,9 @@ const envConfigFile = `export const environment = {
   storageUrl: '${getEnvironmentVariable('STORAGE_URL')}',
   oauthClientId: '${getEnvironmentVariable('CLIENT_ID')}',
 	applicationId: '${getEnvironmentVariable('APPLICATION_ID')}',
-	accountsUrl: '${getEnvironmentVariable('ACCOUNTS_URL')}'
+	accountsUrl: '${getEnvironmentVariable('ACCOUNTS_URL')}',
+	backgroundTheme: '${getEnvironmentVariable('BACKGROUND_THEME', '#004ecb')}',
+	supportUrl: '${getEnvironmentVariable('SUPPORT_URL', 'https://suporte.ottimizza.com.br')}'
 };
 `;
 
