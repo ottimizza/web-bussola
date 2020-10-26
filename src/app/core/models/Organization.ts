@@ -1,17 +1,21 @@
 export class Organization {
-	static Type = class {
-		static ACCOUNTING = 1;
-		static CUSTOMER = 2;
-	};
 
-	id: number;
+  static Type = class {
+    static ACCOUNTING = 1;
+    static CUSTOMER = 2;
+  };
 
-	cnpj: string;
-	externalId: boolean;
-	type: number;
+  id: number;
 
-	name: string;
-	codigoERP: string;
-	avatar: string;
-	email: string;
+  cnpj: string;
+  externalId: boolean;
+  active: boolean;
+  type: number;
+
+  name: string;
+  codigoERP: string;
+  avatar: string;
+  email: string;
+  organizationId: number;
+
 }
