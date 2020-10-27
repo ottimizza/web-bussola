@@ -114,7 +114,6 @@ export class AuthenticationService {
 		const baseUrl = `${environment.oauthBaseUrl}/oauth/authorize`;
 		const clientId = `${environment.oauthClientId}`;
 		const url = `${baseUrl}?response_type=${responseType}&prompt=login&client_id=${clientId}&redirect_uri=${this.redirectURI}`;
-		alert(url);
 		this.document.location.href = url;
 	}
 
