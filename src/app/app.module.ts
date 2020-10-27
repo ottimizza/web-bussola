@@ -23,9 +23,11 @@ import { DropdownModule } from 'primeng/dropdown';
 import { LayoutModule } from '@angular/cdk/layout';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { HttpClientModule } from '@angular/common/http';
-import { ErrorInterceptorProvider } from '@app/interceptor/http.interceptor';
 
 import * as $ from 'jquery';
+import { SigninAsDialogComponent } from '@shared/components/dialogs/signin-as-dialog/signin-as-dialog.component';
+import { SigninAsDialogModule } from '@shared/components/dialogs/signin-as-dialog/signin-as-dialog.module';
+import { GlobalHttpInterceptorProvider } from '@app/interceptor/http/http-interceptor.provider';
 
 // export let options: Partial<IConfig> | (() => Partial<IConfig>);
 
@@ -49,6 +51,7 @@ import * as $ from 'jquery';
 		LayoutModule,
 		MaterialModule,
 		HttpClientModule,
+		SigninAsDialogModule,
 		NgxMaskModule.forRoot(),
 		GoogleChartsModule.forRoot(),
 		DeviceDetectorModule.forRoot(),
@@ -56,8 +59,8 @@ import * as $ from 'jquery';
 			enabled: environment.production
 		})
 	],
-	providers: [AsyncPipe, ErrorInterceptorProvider],
+	providers: [AsyncPipe, GlobalHttpInterceptorProvider],
 	bootstrap: [AppComponent],
-	entryComponents: [ShareDialogComponent]
+	entryComponents: [ShareDialogComponent, SigninAsDialogComponent]
 })
 export class AppModule {}

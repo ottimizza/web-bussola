@@ -10,6 +10,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { SigninAsDialogComponent } from '@shared/components/dialogs/signin-as-dialog/signin-as-dialog.component';
 
 export const ROUTES: RouteInfo[] = [
 	// {
@@ -101,8 +102,8 @@ export class MenuLayoutComponent implements OnInit {
 		});
 	}
 
-	onMenuChange() {
-		// SelectCompanyComponent.;
+	public openAccountingDialog() {
+		this.dialog.open(SigninAsDialogComponent);
 	}
 }
 
@@ -146,4 +147,5 @@ export class ShareDialogComponent implements OnInit {
 		inputElement.setSelectionRange(0, 0);
 		this.dialogRef.close();
 	}
+
 }

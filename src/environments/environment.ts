@@ -6,6 +6,8 @@ export const environment = {
 	oauthClientId: 'bussola-contabil-client',
 	applicationId: 'staging-bussola-contabil',
 	accountsUrl: 'https://staging-accounts.ottimizza.com.br',
+	backgroundTheme: '#004ecb',
+	supportUrl: 'https://suporte.ottimizza.com.br',
 	firebase: {
 		apiKey: 'your apikey',
 		authDomain: 'your authDomain',

@@ -1,80 +1,70 @@
-import { NotificationService } from '@app/services/notification.service';
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, CanActivateChild } from '@angular/router';
-import { finalize } from 'rxjs/operators';
+import { CanActivate, Router, CanActivateChild, ActivatedRoute, Route } from '@angular/router';
 import { AuthenticationService } from '@app/authentication/authentication.service';
+import { Subject } from 'rxjs';
+import { switchMap, finalize } from 'rxjs/operators';
+import { StorageService } from '@app/services/storage.service';
 import { AuthSession } from '@app/models/AuthSession';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate, CanActivateChild {
+
+	private redirectTo: string;
+
 	constructor(
 		public router: Router,
-		public authenticationService: AuthenticationService,
-		public notificationService: NotificationService
+		private activatedRoute: ActivatedRoute,
+		public storageService: StorageService,
+		public authenticationService: AuthenticationService
 	) { }
 
 	canActivate(): Promise<boolean> {
 		const that = this;
+
+		this.redirectTo = window.location.pathname;
+
 		return new Promise<boolean>(async (resolve, reject) => {
-			return that.authenticationService
-				.isAuthenticated()
-				.then((result: boolean) => {
-					if (result) {
-						Promise.all([
-							this.authenticationService
-								.storeUserInfo()
-								.then(() => {
-									// this.notificationService.requestSafariNotificationPermission();
-								}),
-							this.authenticationService.storeTokenInfo(),
-							this.authenticationService.verifyProduct()
-						]).then(() => {
-							resolve(true);
-						});
+			return that.authenticationService.isAuthenticated().then((result: boolean) => {
+				if (result) {
+					Promise.all([
+						this.authenticationService.storeUserInfo(),
+						this.authenticationService.storeTokenInfo()
+					]).then(() => {
+						resolve(true);
+					});
+				} else {
+					const authSession = AuthSession.fromLocalStorage();
+					if (authSession.isEmpty()) {
+						this.authorize();
 					} else {
-						const authSession = AuthSession.fromLocalStorage();
-						if (authSession.isEmpty()) {
-							this.authenticationService.authorize();
-						} else {
-							return this.authenticationService
-								.refresh(
-									authSession.getAuthenticated().refreshToken
-								)
-								.pipe(finalize(() => resolve(true)))
-								.subscribe(
-									(response: any) => {
-										if (response.access_token) {
-											AuthSession.fromOAuthResponse(
-												response
-											)
-												.store()
-												.then(async () => {
-													this.authenticationService.storeUserInfo();
-													this.authenticationService.storeTokenInfo();
-													this.authenticationService.verifyProduct();
-												});
-										} else if (response.error) {
-											this.authenticationService.authorize();
-										}
-									},
-									() => {
-										this.authenticationService
-											.logout()
-											.subscribe({
-												complete: () => {
-													this.authenticationService.clearStorage();
-													this.authenticationService.authorize();
-												}
-											});
-									}
-								);
-						}
+						return this.authenticationService.refresh(authSession.getAuthenticated().refreshToken)
+							.pipe(
+								finalize(() => resolve(true))
+							).subscribe((response: any) => {
+								if (response.access_token) {
+									AuthSession.fromOAuthResponse(response).store().then(async () => {
+										this.authenticationService.storeUserInfo();
+										this.authenticationService.storeTokenInfo();
+									});
+								} else if (response.error) {
+									this.authorize();
+								}
+							});
 					}
-				});
+				}
+			});
 		});
 	}
 
 	canActivateChild(): Promise<boolean> {
 		return this.canActivate();
 	}
+
+	public authorize() {
+		this.storageService.store(`redirect_url`, this.redirectTo)
+			.then((e) => {
+				this.authenticationService.authorize();
+			});
+	}
+
 }

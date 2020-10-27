@@ -36,12 +36,17 @@
 	<button
 		class="button btn-menu outline-none position-absolute"
 		type="button"
-		(click)="drawer.toggle(); onMenuChange()"
+		(click)="drawer.toggle();"
 		*ngIf="!(isHandset$ | async)"
 		aria-label="Botão Menu"
 	>
 		<i class="fal fa-bars"></i>
 	</button>
+
+	<div class="accounting-name d-none d-lg-block">
+		<span class="float-left">{{ user?.organization?.name }}</span>
+		<i *ngIf="user.type === 0" class="fas fa-pencil float-right mt-1 cursor-pointer" (click)="openAccountingDialog()"></i>
+	</div>
 
 	<div class="dropdown outline-none" type="button" aria-label="Botão Logout">
 		<button

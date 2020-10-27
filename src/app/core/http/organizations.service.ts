@@ -16,12 +16,8 @@ export class OrganizationService {
 		private authorizationService: AuthenticationService
 	) {}
 
-	public fetch(
-		filters = {},
-		pageIndex = 0,
-		pageSize = 10
-	): Observable<GenericPageableResponse<Organization>> {
-		const url = `${environment.oauthBaseUrl}/api/v1/organizations`;
+	public fetch(searchCriteria: any): Observable<GenericPageableResponse<Organization>> {
+		const url = `${environment.oauthBaseUrl}/api/v1/organizations?${this.encode(searchCriteria)}`;
 		const headers = this.authorizationService.getAuthorizationHeaders();
 		return this.http.get<GenericPageableResponse<Organization>>(url, {
 			headers
@@ -58,4 +54,14 @@ export class OrganizationService {
 			{ headers }
 		);
 	}
+
+	/**
+	 * @deprecated Futuramente substituir pelo HttpHandlerService
+	 */
+	private encode(params: any): string {
+		return Object.keys(params).map((key) => {
+			return [key, params[key]].map(encodeURIComponent).join('=');
+		}).join('&');
+	}
+
 }
