@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { SigninAsDialogComponent } from '@shared/components/dialogs/signin-as-dialog/signin-as-dialog.component';
+import { Router } from '@angular/router';
 
 export const ROUTES: RouteInfo[] = [
 	// {
@@ -79,7 +80,8 @@ export class MenuLayoutComponent implements OnInit {
 	constructor(
 		private breakpointObserver: BreakpointObserver,
 		private authenticationService: AuthenticationService,
-		public dialog: MatDialog
+		private router: Router,
+		public dialog: MatDialog,
 	) {}
 
 	ngOnInit() {
@@ -94,12 +96,7 @@ export class MenuLayoutComponent implements OnInit {
 	}
 
 	logout() {
-		this.authenticationService.logout().subscribe({
-			complete: () => {
-				this.authenticationService.clearStorage();
-				this.authenticationService.authorize();
-			}
-		});
+		this.router.navigate(['auth', 'logout']);
 	}
 
 	public openAccountingDialog() {
