@@ -8,19 +8,19 @@ import { AuthLogoutComponent } from './page/logout/logout.component';
 // import { ProjectDetailsComponent } from './page/project-details/project-details.component';
 
 export const routes: Routes = [
-  // {
-  //   path: '',
-  //   redirectTo: 'users',
-  //   pathMatch: 'full'
-  // },
-  {
-    path: 'callback',
-    component: AuthCallbackComponent
-  },
-  {
-    path: 'logout',
-    component: AuthLogoutComponent
-  },
+	// {
+	//   path: '',
+	//   redirectTo: 'users',
+	//   pathMatch: 'full'
+	// },
+	{
+		path: 'callback',
+		component: AuthCallbackComponent
+	},
+	{
+		path: 'logout',
+		component: AuthLogoutComponent
+	},
 ];
 
 @NgModule({
