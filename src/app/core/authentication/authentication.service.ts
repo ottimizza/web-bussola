@@ -104,17 +104,17 @@ export class AuthenticationService {
 	}
 
 	public clearStorage() {
-		localStorage.removeItem(AuthenticationService.STORAGE_KEY_USERINFO);
-		localStorage.removeItem(AuthenticationService.STORAGE_KEY_TOKENINFO);
-		localStorage.removeItem(AuthenticationService.STORAGE_KEY_AUTHSESSION);
+		window.localStorage.removeItem(AuthenticationService.STORAGE_KEY_USERINFO);
+		window.localStorage.removeItem(AuthenticationService.STORAGE_KEY_TOKENINFO);
+		window.localStorage.removeItem(AuthenticationService.STORAGE_KEY_AUTHSESSION);
 	}
 
 
 	public authorize(responseType: string = 'code'): void {
-		const that = this;
 		const baseUrl = `${environment.oauthBaseUrl}/oauth/authorize`;
 		const clientId = `${environment.oauthClientId}`;
 		const url = `${baseUrl}?response_type=${responseType}&prompt=login&client_id=${clientId}&redirect_uri=${this.redirectURI}`;
+		alert(url);
 		this.document.location.href = url;
 	}
 
