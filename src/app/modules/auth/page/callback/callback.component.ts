@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '@app/authentication/authentication.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '@env';
-import { AuthSession } from '@app/models/AuthSession';
 import { StorageService } from '@app/services/storage.service';
+import { AuthSession } from '@app/models/AuthSession';
 
 // import { Project } from '../../../../data/schema/project';
 
@@ -50,23 +50,8 @@ export class AuthCallbackComponent implements OnInit {
 								if (value) {
 									that.router.navigate([value]);
 								}
-								else that.router.navigate(['']);
+								else that.router.navigate(['/dashboard/products']);
 							});
-
-							// const storeUserInfo = that.authenticationService.storeUserInfo();
-							// const storeTokenInfo = that.authenticationService.storeTokenInfo();
-
-							// return Promise.all([
-							//	 storeUserInfo,
-							//	 storeTokenInfo
-							// ]).then((values) => {
-
-
-
-							// that.router.navigate(['dashboard']);
-							// }).catch((e) => {
-							//	 console.log(e);
-							// });
 						});
 					}
 				});
