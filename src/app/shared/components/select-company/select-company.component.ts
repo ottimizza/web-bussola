@@ -14,6 +14,7 @@ import { Subject, Observable } from 'rxjs';
 import { debounceTime, map, distinctUntilChanged } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { MatExpansionPanel } from '@angular/material/expansion';
+import { DocUtils } from '@shared/utils/doc.utils';
 
 @Component({
 	selector: 'app-select-company',
@@ -133,5 +134,9 @@ export class SelectCompanyComponent implements OnInit {
 
 	updateFilter() {
 		this.filterSubject.next();
+	}
+
+	public applyMask(doc: string) {
+		return DocUtils.format(doc);
 	}
 }
