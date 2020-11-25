@@ -38,7 +38,7 @@
 					<span style="vertical-align:middle">{{ comp.name }}</span>
 					<br />
 					<span style="vertical-align:middle">{{
-						comp.cnpj | mask: '00.000.000/0000-00'
+						applyMask(comp.cnpj)
 					}}</span>
 				</div>
 			</div>

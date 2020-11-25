@@ -91,7 +91,7 @@ export class AuthenticationService {
 			this.http
 				.get(url, { headers })
 				.pipe(finalize(() => resolve()))
-				.subscribe(null, err => {
+				.subscribe(() => null, err => {
 					console.error(err);
 					if (err.status === 403) {
 						alert(

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { CNPJUtils } from '@shared/utils/doc.utils';
+import { DocUtils } from '@shared/utils/doc.utils';
 
 @Pipe({
   name: 'doc'
@@ -10,9 +10,9 @@ export class DocPipe implements PipeTransform {
     if (!value) { return value; }
 
     // Validação de CNPJ.
-    const isCNPJ = CNPJUtils.isValid(value);
+    const isCNPJ = DocUtils.validateCPForCNPJ(value);
 
-    return isCNPJ ? CNPJUtils.applyMask(value) : value;
+    return isCNPJ ? DocUtils.format(value) : value;
   }
 
 }
