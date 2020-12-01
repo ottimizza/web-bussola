@@ -8,7 +8,7 @@
 					}}</span>
 					<br />
 					<span style="vertical-align:middle">{{
-						company?.cnpj | mask: '00.000.000/0000-00'
+						applyMask(company?.cnpj || '')
 					}}</span>
 				</div>
 			</mat-panel-title>
