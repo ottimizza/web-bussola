@@ -137,6 +137,6 @@ export class SelectCompanyComponent implements OnInit {
 	}
 
 	public applyMask(doc: string) {
-		return DocUtils.format(doc);
+		return DocUtils.formatDocForCompanySelector(doc);
 	}
 }
