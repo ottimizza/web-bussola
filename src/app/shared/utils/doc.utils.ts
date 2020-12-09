@@ -46,6 +46,10 @@ export class DocUtils {
 
 	public static format(cnpj: string): string {
 		cnpj = cnpj.replace(/[^\d]*/g, '');
+		console.log(cnpj)
+		console.log('CEICNO', this.validateCEICNO(cnpj));
+		console.log('CNPJ', this.validateCnpj(cnpj));
+		console.log('CPF', this.validateCpf(cnpj));
 
 		if (this.validateCEICNO(cnpj)) {
 			cnpj = cnpj.replace(
