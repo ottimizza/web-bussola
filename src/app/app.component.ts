@@ -50,9 +50,7 @@ export class AppComponent implements OnInit, OnDestroy {
 			this.swUpdate.available.subscribe(() => {
 				console.log('Nova versão disponível.');
 				if (
-					confirm(
-						'Nova versão disponível. Deseja atualizar a página?'
-					)
+					confirm('Nova versão disponível. Deseja atualizar a página?')
 				) {
 					window.location.reload();
 				}

@@ -64,6 +64,17 @@ export class DocUtils {
 		return cnpj;
 	}
 
+	public static formatDocForCompanySelector(doc: string) {
+		doc = doc.replace(/[^\d]*/g, '');
+
+		if (doc.length === 11) { // CPF
+			doc = doc.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, '$1.$2.$3-$4');
+		} else if (doc.length === 14) { // CNPJ
+			doc = doc.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+		}
+		return doc;
+	}
+
 	public static validateCnpj(cnpj: string): boolean {
 		cnpj = cnpj.replace(/[^\d]*/g, '');
 
