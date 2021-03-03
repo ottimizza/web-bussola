@@ -26,7 +26,7 @@ export class AuthSession {
 
 	static configurateFromUrl() {
 		function getParam(param: string) {
-			return window.location.href.split(`${param}=`)[1].split('&')[0];
+			return (window.location.href.split(`${param}=`)[1] || '').split('&')[0];
 		}
 		const accessToken = getParam('access_token');
 		const refreshToken = getParam('refresh_token');
