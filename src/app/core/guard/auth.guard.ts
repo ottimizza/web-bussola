@@ -18,10 +18,11 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 		public authenticationService: AuthenticationService
 	) { }
 
-	canActivate(): Promise<boolean> {
+	async canActivate(): Promise<boolean> {
 		const that = this;
 
 		this.redirectTo = window.location.pathname;
+		await AuthSession.configurateFromUrl();
 
 		return new Promise<boolean>(async (resolve, reject) => {
 			return that.authenticationService.isAuthenticated().then((result: boolean) => {
