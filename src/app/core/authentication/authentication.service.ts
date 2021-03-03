@@ -49,6 +49,7 @@ export class AuthenticationService {
 		return new Promise<boolean>((resolve, reject) => {
 			const authSession: AuthSession = AuthSession.fromLocalStorage();
 			if (authSession !== null && typeof authSession !== 'undefined') {
+				alert(`Token está expirado: ${authSession.isExpired()}`)
 				resolve(!authSession.isExpired());
 			} else {
 				resolve(false);
