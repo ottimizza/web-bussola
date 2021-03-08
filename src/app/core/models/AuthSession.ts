@@ -34,6 +34,7 @@ export class AuthSession {
 		const expiresAt = getParam('expiresAt');
 
 		if (!accessToken || !refreshToken || !expiresIn || !expiresAt) {
+			alert('Teste')
 			return;
 		}
 
@@ -44,6 +45,9 @@ export class AuthSession {
 			.withExpiresIn(+expiresIn)
 			.withExpiresAt(+expiresAt)
 			.build();
+
+			authenticated.accessToken = accessToken;
+
 		const authSession = new AuthSession(authenticated);
 		return authSession.store();
 	}
