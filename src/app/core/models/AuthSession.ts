@@ -34,7 +34,8 @@ export class AuthSession {
 		const expiresAt = getParam('expiresAt');
 
 		if (!accessToken || !refreshToken || !expiresIn || !expiresAt) {
-			alert('Teste')
+			alert('AccessToken: ' + accessToken);
+			alert('RefreshToken: ' + refresgToken);
 			return;
 		}
 
