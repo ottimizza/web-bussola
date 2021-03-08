@@ -83,7 +83,9 @@ export class AuthSession {
 			alert('Está vazio');
 			return true;
 		} else {
-			return Date.now() > this.getAuthenticated().expiresAt;
+			const isExpired Date.now() > this.getAuthenticated().expiresAt;
+			if (isExpired) { alert('Está expirado'); }
+			return isExpired;
 		}
 	}
 
