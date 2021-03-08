@@ -35,7 +35,7 @@ export class AuthSession {
 
 		if (!accessToken || !refreshToken || !expiresIn || !expiresAt) {
 			alert('AccessToken: ' + accessToken);
-			alert('RefreshToken: ' + refresgToken);
+			alert('RefreshToken: ' + refreshToken);
 			return;
 		}
 
