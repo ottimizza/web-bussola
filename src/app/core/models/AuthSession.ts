@@ -46,7 +46,7 @@ export class AuthSession {
 			.withExpiresAt(+expiresAt)
 			.build();
 
-			authenticated.accessToken = accessToken;
+		authenticated.accessToken = accessToken;
 
 		const authSession = new AuthSession(authenticated);
 		return authSession.store();
