@@ -80,6 +80,7 @@ export class AuthSession {
 
 	isExpired(): boolean {
 		if (this.isEmpty()) {
+			alert('Está vazio');
 			return true;
 		} else {
 			return Date.now() > this.getAuthenticated().expiresAt;
